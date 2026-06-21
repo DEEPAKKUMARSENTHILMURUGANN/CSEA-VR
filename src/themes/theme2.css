@@ -1,0 +1,38 @@
+/* Theme 2: Modern-Light Mode */
+.theme-modern-light {
+  --theme-bg-primary: #f0f4f8;
+  --theme-bg-secondary: rgba(255, 255, 255, 0.85);
+  --theme-bg-hover: rgba(255, 255, 255, 0.95);
+  
+  --theme-text-primary: #0f172a;
+  --theme-text-secondary: #475569;
+  --theme-text-muted: #94a3b8;
+  
+  --theme-accent: #0d9488; /* Teal */
+  --theme-accent-secondary: #0284c7; /* Sky/Ocean Blue */
+  --theme-accent-hover: #0f766e;
+  --theme-accent-bg: rgba(13, 148, 136, 0.1);
+  --theme-accent-border: rgba(13, 148, 136, 0.3);
+  
+  --theme-border: rgba(15, 23, 42, 0.08);
+  --theme-border-hover: rgba(13, 148, 136, 0.25);
+  
+  --theme-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 16px -6px rgba(15, 23, 42, 0.05);
+  --theme-shadow-glow: 0 0 20px rgba(13, 148, 136, 0.15);
+  --theme-shadow-glow-intense: 0 0 35px rgba(2, 132, 199, 0.25);
+  
+  --theme-font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  --theme-glass-blur: blur(12px);
+  --theme-card-radius: 20px;
+
+  /* Card Accent Colors (Higher contrast for Light mode) */
+  --theme-color-yellow: #d97706;
+  --theme-color-cyan: #0891b2;
+  --theme-color-blue: #2563eb;
+  --theme-color-green: #059669;
+
+  --theme-color-yellow-bg: rgba(217, 119, 6, 0.08);
+  --theme-color-cyan-bg: rgba(8, 145, 178, 0.08);
+  --theme-color-blue-bg: rgba(37, 99, 235, 0.08);
+  --theme-color-green-bg: rgba(5, 150, 105, 0.08);
+}
