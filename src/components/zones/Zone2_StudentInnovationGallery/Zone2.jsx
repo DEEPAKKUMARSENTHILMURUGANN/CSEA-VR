@@ -1,197 +1,216 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../../components-css/Zone2.css';
+import CategoryPage from './CategoryPage';
+import ProjectDetail from './ProjectDetail';
 
-const MOCK_PROJECTS = [
+const CATEGORIES = [
   {
-    name: 'Smart Campus Navigator',
-    icon: '🧭',
-    problemStatement: 'Students and visitors frequently get lost while trying to find specific laboratories or classrooms in large, complex campus buildings.',
-    solutionOverview: 'An interactive AR-based mobile application that helps individuals navigate indoor campus environments seamlessly using smartphone cameras.',
-    techStack: 'Unity, AR Foundation, C#, React Native, Node.js',
-    teamMembers: 'Alice Johnson, Bob Smith, Charlie Davis',
-    demoVideo: 'https://example.com/qr-placeholder.png'
-  },
-  {
-    name: 'AI Crop Disease Predictor',
+    id: 'first-year',
+    number: '01',
+    name: 'First-Year Projects',
+    tagline: 'Where curiosity meets engineering',
+    description:
+      'Foundation-level innovations from first-semester students tackling real-world problems with fresh, uninhibited perspectives.',
+    count: '12+',
     icon: '🌱',
-    problemStatement: 'Farmers suffer massive crop losses due to late detection of plant diseases before visual symptoms appear.',
-    solutionOverview: 'A drone-based image capture system paired with a CNN model to predict diseases weeks in advance from subtle leaf discolorations.',
-    techStack: 'Python, TensorFlow, React, AWS EC2, OpenCV',
-    teamMembers: 'Ivy Kim, Jack Martinez, Ken Adams',
-    demoVideo: 'https://example.com/qr-placeholder2.png'
+    accentColor: '#6B9B6D',
+    lightColor:  '#EBF3EB',
   },
   {
-    name: 'Decentralized Voting System',
-    icon: '🗳️',
-    problemStatement: 'Current electronic voting systems are vulnerable to tampering and lack transparent verification for voters.',
-    solutionOverview: 'A blockchain-based e-voting platform ensuring anonymous, verifiable, and immutable votes for university elections.',
-    techStack: 'Solidity, Ethereum, Next.js, Web3.js',
-    teamMembers: 'Liam Brown, Mia Chen',
-    demoVideo: 'https://example.com/qr-placeholder3.png'
+    id: 'mini',
+    number: '02',
+    name: 'Mini Projects',
+    tagline: 'Domain-specific applied solutions',
+    description:
+      'Focused problem-solving initiatives spanning IoT, AI, web platforms, and embedded systems built by second-year teams.',
+    count: '35+',
+    icon: '⚡',
+    accentColor: '#6289A8',
+    lightColor:  '#E4EEF5',
   },
   {
-    name: 'Eco-Sort Smart Bin',
-    icon: '♻️',
-    problemStatement: 'Improper waste segregation at the source leads to severe recycling inefficiencies and environmental harm.',
-    solutionOverview: 'An IoT-enabled bin using real-time image recognition to automatically sort waste into recyclable, organic, and hazardous compartments.',
-    techStack: 'Raspberry Pi, Google Coral, Python, React',
-    teamMembers: 'Noah Evans, Olivia Garcia',
-    demoVideo: 'https://example.com/qr-placeholder4.png'
+    id: 'capstone',
+    number: '03',
+    name: 'Capstone Projects',
+    tagline: 'Industry-grade end-to-end systems',
+    description:
+      'Comprehensive research and development prototypes built over full academic years, deployment-ready and battle-tested.',
+    count: '24+',
+    icon: '🏺',
+    accentColor: '#B56A4A',
+    lightColor:  '#F6EAE1',
   },
   {
-    name: 'Sign2Text Translator',
-    icon: '🧤',
-    problemStatement: 'There is a significant communication barrier between sign language users and non-users in everyday interactions.',
-    solutionOverview: 'A wearable glove equipped with flex sensors and accelerometers that translates hand signs into text and speech in real-time.',
-    techStack: 'Arduino, Bluetooth LE, Flutter, Firebase',
-    teamMembers: 'Paul Vance, Quinn Ahn',
-    demoVideo: 'https://example.com/qr-placeholder5.png'
-  }
+    id: 'hackathon',
+    number: '04',
+    name: 'Hackathon Winners',
+    tagline: 'National & international champions',
+    description:
+      'Award-winning teams who delivered outstanding innovations under intense time pressure at national and international events.',
+    count: '15+',
+    icon: '🏆',
+    accentColor: '#C49830',
+    lightColor:  '#F7EDD5',
+  },
 ];
 
+const sanitizeIcon = (icon) => {
+  if (!icon) return '';
+  return String(icon).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}]/gu, '') || '';
+};
+
+function ThemeSwitcher() {
+  const [theme, setTheme] = useState(() => localStorage.getItem('site-theme') || '');
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove('theme-one', 'theme-two');
+    if (theme) root.classList.add(theme);
+    localStorage.setItem('site-theme', theme || '');
+  }, [theme]);
+
+  return (
+    <div style={{ display: 'flex', gap: 8 }}>
+      <button
+        onClick={() => setTheme('theme-one')}
+        style={{ padding: '6px 10px', borderRadius: 8, border: '1px solid var(--border)', background: theme==='theme-one' ? 'var(--accent)' : 'var(--bg)', color: theme==='theme-one' ? 'var(--bg)' : 'var(--text)'}}
+      >Theme A</button>
+      <button
+        onClick={() => setTheme('theme-two')}
+        style={{ padding: '6px 10px', borderRadius: 8, border: '1px solid var(--border)', background: theme==='theme-two' ? 'var(--accent)' : 'var(--bg)', color: theme==='theme-two' ? 'var(--bg)' : 'var(--text)'}}
+      >Theme B</button>
+      <button
+        onClick={() => setTheme('')}
+        style={{ padding: '6px 10px', borderRadius: 8, border: '1px solid var(--border)', background: theme==='' ? 'var(--accent)' : 'var(--bg)', color: theme==='' ? 'var(--bg)' : 'var(--text)'}}
+      >Default</button>
+    </div>
+  );
+}
+
 const Zone2 = () => {
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
-  const [activeTab, setActiveTab] = useState('problem');
+  const [view, setView] = useState('home');
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const tabs = [
-    { id: 'problem', label: 'Problem Statement', icon: '🎯' },
-    { id: 'solution', label: 'Solution Overview', icon: '💡' },
-    { id: 'tech', label: 'Tech Stack', icon: '⚙️' },
-    { id: 'team', label: 'Team Members', icon: '👥' },
-    { id: 'demo', label: 'Demo (QR)', icon: '📱' }
-  ];
-
-  const handleProjectSelect = (index) => {
-    setSelectedProjectIndex(index);
-    setActiveTab('problem'); // reset tab to the first one when switching projects
+  const handleCategoryClick = (cat) => {
+    setSelectedCategory(cat);
+    setView('category');
   };
 
-  const handleBack = () => {
-    setSelectedProjectIndex(null);
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setView('project');
   };
 
-  const renderContent = () => {
-    const displayProject = MOCK_PROJECTS[selectedProjectIndex];
-    if (!displayProject) return null;
+  const handleBackToHome = () => {
+    setSelectedCategory(null);
+    setSelectedProject(null);
+    setView('home');
+  };
 
-    switch (activeTab) {
-      case 'problem':
-        return <p className="feature-text">{displayProject.problemStatement}</p>;
-      case 'solution':
-        return <p className="feature-text">{displayProject.solutionOverview}</p>;
-      case 'tech':
-        return (
-          <div className="tech-tags">
-            {displayProject.techStack.split(',').map((tech, index) => (
-              <span key={index} className="tech-tag">{tech.trim()}</span>
-            ))}
-          </div>
-        );
-      case 'team':
-        return (
-          <ul className="team-list">
-            {displayProject.teamMembers.split(',').map((member, index) => (
-              <li key={index} className="team-member">
-                <span className="member-avatar">👤</span>
-                {member.trim()}
-              </li>
-            ))}
-          </ul>
-        );
-      case 'demo':
-        return (
-          <div className="demo-section">
-            <p className="feature-text">Scan the QR code below to experience the live demo:</p>
-            <div className="qr-card">
-              <div className="qr-placeholder">
-                <span className="qr-icon">🔲</span>
-                <p>QR Code</p>
-              </div>
-            </div>
-          </div>
-        );
-      default:
-        return null;
-    }
+  const handleBackToCategory = () => {
+    setSelectedProject(null);
+    setView('category');
   };
 
   return (
-    <div className="project-details-wrapper">
-      <div className="zone2-main-container">
-        
-        {selectedProjectIndex === null ? (
-          /* View 1: Projects List */
-          <div className="projects-grid-view slide-up">
-            <div className="view-header">
-              <h2>Student Innovation Gallery</h2>
-              <p>Select a project to explore its features</p>
-            </div>
-            
-            <div className="projects-grid">
-              {MOCK_PROJECTS.map((proj, index) => (
-                <div 
-                  key={index} 
-                  className="project-grid-card" 
-                  onClick={() => handleProjectSelect(index)}
-                >
-                  <div className="card-icon">{proj.icon}</div>
-                  <h3>{proj.name}</h3>
-                  <div className="card-arrow">&rarr; Explore</div>
-                </div>
-              ))}
-            </div>
+    <div className="z2-root">
+
+      {/* Theme switcher — quick review toggles */}
+      <div style={{ position: 'absolute', top: 18, right: 18, zIndex: 60 }}>
+        <ThemeSwitcher />
+      </div>
+
+      {/* Breadcrumb */}
+      {view !== 'home' && (
+        <nav className="z2-breadcrumb slide-up">
+          <button className="z2-bc-btn" onClick={handleBackToHome}>Gallery</button>
+          {selectedCategory && (
+            <>
+              <span className="z2-bc-sep">›</span>
+              <button
+                className="z2-bc-btn"
+                onClick={view === 'project' ? handleBackToCategory : undefined}
+                style={view === 'category' ? { color: 'var(--text-h)', cursor: 'default' } : {}}
+              >
+                {selectedCategory.name}
+              </button>
+            </>
+          )}
+          {view === 'project' && selectedProject && (
+            <>
+              <span className="z2-bc-sep">›</span>
+              <span className="z2-bc-current">{selectedProject.name}</span>
+            </>
+          )}
+        </nav>
+      )}
+
+      {/* ── LEVEL 1: Home ── */}
+      {view === 'home' && (
+        <div className="z2-home slide-up">
+          <div className="z2-hero">
+            <span className="z2-eyebrow">PSG College of Technology · Department of CSE</span>
+            <h1 className="z2-hero-title">
+              Student<br />
+              <em className="z2-hero-em">Innovation</em><br />
+              Gallery
+            </h1>
+            <p className="z2-hero-sub">
+              Four tracks. Hundreds of ideas. Explore groundbreaking projects built by students
+              who refused to wait to change the world.
+            </p>
           </div>
-        ) : (
-          /* View 2: Project Details */
-          <div className="project-details-view slide-up">
-            <button className="back-btn" onClick={handleBack}>
-              &larr; Back to Gallery
-            </button>
-            
-            <div className="project-details-card">
-              
-              {/* Header Area */}
-              <div className="project-header">
-                <div className="header-text">
-                  <h2>{MOCK_PROJECTS[selectedProjectIndex].name}</h2>
-                  <p className="subtitle">Exhibit Details</p>
-                </div>
-                <div className="status-badge">Live Prototype</div>
-              </div>
-              
-              {/* Main Content Layout */}
-              <div className="features-layout">
-                
-                {/* Sidebar Tabs */}
-                <div className="features-sidebar">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      className={`feature-tab ${activeTab === tab.id ? 'active' : ''}`}
-                      onClick={() => setActiveTab(tab.id)}
-                    >
-                      <span className="tab-icon">{tab.icon}</span>
-                      <span className="tab-label">{tab.label}</span>
-                    </button>
-                  ))}
-                </div>
-                
-                {/* Content Area */}
-                <div className="features-content">
-                  <div className="content-pane slide-up" key={activeTab}>
-                    <h3>{tabs.find(t => t.id === activeTab).label}</h3>
-                    <div className="content-body">
-                      {renderContent()}
-                    </div>
+
+          <div className="z2-categories-grid">
+            {CATEGORIES.map((cat, i) => (
+              <button
+                key={cat.id}
+                className="z2-cat-card"
+                style={{
+                  '--accent':       cat.accentColor,
+                  '--accent-light': cat.lightColor,
+                  animationDelay:   `${i * 0.09}s`,
+                }}
+                onClick={() => handleCategoryClick(cat)}
+              >
+                <div className="z2-cat-card-inner">
+                  <div className="z2-cat-top">
+                    <span className="z2-cat-icon">{sanitizeIcon(cat.icon)}</span>
+                    <span className="z2-cat-count">{cat.count} projects</span>
+                  </div>
+                  <div className="z2-cat-body">
+                    <span className="z2-cat-number">{cat.number}</span>
+                    <h2 className="z2-cat-name">{cat.name}</h2>
+                    <p className="z2-cat-tagline">{cat.tagline}</p>
+                    <p className="z2-cat-desc">{cat.description}</p>
+                  </div>
+                  <div className="z2-cat-cta">
+                    <span>Explore projects</span>
+                    <span className="z2-cat-arrow">→</span>
                   </div>
                 </div>
-
-              </div>
-            </div>
+              </button>
+            ))}
           </div>
-        )}
-        
-      </div>
+        </div>
+      )}
+
+      {/* ── LEVEL 2: Category ── */}
+      {view === 'category' && selectedCategory && (
+        <CategoryPage
+          category={selectedCategory}
+          onProjectClick={handleProjectClick}
+        />
+      )}
+
+      {/* ── LEVEL 3: Project Detail ── */}
+      {view === 'project' && selectedProject && (
+        <ProjectDetail
+          project={selectedProject}
+          category={selectedCategory}
+        />
+      )}
     </div>
   );
 };

@@ -1,15 +1,19 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Midnight Eclipse palette — Light (60% neutral, 30% structure, 10% accent) */
+  --text: #25404f; /* readable body text (secondary) */
+  --text-h: #0A192F; /* deep navy for headings */
+  --bg: #F5F9FF; /* cool gray / light canvas */
+  --border: #DDEBF8; /* subtle blue-gray borders */
+  --code-bg: #EEF6FF;
+  --accent: #64FFDA; /* teal accent (10%) */
+  --accent-bg: rgba(100, 255, 218, 0.08);
+  --accent-border: rgba(100, 255, 218, 0.35);
+  --social-bg: rgba(204, 214, 246, 0.5); /* cool-gray accents */
+  /* Surface & utility tokens for component panels */
+  --surface: rgba(10, 25, 47, 0.04);
+  --surface-strong: rgba(10, 25, 47, 0.08);
+  --muted: #64748b;
+  --shadow: rgba(10, 25, 47, 0.08) 0 10px 15px -3px, rgba(10, 25, 47, 0.04) 0 4px 6px -2px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -32,17 +36,20 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    /* Dark mode: deep navy canvas with cool-gray text + teal accent */
+    --text: #9fbcca;
+    --text-h: #CCD6F6;
+    --bg: #0A192F; /* Deep Navy */
+    --border: #123041;
+    --code-bg: #071421;
+    --accent: #64FFDA;
+    --accent-bg: rgba(100, 255, 218, 0.12);
+    --accent-border: rgba(100, 255, 218, 0.35);
+    --social-bg: rgba(10, 25, 47, 0.5);
+    --surface: rgba(255,255,255,0.02);
+    --surface-strong: rgba(255,255,255,0.05);
+    --muted: #94a3b8;
+    --shadow: rgba(0, 0, 0, 0.6) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   }
 
   #social .button-icon {
@@ -55,7 +62,7 @@ body {
 }
 
 #root {
-  width: 1126px;
+  width: 1280px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -64,6 +71,29 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+/* User-provided theme toggles */
+.theme-one {
+  --bg: #F2F2F2;
+  --border: #CBCBCB;
+  --muted: #CBCBCB;
+  --text: #B3B3B3;
+  --text-h: #4D1717;
+  --accent: #174D38;
+  --accent-bg: rgba(23, 77, 56, 0.08);
+  --surface: rgba(23,77,56,0.02);
+}
+
+.theme-two {
+  --bg: #FFFFFF;
+  --border: #D4D4D4;
+  --muted: #B3B3B3;
+  --text: #2B2B2B;
+  --text-h: #2B2B2B;
+  --accent: #2B2B2B;
+  --accent-bg: rgba(43,43,43,0.06);
+  --surface: rgba(43,43,43,0.02);
 }
 
 h1,
