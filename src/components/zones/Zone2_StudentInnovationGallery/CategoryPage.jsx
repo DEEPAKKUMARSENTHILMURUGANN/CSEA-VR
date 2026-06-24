@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import '../../../components-css/Zone2.css';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Search, ChevronRight, ThumbsUp, SlidersHorizontal, Inbox } from 'lucide-react';
 
 const PROJECTS_DATA = {
   'first-year': [
@@ -13,10 +14,15 @@ const PROJECTS_DATA = {
       solutionOverview: 'An IoT-enabled bin using real-time image recognition to automatically sort waste into recyclable, organic, and hazardous compartments using a Raspberry Pi and a trained CNN model.',
       techStack: ['Raspberry Pi', 'Google Coral', 'Python', 'React', 'TensorFlow Lite', 'OpenCV'],
       teamMembers: [
-        { name: 'Noah Evans', role: 'Hardware Engineer', initials: 'NE', color: '#6366f1' },
-        { name: 'Olivia Garcia', role: 'ML Engineer', initials: 'OG', color: '#10b981' },
+        { name: 'Noah Evans', role: 'Hardware Engineer', initials: 'NE', color: '#10b981' },
+        { name: 'Olivia Garcia', role: 'ML Engineer', initials: 'OG', color: '#a855f7' },
       ],
       demoLink: 'https://example.com',
+      simulatedPayloads: [
+        { input: 'Metal Soda Can', output: 'Recyclable Compartment Activated', badge: 'Metal Detect Sensor' },
+        { input: 'Banana Peel', output: 'Organic Compartment Activated', badge: 'CNN Image Model' },
+        { input: 'Lithium Battery', output: 'Hazardous Compartment Activated', badge: 'Chemical Warning Sensor' },
+      ],
     },
     {
       name: 'IoT Smart Plant Waterer',
@@ -32,6 +38,10 @@ const PROJECTS_DATA = {
         { name: 'Rupert Grint', role: 'App Developer', initials: 'RG', color: '#ef4444' },
       ],
       demoLink: 'https://example.com',
+      simulatedPayloads: [
+        { input: 'Dry Soil (Moisture 15%)', output: 'Pump Relay Enabled (Watering for 5s)', badge: 'Analog Moisture Pin' },
+        { input: 'Wet Soil (Moisture 85%)', output: 'Pump Idle (Adequate Water levels)', badge: 'Saturate Indicator' },
+      ],
     },
     {
       name: 'Campus Energy Monitor',
@@ -45,9 +55,12 @@ const PROJECTS_DATA = {
       teamMembers: [
         { name: 'Arjun Mehta', role: 'Full-Stack Dev', initials: 'AM', color: '#06b6d4' },
         { name: 'Priya Singh', role: 'Data Analyst', initials: 'PS', color: '#8b5cf6' },
-        { name: 'Rahul Das', role: 'IoT Engineer', initials: 'RD', color: '#10b981' },
       ],
       demoLink: 'https://example.com',
+      simulatedPayloads: [
+        { input: 'Peak Afternoon Lecture Block', output: 'Alert: High AC usage flagged (Auto Setback applied)', badge: 'MQTT Broker Node' },
+        { input: 'Mid-Night Downtime Scan', output: 'No-waste steady stream (3.2 kW background)', badge: 'Admin Threshold' },
+      ],
     },
   ],
   'mini': [
@@ -63,9 +76,12 @@ const PROJECTS_DATA = {
       teamMembers: [
         { name: 'Alice Johnson', role: 'AR Developer', initials: 'AJ', color: '#6366f1' },
         { name: 'Bob Smith', role: 'Backend Dev', initials: 'BS', color: '#10b981' },
-        { name: 'Charlie Davis', role: 'UI/UX Designer', initials: 'CD', color: '#f59e0b' },
       ],
       demoLink: 'https://example.com',
+      simulatedPayloads: [
+        { input: 'Scan Main Archway', output: 'AR Arrow locked to Lab Block F3 (35m forward)', badge: 'AR Anchors Engine' },
+        { input: 'Rotate Camera Rightward', output: 'Tag Discovered: CSE Seminar Library', badge: 'Spatial Map Pin' },
+      ],
     },
     {
       name: 'Sign2Text Translator',
@@ -81,22 +97,11 @@ const PROJECTS_DATA = {
         { name: 'Quinn Ahn', role: 'ML Engineer', initials: 'QA', color: '#06b6d4' },
       ],
       demoLink: 'https://example.com',
-    },
-    {
-      name: 'Voice-Controlled Wheelchair',
-      icon: '👩‍🦼',
-      year: '2024',
-      tags: ['Accessibility', 'NLP', 'Robotics'],
-      shortDesc: 'Offline speech-controlled wheelchair for mobility assistance.',
-      problemStatement: 'Physically challenged individuals find physical joystick controls exhausting and difficult to operate, reducing their independence.',
-      solutionOverview: 'A localized offline speech-recognition controller that interfaces with wheelchair motors to execute direction commands without internet dependency.',
-      techStack: ['Arduino', 'Python SpeechRecognition', 'H-Bridge Drivers', 'Raspberry Pi', 'PocketSphinx'],
-      teamMembers: [
-        { name: 'Sophia Miller', role: 'Robotics Engineer', initials: 'SM', color: '#f59e0b' },
-        { name: 'Ryan Clark', role: 'NLP Developer', initials: 'RC', color: '#6366f1' },
+      simulatedPayloads: [
+        { input: 'Flex Flex Sensor A & B', output: 'Token Translated: "GOOD MORNING"', badge: 'Bluetooth App Rx' },
+        { input: 'Full Fist Position (All Flex)', output: 'Token Translated: "THANK YOU"', badge: 'TF-Lite Matrix' },
       ],
-      demoLink: 'https://example.com',
-    },
+    }
   ],
   'capstone': [
     {
@@ -111,9 +116,12 @@ const PROJECTS_DATA = {
       teamMembers: [
         { name: 'Ivy Kim', role: 'ML Research Lead', initials: 'IK', color: '#10b981' },
         { name: 'Jack Martinez', role: 'Drone Systems', initials: 'JM', color: '#6366f1' },
-        { name: 'Ken Adams', role: 'Cloud Architect', initials: 'KA', color: '#f59e0b' },
       ],
       demoLink: 'https://example.com',
+      simulatedPayloads: [
+        { input: 'Scan Sector 4 (Maize crop)', output: 'Early Stage Anthracnose risk detected (Score 84%)', badge: 'Drone CNN Inference' },
+        { input: 'Crop Leaf Sample #419', output: 'Healthy chlorophyll indices logged', badge: 'RGB Index' },
+      ],
     },
     {
       name: 'Decentralized Voting System',
@@ -129,22 +137,10 @@ const PROJECTS_DATA = {
         { name: 'Mia Chen', role: 'Frontend Dev', initials: 'MC', color: '#ec4899' },
       ],
       demoLink: 'https://example.com',
-    },
-    {
-      name: 'Autonomous Delivery Rover',
-      icon: '🤖',
-      year: '2024',
-      tags: ['Robotics', 'SLAM', 'Computer Vision'],
-      shortDesc: 'LiDAR-guided self-navigating campus delivery robot.',
-      problemStatement: 'Last-mile package and mail distribution within large corporate or academic campuses is highly resource-intensive and time-consuming.',
-      solutionOverview: 'A self-navigating electric rover using LiDAR-based SLAM and computer vision to deliver packages autonomously while avoiding dynamic obstacles in real time.',
-      techStack: ['ROS', 'LiDAR', 'OpenCV', 'Python', 'C++', 'SLAM', 'Raspberry Pi 4'],
-      teamMembers: [
-        { name: 'Ethan Hunt', role: 'Robotics Lead', initials: 'EH', color: '#ef4444' },
-        { name: 'Benji Dunn', role: 'Computer Vision', initials: 'BD', color: '#06b6d4' },
-        { name: 'Sara Ross', role: 'ROS Engineer', initials: 'SR', color: '#8b5cf6' },
+      simulatedPayloads: [
+        { input: 'Submit Ballot ID #3911', output: 'Ballot verified. Block Hash: 0x5a18c... added', badge: 'Solidity Contract' },
+        { input: 'Check Ballot Status', output: 'Ballot Status: Complete. Immutable hash locked.', badge: 'MetaMask Gateway' },
       ],
-      demoLink: 'https://example.com',
     },
   ],
   'hackathon': [
@@ -162,84 +158,148 @@ const PROJECTS_DATA = {
         { name: 'Clara Oswald', role: 'BLE Systems', initials: 'CO', color: '#10b981' },
       ],
       demoLink: 'https://example.com',
-    },
-    {
-      name: 'AR Interactive Chemistry Lab',
-      icon: '🧪',
-      year: '2024',
-      tags: ['AR', 'EdTech', 'Unity'],
-      shortDesc: 'Augmented reality sandbox for 3D molecular chemistry reactions.',
-      problemStatement: 'Traditional chemistry classes fail to convey complex 3D spatial interactions of elements, making abstract concepts difficult to grasp for most students.',
-      solutionOverview: 'An immersive AR sandbox where students scan physical element cards to see molecular reactions and compound formations appear in 3D, layered over the real world.',
-      techStack: ['Unity', 'Vuforia SDK', 'C#', 'Android', 'Blender', 'Firebase'],
-      teamMembers: [
-        { name: 'Tony Stark', role: 'AR Architect', initials: 'TS', color: '#ef4444' },
-        { name: 'Bruce Banner', role: '3D Modeler', initials: 'BB', color: '#6366f1' },
-        { name: 'Natasha R.', role: 'UX Lead', initials: 'NR', color: '#ec4899' },
+      simulatedPayloads: [
+        { input: 'Broadcast SOS Beacon', output: 'Beacon caught by Node 3 (Distance 12m). Added to Grid', badge: 'BLE Hardware Mesh' },
+        { input: 'Pull Offline Maps Sync', output: 'Synchronized local mapping coordinates successfully', badge: 'SQLite Offline Db' },
       ],
-      demoLink: 'https://example.com',
     },
   ],
 };
 
-const sanitizeIcon = (icon) => {
-  if (!icon) return '';
-  return icon.replace(/[^ -]/g, '') || '•';
-};
-
-const CategoryPage = ({ category, onBack, onProjectClick }) => {
+const CategoryPage = ({ category, onProjectClick }) => {
   const projects = PROJECTS_DATA[category.id] || [];
-  const [hoveredIdx, setHoveredIdx] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTag, setActiveTag] = useState(null);
+  const [likes, setLikes] = useState({});
+
+  useEffect(() => {
+    const savedLikes = localStorage.getItem('psg_innovation_likes');
+    if (savedLikes) {
+      try {
+        setLikes(JSON.parse(savedLikes));
+      } catch (e) {}
+    } else {
+      const initial = {};
+      projects.forEach(p => {
+        initial[p.name] = Math.floor(Math.random() * 25) + 32;
+      });
+      setLikes(initial);
+      localStorage.setItem('psg_innovation_likes', JSON.stringify(initial));
+    }
+  }, [category.id, projects]);
+
+  const handleLike = (e, projectName) => {
+    e.stopPropagation();
+    const updated = {
+      ...likes,
+      [projectName]: (likes[projectName] || 0) + 1
+    };
+    setLikes(updated);
+    localStorage.setItem('psg_innovation_likes', JSON.stringify(updated));
+  };
+
+  const allTags = Array.from(new Set(projects.flatMap(p => p.tags)));
+
+  const filteredProjects = projects.filter((proj) => {
+    const matchesSearch = 
+      proj.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      proj.shortDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      proj.techStack.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    const matchesTag = !activeTag || proj.tags.includes(activeTag);
+    return matchesSearch && matchesTag;
+  });
 
   return (
-    <div className="z2-catpage slide-up">
-      {/* Page header */}
-      <div className="z2-catpage-header" style={{ '--accent': category.accentColor }}>
-        <div className="z2-catpage-meta">
-          <span className="z2-catpage-num">{category.number}</span>
-          <div>
-            <span className="z2-catpage-eyebrow" style={{ color: category.accentColor }}>
-              {category.count} Active Projects
-            </span>
-            <h1 className="z2-catpage-title">{category.name}</h1>
-            <p className="z2-catpage-desc">{category.description}</p>
+    <div className="flex flex-col gap-10 w-full max-w-6xl mx-auto">
+      <div className="p-8 md:p-12 rounded-3xl border border-white/[0.04] relative overflow-hidden bg-gradient-to-r from-[#0c0f1d]/30 to-black/10 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+        <div className="absolute right-0 top-0 bottom-0 w-96 h-full blur-3xl opacity-20 pointer-events-none" style={{ background: `radial-gradient(circle, ${category.accentColor} 0%, transparent 100%)` }} />
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10 w-full">
+          <div className="flex items-center gap-6">
+            <span className="text-7xl font-sans font-black pointer-events-none text-white/[0.03] select-none font-mono">{category.number}</span>
+            <div className="flex flex-col gap-2">
+              <span className="text-[9px] font-mono font-black uppercase tracking-widest block px-3 py-1 rounded-full border w-fit" style={{ color: category.accentColor, borderColor: `${category.accentColor}35`, backgroundColor: `${category.accentColor}05` }}>
+                Track Exhibition Index
+              </span>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-1 leading-none">{category.name}</h1>
+              <p className="text-xs md:text-sm text-gray-400 mt-2 max-w-2xl leading-relaxed">{category.description}</p>
+            </div>
           </div>
+          <div className="flex-shrink-0 w-16 h-16 rounded-3xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-4xl shadow-2xl">{category.icon}</div>
         </div>
       </div>
 
-      {/* Project list */}
-      <div className="z2-project-list">
-        {projects.map((proj, i) => (
-          <button
-            key={i}
-            className={`z2-proj-row ${hoveredIdx === i ? 'hovered' : ''}`}
-            style={{ '--accent': category.accentColor, animationDelay: `${i * 0.07}s` }}
-            onClick={() => onProjectClick(proj)}
-            onMouseEnter={() => setHoveredIdx(i)}
-            onMouseLeave={() => setHoveredIdx(null)}
-          >
-            <div className="z2-proj-row-left">
-              <span className="z2-proj-idx">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <span className="z2-proj-icon-sm">{sanitizeIcon(proj.icon)}</span>
-              <div className="z2-proj-info">
-                <span className="z2-proj-name">{proj.name}</span>
-                <span className="z2-proj-short">{proj.shortDesc}</span>
+      <div className="flex flex-col gap-6 p-6 rounded-3xl border border-white/[0.04] bg-[#0c1222]/15 backdrop-blur-md">
+        <div className="flex flex-col md:flex-row gap-4 items-center w-full">
+          <div className="relative flex-grow w-full">
+            <Search className="absolute left-4 top-3.5 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Filter by prototype terminology, compilation tags, or keyword..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-11 pr-5 py-3.5 bg-[#0a0f1d]/80 border border-white/[0.05] rounded-2xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#5ef1df] focus:ring-1 focus:ring-[#5ef1df] transition-all"
+            />
+          </div>
+          {(searchQuery || activeTag) && (
+            <button onClick={() => { setSearchQuery(''); setActiveTag(null); }} className="text-xs text-[#5ef1df] bg-[#5ef1df]/10 border border-[#5ef1df]/20 hover:bg-[#5ef1df]/20 px-5 py-3.5 rounded-2xl transition-all cursor-pointer whitespace-nowrap font-mono uppercase font-black">Reset Filters</button>
+          )}
+        </div>
+        {allTags.length > 0 && (
+          <div className="flex items-center gap-2 flex-wrap pt-3 border-t border-white/[0.04]">
+            <span className="text-[10px] uppercase font-mono text-gray-500 font-black flex items-center gap-1.5 mr-2">
+              <SlidersHorizontal className="w-3.5 h-3.5" /> DOMAIN CHIPS:
+            </span>
+            {allTags.map((tag) => {
+              const isSelected = activeTag === tag;
+              return (
+                <button key={tag} onClick={() => setActiveTag(isSelected ? null : tag)} className={`text-[10px] font-bold px-4 py-1.5 rounded-2xl transition-all border cursor-pointer font-mono ${isSelected ? 'border-[#5ef1df] text-[#5ef1df] bg-[#5ef1df]/10' : 'border-white/5 text-gray-400 hover:border-white/10 hover:text-white bg-slate-950/20'}`}>{tag}</button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-6">
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((proj, i) => (
+              <div key={proj.name} onClick={() => onProjectClick(proj)} className="w-full bg-[#0a0e1c]/15 hover:bg-[#0a0e1c]/40 border border-white/[0.04] hover:border-[#5ef1df]/30 rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 text-left transition-all duration-300 group cursor-pointer relative overflow-hidden">
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-[#5ef1df] transition-all" />
+                <div className="flex items-center gap-6 min-w-0 flex-grow">
+                  <span className="text-base font-black font-mono text-gray-700 w-6 group-hover:text-[#5ef1df] transition-colors duration-300 hidden md:inline">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="w-14 h-14 bg-white/[0.02] border border-white/5 group-hover:bg-white/[0.04] group-hover:border-[#5ef1df]/20 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 transition-all duration-300 group-hover:rotate-6">{proj.icon}</div>
+                  <div className="flex flex-col min-w-0">
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-white leading-tight">{proj.name}</h3>
+                      <span className="text-[9px] font-mono text-gray-400 bg-white/5 border border-white/5 px-2.5 py-0.5 rounded-md">CLASS OF {proj.year}</span>
+                    </div>
+                    <p className="text-xs md:text-sm text-gray-400 font-sans mt-2 leading-relaxed max-w-2xl line-clamp-2">{proj.shortDesc}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 self-end sm:self-auto flex-shrink-0 pl-16 sm:pl-0 font-mono">
+                  <div className="hidden lg:flex gap-1.5 items-center mr-2">
+                    {proj.tags.map((tag) => (
+                      <span key={tag} className="text-[9px] font-black tracking-wider px-2.5 py-1 rounded-lg border border-white/5 bg-[#030712]/45 text-gray-500">{tag}</span>
+                    ))}
+                  </div>
+                  <button onClick={(e) => handleLike(e, proj.name)} className="flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-[#5ef1df]/5 hover:border-[#5ef1df]/20 text-gray-400 hover:text-[#5ef1df] transition-all cursor-pointer shadow-lg">
+                    <ThumbsUp className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
+                    <span className="text-xs font-bold text-white leading-none">{likes[proj.name] || 0}</span>
+                  </button>
+                  <div className="w-10 h-10 rounded-full border border-white/5 bg-white/[0.02] flex items-center justify-center group-hover:bg-[#5ef1df]/10 group-hover:border-[#5ef1df]/20 transition-all duration-300">
+                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#5ef1df] group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="text-center py-20 rounded-3xl border border-dashed border-white/10 bg-slate-950/20 text-gray-500 text-xs flex flex-col items-center justify-center gap-3">
+              <Inbox className="w-10 h-10 text-gray-600 opacity-60" />
+              <span className="font-mono text-gray-400 uppercase tracking-widest text-[10px]">No matches meet your filter criteria.</span>
             </div>
-            <div className="z2-proj-row-right">
-              <div className="z2-proj-tags">
-                {proj.tags.map((tag, ti) => (
-                  <span key={ti} className="z2-proj-tag" style={{ borderColor: `${category.accentColor}30`, color: category.accentColor }}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <span className="z2-proj-arrow" style={{ color: category.accentColor }}>→</span>
-            </div>
-          </button>
-        ))}
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
