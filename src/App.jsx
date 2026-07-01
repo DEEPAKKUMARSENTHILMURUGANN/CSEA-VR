@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Clock } from 'lucide-react';
 import Zone2_StudentInnovationGallery from './components/zones/Zone2_StudentInnovationGallery/Zone2';
+import Zone5 from "./components/zones/Zone5/Zone5";
 
 export default function App() {
   const [systemTime, setSystemTime] = useState('');
+  const [activeZone, setActiveZone] = useState('zone5');
 
   useEffect(() => {
     const updateTime = () => {
@@ -31,15 +33,32 @@ export default function App() {
           </div>
         </div>
 
+        {/* Navigation Tabs */}
+        <div className="flex bg-white/[0.03] p-1 rounded-xl border border-white/5">
+          <button 
+            onClick={() => setActiveZone('zone2')}
+            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 ${activeZone === 'zone2' ? 'bg-[#5ef1df] text-black shadow-md' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+          >
+            Zone 2: Innovation
+          </button>
+          <button 
+            onClick={() => setActiveZone('zone5')}
+            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 ${activeZone === 'zone5' ? 'bg-[#C9922A] text-[#0F0506] shadow-md' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+          >
+            Zone 5: Industry
+          </button>
+        </div>
+
         <div className="flex items-center gap-2 text-xs font-mono text-gray-400 bg-white/[0.02] border border-white/[0.04] px-4 py-2 rounded-xl shadow-lg">
           <Clock className="w-4 h-4 text-[#5ef1df] animate-pulse" />
           <span className="text-white font-bold">{systemTime || '12:00:00'} IST</span>
         </div>
       </header>
 
-      <div className="flex-grow flex flex-col items-center w-full px-6 md:px-12 py-10">
-        <main className="w-full max-w-6xl relative flex-grow">
-          <Zone2_StudentInnovationGallery />
+      <div className={`flex-grow flex flex-col items-center w-full ${activeZone === 'zone2' ? 'px-6 md:px-12 py-10' : ''}`}>
+        <main className={`w-full relative flex-grow ${activeZone === 'zone2' ? 'max-w-6xl' : ''}`}>
+          {activeZone === 'zone2' && <Zone2_StudentInnovationGallery />}
+          {activeZone === 'zone5' && <Zone5 />}
         </main>
       </div>
 
