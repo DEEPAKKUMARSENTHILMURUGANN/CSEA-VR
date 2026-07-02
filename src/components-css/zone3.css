@@ -13,11 +13,7 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
-    font-family: Inter, Segoe UI, sans-serif;
-    background: #061A33;
-    color: #ffffff;
-}
+/* Removed body style overrides to prevent style leak across pages */
 
 /* ===========================================================
                     ROOT CONTAINER
@@ -27,9 +23,9 @@ body {
 
     min-height: 100vh;
 
-    background: #061A33;
+    background: transparent;
 
-    color: #ffffff;
+    color: var(--text);
 
     padding: 80px 7%;
 
@@ -45,7 +41,7 @@ body {
 
     border: none;
 
-    color: #28F5D3;
+    color: #5ef1df;
 
     cursor: pointer;
 
@@ -81,7 +77,7 @@ body {
 
 .hero-tag {
 
-    color: #8AA6C8;
+    color: #9ca3af;
 
     letter-spacing: 4px;
 
@@ -101,7 +97,7 @@ body {
 
     font-weight: 700;
 
-    color: #F4F7FF;
+    color: #f3f4f6;
 
     margin-bottom: 28px;
 
@@ -113,7 +109,7 @@ body {
 
     margin: auto;
 
-    color: #AFC0D8;
+    color: #6b7280;
 
     font-size: 22px;
 
@@ -144,7 +140,7 @@ body {
 
     position: relative;
 
-    background: #0B2343;
+    background: rgba(12, 18, 35, 0.25);
 
     border-radius: 24px;
 
@@ -173,7 +169,7 @@ body {
     box-shadow:
         0 25px 55px rgba(0, 0, 0, .35);
 
-    border-color: #28F5D3;
+    border-color: #5ef1df;
 
 }
 
@@ -221,7 +217,7 @@ body {
 
 .technology-card p {
 
-    color: #B6C7DD;
+    color: #6b7280;
 
     line-height: 1.8;
 
@@ -261,7 +257,7 @@ body {
 
     background: none;
 
-    color: #28F5D3;
+    color: #5ef1df;
 
     border-top: 1px solid rgba(255, 255, 255, .08);
 
@@ -303,7 +299,7 @@ body {
 
     font-size: 60px;
 
-    color: #F4F7FF;
+    color: #f3f4f6;
 
     margin-bottom: 25px;
 
@@ -315,7 +311,7 @@ body {
 
     margin: auto;
 
-    color: #AFC0D8;
+    color: #6b7280;
 
     font-size: 20px;
 
@@ -354,7 +350,7 @@ body {
 
 .lab-card {
 
-    background: #0B2343;
+    background: rgba(12, 18, 35, 0.25);
 
     border-radius: 22px;
 
@@ -372,7 +368,7 @@ body {
 
     transform: translateY(-10px);
 
-    border-color: #28F5D3;
+    border-color: #5ef1df;
 
     box-shadow:
         0 20px 45px rgba(0, 0, 0, .40);
@@ -449,11 +445,11 @@ body {
 
     border-radius: 40px;
 
-    border: 1px solid #28F5D3;
+    border: 1px solid #5ef1df;
 
     background: rgba(40, 245, 211, .12);
 
-    color: #28F5D3;
+    color: #5ef1df;
 
     font-size: 12px;
 
@@ -503,9 +499,9 @@ body {
 
 .image-button:hover {
 
-    background: #28F5D3;
+    background: #5ef1df;
 
-    color: #061A33;
+    color: var(--bg);
 
 }
 
@@ -531,7 +527,7 @@ body {
 
 .lab-content p {
 
-    color: #AFC0D8;
+    color: #6b7280;
 
     line-height: 1.8;
 
@@ -543,7 +539,7 @@ body {
 
 .lab-card:hover .lab-content h3 {
 
-    color: #28F5D3;
+    color: #5ef1df;
 
 }
 
@@ -573,7 +569,7 @@ body {
 
     font-weight: 700;
 
-    color: #F4F7FF;
+    color: #f3f4f6;
 
     line-height: 1.15;
 
@@ -585,7 +581,7 @@ body {
 
     font-size: 24px;
 
-    color: #AFC0D8;
+    color: #6b7280;
 
     margin-top: 0;
 
@@ -617,7 +613,7 @@ body {
 
     overflow: hidden;
 
-    background: #102846;
+    background: rgba(12, 18, 35, 0.35);
 
     border: 1px solid rgba(255, 255, 255, .08);
 
@@ -650,7 +646,7 @@ body {
 .swiper-button-next,
 .swiper-button-prev {
 
-    color: #28F5D3;
+    color: #5ef1df;
 
     transition: .3s;
 
@@ -696,7 +692,7 @@ body {
 
 .swiper-pagination-bullet-active {
 
-    background: #28F5D3;
+    background: #5ef1df;
 
     opacity: 1;
 
@@ -726,7 +722,7 @@ body {
 
     max-width: 950px;
 
-    color: #AFC0D8;
+    color: #6b7280;
 
     line-height: 1.9;
 
@@ -751,7 +747,7 @@ body {
 
 .spec-card {
 
-    background: #0B2343;
+    background: rgba(12, 18, 35, 0.25);
 
     border-radius: 20px;
 
@@ -767,7 +763,7 @@ body {
 
     transform: translateY(-8px);
 
-    border-color: #28F5D3;
+    border-color: #5ef1df;
 
     box-shadow: 0 15px 35px rgba(0, 0, 0, .35);
 
@@ -775,7 +771,7 @@ body {
 
 .spec-card h4 {
 
-    color: #28F5D3;
+    color: #5ef1df;
 
     margin-bottom: 14px;
 
@@ -813,7 +809,7 @@ body {
 
     border-radius: 40px;
 
-    background: #0B2343;
+    background: rgba(12, 18, 35, 0.25);
 
     border: 1px solid rgba(255, 255, 255, .08);
 
@@ -825,9 +821,9 @@ body {
 
 .chip:hover {
 
-    background: #28F5D3;
+    background: #5ef1df;
 
-    color: #061A33;
+    color: var(--bg);
 
     transform: translateY(-4px);
 
@@ -850,7 +846,7 @@ body {
 
 .project-card {
 
-    background: #0B2343;
+    background: rgba(12, 18, 35, 0.25);
 
     padding: 28px;
 
@@ -866,7 +862,7 @@ body {
 
     transform: translateY(-8px);
 
-    border-color: #28F5D3;
+    border-color: #5ef1df;
 
     box-shadow: 0 15px 35px rgba(0, 0, 0, .35);
 
@@ -912,13 +908,13 @@ body {
 
 ::-webkit-scrollbar-track {
 
-    background: #061A33;
+    background: var(--bg);
 
 }
 
 ::-webkit-scrollbar-thumb {
 
-    background: #28F5D3;
+    background: #5ef1df;
 
     border-radius: 20px;
 
@@ -936,9 +932,9 @@ body {
 
 ::selection {
 
-    background: #28F5D3;
+    background: #5ef1df;
 
-    color: #061A33;
+    color: var(--bg);
 
 }
 
@@ -1195,7 +1191,7 @@ button {
 
 .spec-icon {
     font-size: 34px;
-    color: #28F5D3;
+    color: #5ef1df;
     margin-bottom: 18px;
 }
 
@@ -1217,7 +1213,7 @@ button {
 
 .heading-icon {
 
-    color: #28F5D3;
+    color: #5ef1df;
 
     flex-shrink: 0;
 

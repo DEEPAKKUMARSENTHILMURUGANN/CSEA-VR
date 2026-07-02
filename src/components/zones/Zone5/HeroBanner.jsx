@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Play } from 'lucide-react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 import psgBuilding from './assets/images/psg_tech_heritage_building_1781941790591.jpg';
 
 export function HeroBanner() {
@@ -38,7 +38,8 @@ export function HeroBanner() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[var(--psg-deep)] text-white min-h-screen pt-28 pb-20 px-6 md:px-12 lg:px-24 flex flex-col justify-center"
+      className="relative overflow-hidden bg-[var(--psg-deep)] text-white min-h-screen flex flex-col justify-center"
+      style={{ paddingTop: '7rem', paddingBottom: '5rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       {/* Layer 1 — Film grain */}
       <div className={`${styles.heroFilmGrain}`} />
@@ -67,16 +68,16 @@ export function HeroBanner() {
           {/* Heading */}
           <h1 className="mt-6 mb-4 select-text">
             <span
-              className={`block text-white text-[48px] sm:text-[64px] lg:text-[88px] font-black uppercase tracking-tight transition-all duration-[600ms] transform leading-none ${stage >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[28px]'
+              className={`block text-white font-black uppercase tracking-tight transition-all duration-[600ms] transform leading-none ${stage >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[28px]'
                 }`}
-              style={{ fontFamily: 'var(--font-display)' }}
+              style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-massive)' }}
             >
               Where Classrooms
             </span>
             <span
-              className={`block text-[var(--psg-gold)] text-[48px] sm:text-[64px] lg:text-[88px] font-black italic tracking-tight transition-all duration-[600ms] transform leading-none ${stage >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[28px]'
+              className={`block text-[var(--psg-gold)] font-black italic tracking-tight transition-all duration-[600ms] transform leading-none ${stage >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[28px]'
                 }`}
-              style={{ fontFamily: 'var(--font-display)' }}
+              style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-massive)' }}
             >
               Meet Boardrooms.
             </span>

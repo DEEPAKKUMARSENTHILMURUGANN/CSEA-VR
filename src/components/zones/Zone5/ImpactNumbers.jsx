@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
 import { useCountUp } from './hooks/useCountUp';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 
 export function ImpactNumbers() {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
@@ -26,8 +26,8 @@ export function ImpactNumbers() {
   return (
     <section
       ref={ref}
-      className="relative w-full py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
-      style={{ backgroundColor: 'var(--psg-charcoal)' }}
+      className="relative w-full overflow-hidden"
+      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%', backgroundColor: 'var(--psg-charcoal)' }}
     >
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         {/* Centered Heading */}

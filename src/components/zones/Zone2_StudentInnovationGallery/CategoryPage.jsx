@@ -211,7 +211,7 @@ const CategoryPage = ({ category, onProjectClick }) => {
   });
 
   return (
-    <div className="flex flex-col gap-10 w-full max-w-6xl mx-auto">
+    <div className="flex flex-col gap-10 w-full" style={{ paddingBottom: '5rem' }}>
       <div className="p-8 md:p-12 rounded-3xl border border-white/[0.04] relative overflow-hidden bg-gradient-to-r from-[#0c0f1d]/30 to-black/10 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
         <div className="absolute right-0 top-0 bottom-0 w-96 h-full blur-3xl opacity-20 pointer-events-none" style={{ background: `radial-gradient(circle, ${category.accentColor} 0%, transparent 100%)` }} />
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10 w-full">
@@ -242,7 +242,13 @@ const CategoryPage = ({ category, onProjectClick }) => {
             />
           </div>
           {(searchQuery || activeTag) && (
-            <button onClick={() => { setSearchQuery(''); setActiveTag(null); }} className="text-xs text-[#5ef1df] bg-[#5ef1df]/10 border border-[#5ef1df]/20 hover:bg-[#5ef1df]/20 px-5 py-3.5 rounded-2xl transition-all cursor-pointer whitespace-nowrap font-mono uppercase font-black">Reset Filters</button>
+            <button 
+              onClick={() => { setSearchQuery(''); setActiveTag(null); }} 
+              className="text-xs text-[#5ef1df] bg-[#5ef1df]/10 border border-[#5ef1df]/20 hover:bg-[#5ef1df]/20 rounded-2xl transition-all cursor-pointer whitespace-nowrap font-mono uppercase font-black"
+              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '48px', padding: '0 1.5rem' }}
+            >
+              Reset Filters
+            </button>
           )}
         </div>
         {allTags.length > 0 && (
@@ -253,7 +259,14 @@ const CategoryPage = ({ category, onProjectClick }) => {
             {allTags.map((tag) => {
               const isSelected = activeTag === tag;
               return (
-                <button key={tag} onClick={() => setActiveTag(isSelected ? null : tag)} className={`text-[10px] font-bold px-4 py-1.5 rounded-2xl transition-all border cursor-pointer font-mono ${isSelected ? 'border-[#5ef1df] text-[#5ef1df] bg-[#5ef1df]/10' : 'border-white/5 text-gray-400 hover:border-white/10 hover:text-white bg-slate-950/20'}`}>{tag}</button>
+                <button 
+                  key={tag} 
+                  onClick={() => setActiveTag(isSelected ? null : tag)} 
+                  className={`text-[10px] font-bold rounded-2xl transition-all border cursor-pointer font-mono ${isSelected ? 'border-[#5ef1df] text-[#5ef1df] bg-[#5ef1df]/10' : 'border-white/5 text-gray-400 hover:border-white/10 hover:text-white bg-slate-950/20'}`}
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '32px', padding: '0 1rem' }}
+                >
+                  {tag}
+                </button>
               );
             })}
           </div>
@@ -283,7 +296,11 @@ const CategoryPage = ({ category, onProjectClick }) => {
                       <span key={tag} className="text-[9px] font-black tracking-wider px-2.5 py-1 rounded-lg border border-white/5 bg-[#030712]/45 text-gray-500">{tag}</span>
                     ))}
                   </div>
-                  <button onClick={(e) => handleLike(e, proj.name)} className="flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-[#5ef1df]/5 hover:border-[#5ef1df]/20 text-gray-400 hover:text-[#5ef1df] transition-all cursor-pointer shadow-lg">
+                  <button 
+                    onClick={(e) => handleLike(e, proj.name)} 
+                    className="rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-[#5ef1df]/5 hover:border-[#5ef1df]/20 text-gray-400 hover:text-[#5ef1df] transition-all cursor-pointer shadow-lg"
+                    style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', height: '36px', padding: '0 1rem' }}
+                  >
                     <ThumbsUp className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
                     <span className="text-xs font-bold text-white leading-none">{likes[proj.name] || 0}</span>
                   </button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
 import { Mail, GraduationCap, Handshake } from 'lucide-react';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 
 export function CTABlock() {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.2, triggerOnce: true });
@@ -10,7 +10,8 @@ export function CTABlock() {
     <section
       id="cta-block"
       ref={ref}
-      className={`py-32 px-6 md:px-12 lg:px-24 ${styles.bgMaroon} text-white text-center relative overflow-hidden`}
+      className={`bgMaroon text-white text-center relative overflow-hidden`}
+      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
         {/* Animated Headline */}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Lightbulb, Wrench, Package, Globe, ArrowUpRight, Award, Shield, Cpu } from 'lucide-react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
 import { useCountUp } from './hooks/useCountUp';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 import psgLab from './assets/images/psg_cse_research_lab_1781941809367.jpg';
 import jayasreeImg from './assets/jayasree.png';
 
@@ -102,7 +102,8 @@ export function StartupPipeline() {
   return (
     <section
       ref={ref}
-      className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--psg-charcoal)] text-white overflow-hidden"
+      className="bg-[var(--psg-charcoal)] text-white overflow-hidden"
+      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       <div className="max-w-7xl mx-auto">
         {/* Header Block to establish copy tone */}

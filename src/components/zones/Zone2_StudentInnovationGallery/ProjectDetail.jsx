@@ -197,7 +197,7 @@ const ProjectDetail = ({ project, category, onBackToList }) => {
   const overallScore = ((parseFloat(avgInnovation) + parseFloat(avgFeasibility) + parseFloat(avgComplexity)) / 3).toFixed(1);
 
   return (
-    <div className="flex flex-col gap-10 w-full max-w-6xl mx-auto text-gray-200">
+    <div className="flex flex-col gap-10 w-full text-gray-200" style={{ paddingBottom: '5rem' }}>
       
       {/* ── LUXURY HEADER HERO BLOCK ── */}
       <div className="p-8 md:p-12 rounded-3xl border border-white/[0.04] relative overflow-hidden bg-gradient-to-br from-[#0a0f1d]/50 to-black/30 backdrop-blur-xl shadow-2xl">
@@ -242,7 +242,8 @@ const ProjectDetail = ({ project, category, onBackToList }) => {
           <div className="flex-shrink-0">
             <button
               onClick={onBackToList}
-              className="px-5 py-3 text-xs font-mono font-black tracking-widest text-[#5ef1df] hover:text-white bg-[#5ef1df]/10 hover:bg-[#5ef1df]/20 rounded-2xl border border-[#5ef1df]/20 hover:border-white/30 transition-all cursor-pointer shadow-lg"
+              className="text-xs font-mono font-black tracking-widest text-[#5ef1df] hover:text-white bg-[#5ef1df]/10 hover:bg-[#5ef1df]/20 rounded-2xl border border-[#5ef1df]/20 hover:border-white/30 transition-all cursor-pointer shadow-lg"
+              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '42px', padding: '0 1.5rem' }}
             >
               BACK TO INDEX
             </button>
@@ -292,7 +293,7 @@ const ProjectDetail = ({ project, category, onBackToList }) => {
         >
           {/* TAB 1: BLUEPRINT */}
           {activeTab === 'blueprint' && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
 
               {/* Main Blueprint details */}
               <div className="md:col-span-2 flex flex-col gap-8">
@@ -419,7 +420,7 @@ const ProjectDetail = ({ project, category, onBackToList }) => {
 
           {/* TAB 2: FUNCTIONAL SIMULATOR PORT */}
           {activeTab === 'simulator' && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
 
               {/* Console window */}
               <div className="md:col-span-2 flex flex-col gap-4">
@@ -678,9 +679,10 @@ const ProjectDetail = ({ project, category, onBackToList }) => {
 
                     <button
                       type="submit"
-                      className="w-full py-3.5 bg-[#5ef1df] hover:bg-[#68ffea] text-black font-mono font-black rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xl mt-2 uppercase text-xs tracking-widest"
+                      className="w-full bg-[#5ef1df] hover:bg-[#68ffea] text-black font-mono font-black rounded-2xl transition-all cursor-pointer shadow-2xl mt-2 uppercase text-xs tracking-widest"
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', height: '48px', border: 'none' }}
                     >
-                      <Send className="w-4 h-4" /> SUBMIT AUDIT
+                      <Send className="w-4 h-4 shrink-0" /> <span>SUBMIT AUDIT</span>
                     </button>
 
                   </form>

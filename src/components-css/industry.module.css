@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* PSG Tech Color Palette */
-  --psg-maroon:        #7B1C2E;
-  --psg-deep:          #0F0506;  /* Deep rich warm burgundy-black */
-  --psg-gold:          #C9922A;
-  --psg-cream:         #FAF3E8;  /* Royal background academic warm cream */
-  --psg-charcoal:      #1F1315;  /* Rich warm cocoa-maroon charcoal instead of purple-navy */
-  --psg-steel:         #5C4D50;  /* Warm stone slate-gray instead of cold gray */
-  --psg-white:         #FFFFFF;
-  --psg-muted:         #FAF3E8;
+  /* PSG Tech Color Palette - Remapped to Zone 2 High-Tech Cyber Dark Theme */
+  --psg-maroon:        #a855f7;  /* Purple */
+  --psg-deep:          #02050d;  /* Global Dark Blue-Black Background */
+  --psg-gold:          #5ef1df;  /* Cyan/Teal */
+  --psg-cream:         transparent;  /* Flowing page background */
+  --psg-charcoal:      #080d19;  /* Translucent card surface */
+  --psg-steel:         #9ca3af;  /* Light gray text */
+  --psg-white:         rgba(12, 18, 35, 0.25); /* Dark high-tech card background */
+  --psg-muted:         rgba(255, 255, 255, 0.05);
 
-  /* Typography Styles */
-  --font-display:      'Cormorant Garamond', 'Playfair Display', 'Georgia', serif;
-  --font-sans:         'Space Grotesk', 'Inter', sans-serif;
+  /* Typography Styles - Remapped to modern display fonts */
+  --font-display:      'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  --font-sans:         'DM Sans', 'Inter', sans-serif;
 
   /* Fluid typography clamp config */
   --text-massive:      clamp(56px, 8vw, 96px);
@@ -236,7 +236,7 @@
   width: 140px;
   height: 60px;
   background-color: var(--psg-white);
-  border: 1px solid #E0D5CC;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -299,8 +299,8 @@
               transform var(--dur-fast) var(--ease-out-soft);
 }
 .btnFilledGold:hover {
-  background-color: #B58020; /* 10% darker gold */
-  box-shadow: 0 8px 24px rgba(201, 146, 42, 0.35);
+  background-color: #3bd1be; /* 10% darker teal */
+  box-shadow: 0 8px 24px rgba(94, 241, 223, 0.35);
   transform: translateY(-2px);
 }
 
@@ -339,7 +339,7 @@
 
 /* HIGH END ADVANCED VISUAL UPGRADES */
 .heroBase {
-  background-color: #1A0008;
+  background-color: var(--psg-deep);
   position: relative;
 }
 
@@ -383,9 +383,9 @@
 }
 
 .draftPaperPattern {
-  background-color: #FAF3E8;
-  background-image: repeating-linear-gradient(90deg, rgba(123, 28, 46, 0.02) 0px, rgba(123, 28, 46, 0.02) 1px, transparent 1px, transparent 60px),
-                    repeating-linear-gradient(0deg, rgba(123, 28, 46, 0.02) 0px, rgba(123, 28, 46, 0.02) 1px, transparent 1px, transparent 60px);
+  background-color: transparent;
+  background-image: repeating-linear-gradient(90deg, rgba(94, 241, 223, 0.03) 0px, rgba(94, 241, 223, 0.03) 1px, transparent 1px, transparent 60px),
+                    repeating-linear-gradient(0deg, rgba(94, 241, 223, 0.03) 0px, rgba(94, 241, 223, 0.03) 1px, transparent 1px, transparent 60px);
 }
 
 .timelineDoubleConnector {

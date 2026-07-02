@@ -1,14 +1,6 @@
 import React from 'react';
 import { Camera, Play, Landmark, Link2 } from 'lucide-react';
-import styles from './styles/industry.module.css';
-
-interface PlaceholderSlotProps {
-  type: 'image' | 'video' | 'logo' | 'link';
-  description: string;
-  className?: string;
-  width?: string;
-  height?: string;
-}
+import styles from '../../../components-css/industry.module.css';
 
 export function PlaceholderSlot({
   type,
@@ -16,7 +8,7 @@ export function PlaceholderSlot({
   className = '',
   width = 'w-full',
   height = 'h-40'
-}: PlaceholderSlotProps) {
+}) {
   // Select matching emoji / icon
   const getIcon = () => {
     switch (type) {

@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, RefObject } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-export function useCountUp(target: number, duration = 1800, startOnView = true): [number, RefObject<HTMLElement | null>] {
+export function useCountUp(target, duration = 1800, startOnView = true) {
   const [count, setCount] = useState(0);
   const [hasRun, setHasRun] = useState(false);
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     if (!startOnView || hasRun) return;
@@ -12,7 +12,7 @@ export function useCountUp(target: number, duration = 1800, startOnView = true):
       setHasRun(true);
       const startTime = performance.now();
 
-      const tick = (currentTime: number) => {
+      const tick = (currentTime) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
 

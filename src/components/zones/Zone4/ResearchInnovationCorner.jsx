@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Lightfall from './Lightfall';
-import './ResearchInnovationCorner.css';
+import '../../../components-css/ResearchInnovationCorner.css';
 
 /* ============================================================
    DATA: 4 Research Categories x 3+ projects each
@@ -15,6 +15,7 @@ const CATEGORIES = [
       'Scalable, full-stack platforms built with modern frameworks — tackling real-world problems from campus to enterprise.',
     stats: { projects: '12+', labs: '4' },
     accent: 'web',
+    accentColor: '#10b981',
   },
   {
     id: 'mobile',
@@ -25,6 +26,7 @@ const CATEGORIES = [
       'Native and cross-platform mobile solutions leveraging AI, AR, and cloud capabilities for everyday impact.',
     stats: { projects: '10+', labs: '3' },
     accent: 'mobile',
+    accentColor: '#3b82f6',
   },
   {
     id: 'health',
@@ -35,6 +37,7 @@ const CATEGORIES = [
       'AI-driven diagnostic tools, patient monitoring platforms, and accessibility-first medical innovations.',
     stats: { projects: '8+', labs: '5' },
     accent: 'health',
+    accentColor: '#a855f7',
   },
   {
     id: 'smartcity',
@@ -45,6 +48,7 @@ const CATEGORIES = [
       'IoT- and AI-powered urban infrastructure projects — traffic, energy, waste, and public safety reimagined.',
     stats: { projects: '9+', labs: '3' },
     accent: 'smartcity',
+    accentColor: '#f59e0b',
   },
 ];
 
@@ -257,7 +261,12 @@ const Hero = () => (
       <span className="z4-hero-badge-dot" />
       CSEA Research Division
     </div>
-    <h1>Research & Innovation Corner</h1>
+    <h1>
+      Research &amp;{' '}
+      <span style={{ background: 'linear-gradient(135deg, #5ef1df, #3b82f6, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        Innovation Corner
+      </span>
+    </h1>
     <p className="z4-hero-sub">
       Where ideas become impact — exploring groundbreaking research and
       entrepreneurial solutions from the brightest minds at PSG Tech.
@@ -266,7 +275,7 @@ const Hero = () => (
       <span>PSG College of Technology</span>
       <span>—</span>
       <span>
-        Department of Computer Science & Engineering
+        Department of Computer Science &amp; Engineering
       </span>
     </div>
   </div>
@@ -303,22 +312,34 @@ const CategoryCard = ({ cat, onClick }) => {
 /** Category detail — shows project list */
 const CategoryView = ({ category, onBack, onProjectClick }) => {
   const projects = PROJECTS_DATA[category.id] || [];
+  const acc = category.accentColor || '#5ef1df';
 
   return (
     <div className="z4-view">
       <div className="z4-category-header">
-        <button className="z4-back-btn" onClick={onBack}>
+        <button
+          className="z4-back-btn"
+          onClick={onBack}
+          style={{ borderColor: `${acc}30`, color: acc, backgroundColor: `${acc}0a` }}
+          onMouseEnter={e => { e.currentTarget.style.backgroundColor = `${acc}18`; e.currentTarget.style.borderColor = `${acc}60`; }}
+          onMouseLeave={e => { e.currentTarget.style.backgroundColor = `${acc}0a`; e.currentTarget.style.borderColor = `${acc}30`; }}
+        >
           &larr; Back to all categories
         </button>
         <div className="z4-category-title-section">
-          <div className="z4-category-icon-large">
+          <div
+            className="z4-category-icon-large"
+            style={{ borderColor: `${acc}35`, backgroundColor: `${acc}12`, color: acc }}
+          >
             {category.letter}
           </div>
           <div>
-            <h2>{category.title}</h2>
+            <h2 style={{ color: '#e2e8f0' }}>{category.title}</h2>
             <p>{category.description}</p>
             <div className="z4-category-meta">
-              <span className="z4-category-meta-item">{category.stats.projects} Projects</span>
+              <span className="z4-category-meta-item" style={{ color: acc, borderColor: `${acc}25`, backgroundColor: `${acc}08` }}>
+                {category.stats.projects} Projects
+              </span>
               <span className="z4-category-meta-item">{category.stats.labs} Research Labs</span>
             </div>
           </div>
@@ -337,9 +358,16 @@ const CategoryView = ({ category, onBack, onProjectClick }) => {
               key={i}
               className="z4-project-item"
               onClick={() => onProjectClick(proj)}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = `${acc}40`; e.currentTarget.style.boxShadow = `0 0 0 1px ${acc}20`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = ''; e.currentTarget.style.boxShadow = ''; }}
             >
-              <span className="z4-project-index">{String(i + 1).padStart(2, '0')}</span>
-              <span className="z4-project-icon-small">{proj.letter}</span>
+              <span className="z4-project-index" style={{ color: acc }}>{String(i + 1).padStart(2, '0')}</span>
+              <span
+                className="z4-project-icon-small"
+                style={{ borderColor: `${acc}35`, backgroundColor: `${acc}12`, color: acc }}
+              >
+                {proj.letter}
+              </span>
               <div className="z4-project-info">
                 <h4>{proj.name}</h4>
                 <p>{proj.shortDesc}</p>
@@ -351,7 +379,7 @@ const CategoryView = ({ category, onBack, onProjectClick }) => {
                   </span>
                 ))}
               </div>
-              <span className="z4-project-chevron">&rsaquo;</span>
+              <span className="z4-project-chevron" style={{ color: acc }}>&rsaquo;</span>
             </div>
           ))}
         </div>
@@ -362,15 +390,28 @@ const CategoryView = ({ category, onBack, onProjectClick }) => {
 
 /** Project detail view */
 const ProjectDetail = ({ project, category, onBack }) => {
+  const acc = category?.accentColor || '#5ef1df';
+
   return (
     <div className="z4-view">
-      <button className="z4-back-btn" onClick={onBack}>
+      <button
+        className="z4-back-btn"
+        onClick={onBack}
+        style={{ borderColor: `${acc}30`, color: acc, backgroundColor: `${acc}0a` }}
+        onMouseEnter={e => { e.currentTarget.style.backgroundColor = `${acc}18`; e.currentTarget.style.borderColor = `${acc}60`; }}
+        onMouseLeave={e => { e.currentTarget.style.backgroundColor = `${acc}0a`; e.currentTarget.style.borderColor = `${acc}30`; }}
+      >
         &larr; Back to {category?.title || 'projects'}
       </button>
 
-      <div className="z4-project-detail">
+      <div className="z4-project-detail" style={{ borderColor: `${acc}15` }}>
         <div className="z4-pd-header">
-          <div className="z4-pd-icon">{project.letter}</div>
+          <div
+            className="z4-pd-icon"
+            style={{ borderColor: `${acc}35`, backgroundColor: `${acc}12`, color: acc }}
+          >
+            {project.letter}
+          </div>
           <div className="z4-pd-header-info">
             <h2>{project.name}</h2>
             <p className="z4-pd-subtitle">{project.shortDesc}</p>
@@ -378,7 +419,7 @@ const ProjectDetail = ({ project, category, onBack }) => {
               <span className="z4-pd-meta-tag">{project.year}</span>
               <span className="z4-pd-meta-tag">{project.lab}</span>
               {project.tags.map((tag) => (
-                <span key={tag} className="z4-pd-meta-tag">
+                <span key={tag} className="z4-pd-meta-tag" style={{ color: acc, borderColor: `${acc}25`, backgroundColor: `${acc}08` }}>
                   {tag}
                 </span>
               ))}
@@ -387,15 +428,19 @@ const ProjectDetail = ({ project, category, onBack }) => {
         </div>
 
         <div className="z4-pd-section">
-          <div className="z4-pd-section-label">Overview</div>
+          <div className="z4-pd-section-label" style={{ color: acc }}>Overview</div>
           <p>{project.fullDesc}</p>
         </div>
 
         <div className="z4-pd-section">
-          <div className="z4-pd-section-label">Tech Stack</div>
+          <div className="z4-pd-section-label" style={{ color: acc }}>Tech Stack</div>
           <div className="z4-pd-tech-list">
             {project.techStack.map((tech) => (
-              <span key={tech} className="z4-pd-tech-chip">
+              <span
+                key={tech}
+                className="z4-pd-tech-chip"
+                style={{ borderColor: `${acc}30`, backgroundColor: `${acc}10`, color: acc }}
+              >
                 {tech}
               </span>
             ))}
@@ -403,7 +448,7 @@ const ProjectDetail = ({ project, category, onBack }) => {
         </div>
 
         <div className="z4-pd-section">
-          <div className="z4-pd-section-label">Research Team</div>
+          <div className="z4-pd-section-label" style={{ color: acc }}>Research Team</div>
           <div className="z4-pd-team">
             {project.team.map((member) => (
               <div key={member.name} className="z4-pd-team-member">
@@ -459,24 +504,24 @@ const ResearchInnovationCorner = () => {
   return (
     <div className="z4-root">
       <Lightfall
-        colors={['#A6C8FF', '#5227FF', '#FF9FFC']}
-        backgroundColor="#0A29FF"
+        colors={['#5ef1df', '#a855f7', '#3b82f6']}
+        backgroundColor="#02050d"
         speed={0.4}
         streakCount={4}
-        streakWidth={3}
-        streakLength={3}
-        glow={2}
-        density={1}
+        streakWidth={2}
+        streakLength={2.5}
+        glow={1.5}
+        density={0.8}
         twinkle={1}
         zoom={3}
-        backgroundGlow={0.8}
-        opacity={1}
+        backgroundGlow={0.3}
+        opacity={0.85}
         mouseInteraction
         mouseStrength={0.5}
         mouseRadius={1}
-        color1="#A6C8FF"
-        color2="#5227FF"
-        color3="#FF9FFC"
+        color1="#5ef1df"
+        color2="#a855f7"
+        color3="#3b82f6"
       />
       <div className="z4-content">
         {/* -- HOME VIEW -- */}

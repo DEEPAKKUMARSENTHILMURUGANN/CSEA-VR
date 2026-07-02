@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 import centreOfExcellenceImg from './assets/centre of excellence.png';
 
 export function CoESection() {
@@ -9,7 +9,8 @@ export function CoESection() {
   return (
     <section
       ref={ref}
-      className={`py-32 px-6 md:px-12 lg:px-24 bg-[var(--psg-cream)]/50 overflow-hidden`}
+      className={`bg-[var(--psg-cream)]/50 overflow-hidden`}
+      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left column: Text */}
@@ -27,7 +28,7 @@ export function CoESection() {
           </div>
 
           <h2
-            className="text-[var(--psg-maroon)] text-[36px] font-black uppercase tracking-tight mb-6 leading-none"
+            className="text-[var(--psg-maroon)] text-3xl sm:text-4xl md:text-[40px] font-black uppercase tracking-tight mb-6 leading-none"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Assistive Technologies Lab
@@ -53,7 +54,7 @@ export function CoESection() {
               {/* Gold dot */}
               <div className="w-1.5 h-1.5 rounded-full bg-[var(--psg-gold)] mt-2 flex-shrink-0"></div>
               <div>
-                <h4 className={`${styles.fontSans} text-sm font-bold text-[var(--psg-charcoal)] uppercase tracking-wide`}>
+                <h4 className={`${styles.fontSans} text-sm font-bold text-white uppercase tracking-wide`}>
                   DST Research Grant Recipient
                 </h4>
                 <p className={`${styles.fontSans} text-xs text-[var(--psg-steel)] mt-1`}>
@@ -74,7 +75,7 @@ export function CoESection() {
               {/* Gold dot */}
               <div className="w-1.5 h-1.5 rounded-full bg-[var(--psg-gold)] mt-2 flex-shrink-0"></div>
               <div>
-                <h4 className={`${styles.fontSans} text-sm font-bold text-[var(--psg-charcoal)] uppercase tracking-wide`}>
+                <h4 className={`${styles.fontSans} text-sm font-bold text-white uppercase tracking-wide`}>
                   3 Products Deployed in Real Clinical Settings
                 </h4>
                 <p className={`${styles.fontSans} text-xs text-[var(--psg-steel)] mt-1`}>
@@ -95,7 +96,7 @@ export function CoESection() {
             transitionTimingFunction: 'var(--ease-out-expo)'
           }}
         >
-          <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-[0_4px_30px_rgba(123,28,46,0.03)] hover:shadow-xl transition-all duration-300">
+          <div className="bg-white/[0.02] p-4 rounded-xl border border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:shadow-xl transition-all duration-300">
             {/* 400x300 container with actual image */}
             <img
               src={centreOfExcellenceImg}

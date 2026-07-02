@@ -6,6 +6,7 @@ import Zone2_StudentInnovationGallery from "./components/zones/Zone2_StudentInno
 import Zone3 from "./components/zones/Zone3/Zone3";
 import TechnologyPage from "./components/zones/Zone3/Technologypage";
 import LabPage from "./components/zones/Zone3/LabPage";
+import Zone4 from "./components/zones/Zone4/Zone4";
 import Zone5 from "./components/zones/Zone5/Zone5";
 
 import "./App.css";
@@ -55,6 +56,7 @@ export default function App() {
           <div className="flex bg-white/[0.03] p-1 rounded-xl border border-white/5 gap-2">
             <Link to="/" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 2</Link>
             <Link to="/zone3" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 3</Link>
+            <Link to="/zone4" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 4</Link>
             <Link to="/zone5" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 5</Link>
           </div>
 
@@ -66,12 +68,13 @@ export default function App() {
           </div>
         </header>
 
-        <div className="flex-grow">
+        <div className="flex-grow w-full">
           <Routes>
             <Route path="/" element={<Zone2_StudentInnovationGallery />} />
             <Route path="/zone3" element={<Zone3 />} />
             <Route path="/technology/:slug" element={<TechnologyPage />} />
             <Route path="/technology/:slug/lab/:labId" element={<LabPage />} />
+            <Route path="/zone4" element={<Zone4 />} />
             <Route path="/zone5" element={<Zone5 />} />
           </Routes>
         </div>

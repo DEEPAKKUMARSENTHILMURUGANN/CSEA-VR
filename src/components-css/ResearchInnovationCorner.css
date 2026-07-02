@@ -7,14 +7,14 @@
 :root {
   --z4-bg: transparent;
   --z4-surface: transparent;
-  --z4-card-bg: rgba(10, 14, 26, 0.75);
-  --z4-border: rgba(99, 102, 241, 0.15);
+  --z4-card-bg: rgba(12, 18, 35, 0.25);
+  --z4-border: rgba(255, 255, 255, 0.05);
   --z4-text: #e2e8f0;
   --z4-text-muted: #94a3b8;
   --z4-text-dim: #64748b;
-  --z4-accent-1: #6366f1;
-  --z4-accent-2: #06b6d4;
-  --z4-accent-3: #10b981;
+  --z4-accent-1: #a855f7;
+  --z4-accent-2: #5ef1df;
+  --z4-accent-3: #3b82f6;
   --z4-accent-4: #f59e0b;
   --z4-radius: 16px;
   --z4-radius-sm: 10px;
@@ -44,8 +44,8 @@ html, body {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(94, 241, 223, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 241, 223, 0.02) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
   z-index: 0;
@@ -56,7 +56,8 @@ html, body {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 40px 48px 80px;
   box-sizing: border-box;
 }
@@ -82,14 +83,30 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: rgba(94, 241, 223, 0.1);
+  border: 1px solid rgba(94, 241, 223, 0.2);
   padding: 6px 18px;
   border-radius: 50px;
   font-size: 0.8rem;
-  color: #a5b4fc;
+  color: #5ef1df;
   letter-spacing: 0.5px;
   margin-bottom: 20px;
+}
+
+.z4-hero-badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #5ef1df;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #5ef1df;
+  animation: z4Pulse 2s infinite;
+}
+
+@keyframes z4Pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(94, 241, 223, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(94, 241, 223, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(94, 241, 223, 0); }
 }
 
 .z4-hero h1 {
@@ -128,7 +145,7 @@ html, body {
 /* ── DIVIDER ── */
 .z4-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(94, 241, 223, 0.3) 30%, rgba(168, 85, 247, 0.3) 70%, transparent);
   margin: 10px 0 50px;
 }
 
@@ -178,18 +195,18 @@ html, body {
   box-shadow: 0 20px 60px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* Card accent colors */
+/* Card accent colors - Matched to Zone 2's category palette */
 .z4-card[data-accent="web"] {
-  --z4-acc: #6366f1;
-  --z4-acc-light: rgba(99, 102, 241, 0.3);
-}
-.z4-card[data-accent="mobile"] {
-  --z4-acc: #06b6d4;
-  --z4-acc-light: rgba(6, 182, 212, 0.3);
-}
-.z4-card[data-accent="health"] {
   --z4-acc: #10b981;
   --z4-acc-light: rgba(16, 185, 129, 0.3);
+}
+.z4-card[data-accent="mobile"] {
+  --z4-acc: #3b82f6;
+  --z4-acc-light: rgba(59, 130, 246, 0.3);
+}
+.z4-card[data-accent="health"] {
+  --z4-acc: #a855f7;
+  --z4-acc-light: rgba(168, 85, 247, 0.3);
 }
 .z4-card[data-accent="smartcity"] {
   --z4-acc: #f59e0b;

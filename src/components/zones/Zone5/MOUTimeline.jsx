@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 
 import gopikaImg from './assets/gopikarani.png';
 import sathyapriyaImg from './assets/sathyapriya.png';
@@ -8,7 +8,7 @@ import sudhaImg from './assets/sudha sadasivam.png';
 import jayasreeImg from './assets/jayasree.png';
 import karpagamImg from './assets/karpagam.png';
 
-const getFacultyImage = (name: string) => {
+const getFacultyImage = (name) => {
   if (name.includes('Gopika')) return gopikaImg;
   if (name.includes('Sathiya Priya')) return sathyapriyaImg;
   if (name.includes('Sudha')) return sudhaImg;
@@ -17,14 +17,7 @@ const getFacultyImage = (name: string) => {
   return null;
 };
 
-interface MOUItem {
-  year: string;
-  partner: string;
-  details: string;
-  faculty: string;
-}
-
-const mouData: MOUItem[] = [
+const mouData = [
   {
     year: '2018',
     partner: 'Red Hat Academy (Plexus Networks)',
@@ -73,7 +66,7 @@ export function MOUTimeline() {
   const [railRef, isRailVisible] = useIntersectionObserver({ threshold: 0.05, triggerOnce: true });
 
   return (
-    <section className={`py-32 px-6 md:px-12 lg:px-24 ${styles.draftPaperPattern}`}>
+    <section className={`${styles.draftPaperPattern}`} style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}>
       <div className="max-w-5xl mx-auto">
         {/* Header Block with Line Eyebrow Decoration */}
         <div className="text-center mb-24">
@@ -110,13 +103,7 @@ export function MOUTimeline() {
   );
 }
 
-interface TimelineCardProps {
-  key?: React.Key;
-  item: MOUItem;
-  index: number;
-}
-
-function TimelineCard({ item, index }: TimelineCardProps) {
+function TimelineCard({ item, index }) {
   // Card enters on scroll reach
   const [cardRef, isCardVisible] = useIntersectionObserver({ threshold: 0.2, triggerOnce: true });
 
@@ -150,14 +137,16 @@ function TimelineCard({ item, index }: TimelineCardProps) {
       {/* Styled Card block */}
       <div
         data-year={item.year}
-        className={`w-full md:w-[90%] p-8 bg-white border border-[var(--psg-maroon)]/10 rounded-lg transition-all duration-800 shadow-sm hover:shadow-xl transform group overflow-hidden ${styles.mouCard} ${
-          isLeft ? 'md:col-start-1 md:justify-self-start text-left md:mr-10 pl-8 ml-10 md:ml-0' : 'md:col-start-2 md:justify-self-end text-left md:ml-10 pl-8 ml-10'
+        className={`w-full md:w-[90%] bg-[#0c1223]/25 border border-white/[0.05] rounded-lg transition-all duration-800 shadow-sm hover:shadow-xl transform group overflow-hidden ${styles.mouCard} ${
+          isLeft ? 'md:col-start-1 md:justify-self-start text-left md:mr-10 ml-10 md:ml-0' : 'md:col-start-2 md:justify-self-end text-left md:ml-10'
         } ${
           isCardVisible ? 'opacity-100 translate-x-0' : isLeft ? 'opacity-0 md:-translate-x-12 translate-x-12' : 'opacity-0 translate-x-12'
         }`}
         style={{
           borderLeft: '3px solid var(--psg-maroon)',
-          transitionTimingFunction: 'var(--ease-out-expo)'
+          transitionTimingFunction: 'var(--ease-out-expo)',
+          padding: '2rem',
+          paddingLeft: '2.5rem'
         }}
       >
         {/* Hover-triggered signature gold border overlay change */}
@@ -172,7 +161,7 @@ function TimelineCard({ item, index }: TimelineCardProps) {
         </div>
 
         {/* Partner Name */}
-        <h4 className={`${styles.fontSans} text-[var(--psg-charcoal)] text-lg font-bold leading-tight`}>
+        <h4 className={`${styles.fontSans} text-white text-lg font-bold leading-tight`}>
           {item.partner}
         </h4>
 
@@ -182,7 +171,7 @@ function TimelineCard({ item, index }: TimelineCardProps) {
         </p>
 
         {/* Department Faculty Lead coordinator */}
-        <div className="mt-6 pt-4 border-t border-gray-100 flex justify-between items-center">
+        <div className="mt-6 pt-4 border-t border-white/[0.05] flex justify-between items-center">
           <div className="flex items-center gap-2">
             {(() => { const img = getFacultyImage(item.faculty); return img ? <img src={img} alt={item.faculty} className="w-6 h-6 rounded-full object-cover border border-[var(--psg-maroon)]/20 shadow-sm" /> : null; })()}
             <span className={`${styles.fontSans} text-[10px] text-[var(--psg-steel)]/60 font-semibold uppercase tracking-widest`}>

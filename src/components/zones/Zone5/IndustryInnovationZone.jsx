@@ -8,11 +8,11 @@ import { StartupPipeline } from './StartupPipeline';
 import { PartnerLogoWall } from './PartnerLogoWall';
 import { CTABlock } from './CTABlock';
 import psgLogo from './assets/psg logo.png';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 
 export default function IndustryInnovationZone() {
   return (
-    <div className={`min-h-screen bg-white ${styles.fontSans} antialiased selection:bg-[var(--psg-maroon)] selection:text-white`}>
+    <div className={`min-h-screen bg-[#02050d] text-[#9ca3af] ${styles.fontSans} antialiased selection:bg-[var(--psg-maroon)] selection:text-white`}>
       {/* Top Institutional Header Bar */}
 
 
@@ -25,7 +25,7 @@ export default function IndustryInnovationZone() {
         <ImpactNumbers />
 
         {/* Diagonal transition from Impact stats (black var(--psg-deep)) down to ProductCards (light) */}
-        <div className="h-[60px] bg-white relative overflow-hidden">
+        <div className="h-[60px] bg-transparent relative overflow-hidden">
           <div
             className={`${styles.sectionDividerDiagonalLeft} absolute inset-x-0 top-0`}
             style={{ backgroundColor: 'var(--psg-deep)' }}
@@ -60,7 +60,7 @@ export default function IndustryInnovationZone() {
       </main>
 
       {/* Institutional Footer Block */}
-      <footer className={`${styles.bgCharcoal} text-white border-t-4 border-[var(--psg-maroon)] py-16 px-6 md:px-12 lg:px-24`}>
+      <footer className={`${styles.bgCharcoal} text-white border-t-4 border-[var(--psg-maroon)] py-16`} style={{ paddingLeft: '5%', paddingRight: '5%' }}>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
           {/* Logo Column */}
           <div>

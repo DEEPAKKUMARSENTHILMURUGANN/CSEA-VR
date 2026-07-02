@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
-import styles from './styles/industry.module.css';
+import styles from '../../../components-css/industry.module.css';
 
 export function PartnerLogoWall() {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
@@ -35,7 +35,8 @@ export function PartnerLogoWall() {
   return (
     <section
       ref={ref}
-      className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--psg-cream)] flex flex-col items-center select-none"
+      className="bg-[var(--psg-cream)] flex flex-col items-center select-none"
+      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         {/* Centered Heading */}
@@ -62,7 +63,7 @@ export function PartnerLogoWall() {
             return (
               <div
                 key={idx}
-                className="w-[140px] h-[60px] bg-white border border-[var(--psg-maroon)]/[0.08] rounded-lg flex items-center justify-center transition-all duration-[320ms]"
+                className="w-[140px] h-[60px] bg-white/[0.02] border border-white/5 rounded-lg flex items-center justify-center transition-all duration-[320ms]"
                 style={{
                   filter: hasStaggered
                      ? 'grayscale(100%) opacity(0.35) blur(0px)'
@@ -78,7 +79,7 @@ export function PartnerLogoWall() {
                 onMouseLeave={(e) => {
                   e.currentTarget.style.filter = 'grayscale(100%) opacity(0.35) blur(0px)';
                   e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.borderColor = 'rgba(123, 28, 46, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
                 }}
                 data-placeholder="logo"
               >
