@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AnimatedCounter from '../../ui/AnimatedCounter';
+import AuroraBg from '../../ui/bgs/AuroraBg';
 import '../../../components-css/Zone1.css';
 
 // ObservedSection helper to trigger scroll-reveal animation classes
@@ -102,6 +103,7 @@ const Zone1 = ({ onNextZone }) => {
 
   return (
     <div className="zone1-page-wrapper">
+      <AuroraBg />
       
       {/* 1. HERO SECTION */}
       <ObservedSection id="hero" className="section-hero">

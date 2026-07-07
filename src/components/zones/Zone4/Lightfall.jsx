@@ -40,8 +40,9 @@ const Lightfall = ({
     let w, h;
 
     const resize = () => {
-      w = window.innerWidth;
-      h = window.innerHeight;
+      const parent = canvas.parentElement;
+      w = parent ? parent.offsetWidth : window.innerWidth;
+      h = parent ? parent.offsetHeight : window.innerHeight;
       canvas.width = w;
       canvas.height = h;
     };
@@ -69,14 +70,8 @@ const Lightfall = ({
 
     // ── Animation ──
     const animate = () => {
+      // Clear to transparent — let the page background show through
       ctx.clearRect(0, 0, w, h);
-
-      // Background glow
-      const bgGrad = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w * 0.6);
-      bgGrad.addColorStop(0, backgroundColor + '40');
-      bgGrad.addColorStop(1, backgroundColor);
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, w, h);
 
       // Mouse smoothing
       const m = mouseRef.current;
@@ -186,15 +181,13 @@ const Lightfall = ({
   return (
     <canvas
       ref={canvasRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       style={{
-        position: 'fixed',
+        position: 'absolute',
         inset: 0,
         width: '100%',
         height: '100%',
-        pointerEvents: mouseInteraction ? 'auto' : 'none',
-        zIndex: 0,
+        pointerEvents: 'none',
+        zIndex: -1,
         display: 'block',
       }}
     />

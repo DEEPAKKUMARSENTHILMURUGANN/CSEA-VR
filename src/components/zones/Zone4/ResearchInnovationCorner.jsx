@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import Lightfall from './Lightfall';
+import ZoneBg from '../../../components/ui/ZoneBg';
 import '../../../components-css/ResearchInnovationCorner.css';
 
 /* ============================================================
@@ -503,26 +503,7 @@ const ResearchInnovationCorner = () => {
 
   return (
     <div className="z4-root">
-      <Lightfall
-        colors={['#5ef1df', '#a855f7', '#3b82f6']}
-        backgroundColor="#02050d"
-        speed={0.4}
-        streakCount={4}
-        streakWidth={2}
-        streakLength={2.5}
-        glow={1.5}
-        density={0.8}
-        twinkle={1}
-        zoom={3}
-        backgroundGlow={0.3}
-        opacity={0.85}
-        mouseInteraction
-        mouseStrength={0.5}
-        mouseRadius={1}
-        color1="#5ef1df"
-        color2="#a855f7"
-        color3="#3b82f6"
-      />
+      <ZoneBg trailColor={0x5ef1df} trailCount={4} dustCount={160} variant={4} />
       <div className="z4-content">
         {/* -- HOME VIEW -- */}
         {view === 'home' && (

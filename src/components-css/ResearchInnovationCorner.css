@@ -31,10 +31,12 @@ html, body {
 .z4-root {
   min-height: 100vh;
   width: 100%;
-  background: var(--z4-bg);
+  background: #02050d;
   color: var(--z4-text);
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   position: relative;
+  z-index: 0;
+  isolation: isolate;
   overflow-x: hidden;
 }
 

@@ -7,12 +7,14 @@ import { MOUTimeline } from './MOUTimeline';
 import { StartupPipeline } from './StartupPipeline';
 import { PartnerLogoWall } from './PartnerLogoWall';
 import { CTABlock } from './CTABlock';
+import OrbsBg from '../../ui/bgs/OrbsBg';
 import psgLogo from './assets/psg logo.png';
 import styles from '../../../components-css/industry.module.css';
 
 export default function IndustryInnovationZone() {
   return (
-    <div className={`min-h-screen bg-[#02050d] text-[#9ca3af] ${styles.fontSans} antialiased selection:bg-[var(--psg-maroon)] selection:text-white`}>
+    <div className={`min-h-screen bg-[#02050d] text-[#9ca3af] ${styles.fontSans} antialiased selection:bg-[var(--psg-maroon)] selection:text-white`} style={{ position: 'relative', isolation: 'isolate' }}>
+      <OrbsBg />
       {/* Top Institutional Header Bar */}
 
 

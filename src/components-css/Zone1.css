@@ -43,13 +43,15 @@
 }
 
 .zone1-page-wrapper {
-  max-width: 1500px; /* Widened layout container */
+  max-width: 1500px;
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   overflow: hidden;
+  position: relative;
+  isolation: isolate;
 }
 
 /* FULL SCREEN SECTION LAYOUT & SCROLL REVEAL */
@@ -417,6 +419,7 @@
 .stat-card {
   background-color: var(--theme-bg-secondary);
   backdrop-filter: var(--theme-glass-blur);
+  -webkit-backdrop-filter: var(--theme-glass-blur);
   border: 1px solid var(--theme-border);
   padding: 30px 24px;
   border-radius: var(--theme-card-radius);
@@ -517,6 +520,8 @@
 
 .accred-card {
   background-color: var(--theme-bg-secondary);
+  backdrop-filter: var(--theme-glass-blur);
+  -webkit-backdrop-filter: var(--theme-glass-blur);
   border: 1px solid var(--theme-border);
   padding: 30px 24px;
   border-radius: var(--theme-card-radius);

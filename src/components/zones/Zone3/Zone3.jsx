@@ -1,5 +1,6 @@
 import { technologies } from "./zone3data";
 import { technologyIcons } from "./icons";
+import GridWaveBg from "../../ui/bgs/GridWaveBg";
 import "../../../components-css/zone3.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +8,8 @@ function Zone3() {
     const navigate = useNavigate();
 
     return (
-        <div className="zone3">
+        <div className="zone3" style={{ position: 'relative', isolation: 'isolate' }}>
+            <GridWaveBg />
 
             {/* HERO */}
 

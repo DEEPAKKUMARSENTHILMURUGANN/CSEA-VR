@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import CategoryPage, { PROJECTS_DATA } from './CategoryPage';
 import ProjectDetail from './ProjectDetail';
+import ConstellationBg from '../../ui/bgs/ConstellationBg';
 import { 
   LayoutGrid, 
   Sparkles, 
@@ -134,7 +135,8 @@ const Zone2 = () => {
   const featuredProject = flatFeaturedList[activePromoIndex] || flatFeaturedList[0];
 
   return (
-    <div className="w-full text-gray-200" style={{ paddingTop: '3.5rem', paddingBottom: '6rem', paddingLeft: '5%', paddingRight: '5%' }}>
+    <div className="w-full text-gray-200" style={{ paddingTop: '3.5rem', paddingBottom: '6rem', paddingLeft: '5%', paddingRight: '5%', position: 'relative', isolation: 'isolate' }}>
+      <ConstellationBg />
       <div className="max-w-7xl mx-auto w-full">
         <AnimatePresence mode="wait">
           {view !== 'home' && (
