@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        
+        .transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body.loaded .transition-overlay {
+            opacity: 0;
+        }
+        
+        .carousel.no-transition .list .item,
+        .carousel.no-transition .list .item .category,
+        .carousel.no-transition .list .item h2,
+        .carousel.no-transition .list .item .description,
+        .carousel.no-transition .list .item .more,
+        .carousel.no-transition .list .item figure img {
+            transition: none !important;
+            animation: none !important;
+        }
+        
+        .carousel.no-transition .list .item.active {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+        .carousel.no-transition .list .item.active .category,
+        .carousel.no-transition .list .item.active h2,
+        .carousel.no-transition .list .item.active .description,
+        .carousel.no-transition .list .item.active .more {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+        
+        .carousel.no-transition .list .item:not(.active) {
+            opacity: 0 !important;
+            transform: translateX(0) !important;
+        }
+
+        
+        
+        .item.straight-float.active figure img {
+            transform: rotate(0deg) !important;
+        }
+        
+        .item.straight-float figure img {
+            transform: rotate(0deg) !important;
+        }
+
+        
+        @keyframes dept-float {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-18px); }
+        }
+
+        
+        .item.straight-float.active figure {
+            animation: dept-float 3.2s ease-in-out infinite;
+            animation-delay: 0.9s;
+        }
+
+        
+        .item:not(.active).straight-float figure {
+            animation: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="transition-overlay"></div>
+    <header>
+        <figure class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="img/psg_logo.png" alt="PSG Logo" style="height: 50px; width: auto; object-fit: contain;">
+            <div style="display: flex; flex-direction: column; justify-content: center; font-family: 'Poppins', sans-serif;">
+                <span style="color: #2b55a1; font-weight: 800; font-size: 1.2rem; line-height: 1.1; letter-spacing: 0.5px;">PSG</span>
+                <span style="color: #2b55a1; font-weight: 800; font-size: 1rem; line-height: 1.1;">College of Technology</span>
+            </div>
+        </figure>
+        <nav>
+            <ul style="color: #fff; font-weight: bold; letter-spacing: 2px;">
+                <li>PSG TECH SHOWCASE</li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="carousel">
+        <div class="list">
+            <div class="item active">
+                <figure>
+                    <img src="img/3.png">
+                </figure>
+                <div class="content">
+                    <p class="category">
+                        Overview 
+                    </p>
+                    <h2>
+                        DEPARTMENT HIGHLIGHTS
+                    </h2>
+                    <p class="description">
+                        Explore the unique strengths, achievements, and core values of our Computer Science department. We build the future through excellence.
+                    </p>
+                    <div class="more">
+                        <button onclick="window.location.href='vr.html#/zone1'">
+                            <i class="fa-solid fa-arrow-right"></i> Explore
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <figure>
+                    <img src="img/2.png">
+                </figure>
+                <div class="content">
+                    <p class="category">
+                        Projects 
+                    </p>
+                    <h2>
+                        INNOVATION GALLERY
+                    </h2>
+                    <p class="description">
+                        Witness the groundbreaking projects, hackathon winners, and creative solutions developed by our brilliant students.
+                    </p>
+                    <div class="more">
+                        <button onclick="window.location.href='vr.html#/'">
+                            <i class="fa-solid fa-arrow-right"></i> Explore
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <figure>
+                    <img src="img/1.png">
+                </figure>
+                <div class="content">
+                    <p class="category">
+                        Labs 
+                    </p>
+                    <h2>
+                        AI &amp; EMERGING TECH
+                    </h2>
+                    <p class="description">
+                        Dive into the future with our advanced artificial intelligence, machine learning, and IoT research labs equipped with state-of-the-art tech.
+                    </p>
+                    <div class="more">
+                        <button onclick="window.location.href='vr.html#/zone3'">
+                            <i class="fa-solid fa-arrow-right"></i> Explore
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <figure>
+                    <img src="img/4.png">
+                </figure>
+                <div class="content">
+                    <p class="category">
+                        Discovery 
+                    </p>
+                    <h2>
+                        RESEARCH &amp; INNOVATION
+                    </h2>
+                    <p class="description">
+                        Discover how our dedicated research centers and faculty are driving next-generation technological advancements and publications.
+                    </p>
+                    <div class="more">
+                        <button onclick="window.location.href='vr.html#/zone4'">
+                            <i class="fa-solid fa-arrow-right"></i> Explore
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <figure>
+                    <img src="img/5.png">
+                </figure>
+                <div class="content">
+                    <p class="category">
+                        Partnerships 
+                    </p>
+                    <h2>
+                        INDUSTRY COLLABORATION
+                    </h2>
+                    <p class="description">
+                        Bridging the gap between academia and top global tech corporations through internships, mentorships, and joint projects.
+                    </p>
+                    <div class="more">
+                        <button onclick="window.location.href='vr.html#/zone5'">
+                            <i class="fa-solid fa-arrow-right"></i> Explore
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="arrows">
+            <button id="prev"><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="indicators">
+            <div class="number">02</div>
+            <ul>
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </section>
+
+    
+    <a class="btn-back-home" id="btn-back-home" href="#">
+        <span class="icon-circle"><i class="fa-solid fa-arrow-left"></i></span>
+        Back to Home Page
+    </a>
+
+    <script src="app.js"></script>
+    <script>
+        
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+        });
+
+        
+        document.getElementById('btn-back-home').addEventListener('click', (e) => {
+            e.preventDefault();
+            const overlay = document.querySelector('.transition-overlay');
+            overlay.style.transition = 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)';
+            overlay.style.opacity = '1';
+            overlay.style.pointerEvents = 'all';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 950);
+        });
+    </script>
+</body>
+</html>

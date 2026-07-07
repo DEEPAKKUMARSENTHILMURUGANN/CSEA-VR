@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* PSG Tech Color Palette - Remapped to Zone 2 High-Tech Cyber Dark Theme */
-  --psg-maroon:        #a855f7;  /* Purple */
-  --psg-deep:          #02050d;  /* Global Dark Blue-Black Background */
-  --psg-gold:          #5ef1df;  /* Cyan/Teal */
-  --psg-cream:         transparent;  /* Flowing page background */
-  --psg-charcoal:      #080d19;  /* Translucent card surface */
-  --psg-steel:         #9ca3af;  /* Light gray text */
-  --psg-white:         rgba(12, 18, 35, 0.25); /* Dark high-tech card background */
+  
+  --psg-maroon:        #3b82f6;  
+  --psg-deep:          transparent;  
+  --psg-gold:          #60a5fa;  
+  --psg-cream:         transparent;  
+  --psg-charcoal:      var(--surface);  
+  --psg-steel:         var(--text);  
+  --psg-white:         var(--surface); 
   --psg-muted:         rgba(255, 255, 255, 0.05);
 
-  /* Typography Styles - Remapped to modern display fonts */
-  --font-display:      'Space Grotesk', 'DM Sans', system-ui, sans-serif;
-  --font-sans:         'DM Sans', 'Inter', sans-serif;
+  
+  --font-display:      'Poppins', 'Space Grotesk', system-ui, sans-serif;
+  --font-sans:         'Poppins', 'Inter', sans-serif;
 
-  /* Fluid typography clamp config */
+  
   --text-massive:      clamp(56px, 8vw, 96px);
   --text-display:      clamp(36px, 5vw, 56px);
   --text-title:        clamp(20px, 2.5vw, 28px);
@@ -23,7 +23,7 @@
   --text-small:        13px;
   --text-micro:        11px;
 
-  /* Global Timing Tokens */
+  
   --dur-instant:   80ms;
   --dur-fast:      180ms;
   --dur-base:      320ms;
@@ -37,7 +37,7 @@
   --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Base Theme Utilities mapping to CSS properties */
+
 .fontDisplay {
   font-family: var(--font-display);
 }
@@ -46,14 +46,14 @@
   font-family: var(--font-sans);
 }
 
-/* Color Mappings */
+
 .bgMaroon { background-color: var(--psg-maroon); }
 .bgDeep { background-color: var(--psg-deep); }
 .bgGold { background-color: var(--psg-gold); }
 .bgCream { background-color: var(--psg-cream); }
-.bgCharcoal { background-color: var(--psg-charcoal); }
+.bgCharcoal { background-color: var(--psg-charcoal); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
 .bgSteel { background-color: var(--psg-steel); }
-.bgWhite { background-color: var(--psg-white); }
+.bgWhite { background-color: var(--psg-white); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
 .bgMuted { background-color: var(--psg-muted); }
 
 .textMaroon { color: var(--psg-maroon); }
@@ -67,10 +67,10 @@
 .borderCream { border-color: var(--psg-cream); }
 .borderMuted { border-color: var(--psg-muted); }
 
-/* Accent rule on container */
+
 .borderMaroonLg { border-color: var(--psg-maroon); }
 
-/* Subtle diagonal texture overlay for deep/dark background */
+
 .diagonalTexture {
   position: relative;
 }
@@ -94,7 +94,7 @@
   opacity: 1;
 }
 
-/* Left-Edge Maroon Vertical Rule signature motif */
+
 .signatureCard {
   position: relative;
   overflow: hidden;
@@ -115,7 +115,7 @@
   height: 100%;
 }
 
-/* Hover State for local product cards */
+
 .hoverProductCard {
   transition: transform var(--dur-base) var(--ease-out-soft),
               box-shadow var(--dur-base) var(--ease-out-soft),
@@ -143,7 +143,7 @@
   transition: transform var(--dur-base) var(--ease-spring);
 }
 
-/* Placeholder common styling for easy search & replace */
+
 .placeholderSlot {
   border: 1.5px dashed rgba(123, 28, 46, 0.35);
   border-radius: 6px;
@@ -164,7 +164,7 @@
   transition: transform var(--dur-fast) var(--ease-spring);
 }
 
-/* Page loads & Intersection Observer Anim structures */
+
 .fadeInUp {
   opacity: 0;
   transform: translateY(24px);
@@ -177,7 +177,7 @@
   transform: translateY(0);
 }
 
-/* Stagger heights or widths for specific elements */
+
 .timelineRail {
   position: absolute;
   left: 1rem;
@@ -198,7 +198,7 @@
   height: 100%;
 }
 
-/* Marquee / Infinite horizontal scroll */
+
 .marqueeContainer {
   overflow: hidden;
   position: relative;
@@ -231,7 +231,7 @@
   animation-play-state: paused;
 }
 
-/* Marquee individual item styling */
+
 .marqueeItem {
   width: 140px;
   height: 60px;
@@ -253,7 +253,7 @@
   border-color: var(--psg-maroon);
 }
 
-/* Dividers stats */
+
 .statDivider {
   height: 0%;
   width: 1px;
@@ -264,7 +264,7 @@
   height: 60%;
 }
 
-/* Flow Arrow Connectors Scale Anim */
+
 .flowArrow {
   transform: scaleX(0);
   transform-origin: left;
@@ -274,7 +274,7 @@
   transform: scaleX(1);
 }
 
-/* Theme Button Outlined white */
+
 .btnOutlinedWhite {
   background-color: transparent;
   border: 1px solid var(--psg-white);
@@ -289,7 +289,7 @@
   color: var(--psg-gold);
 }
 
-/* Theme Button Filled Gold */
+
 .btnFilledGold {
   background-color: var(--psg-gold);
   color: var(--psg-deep);
@@ -299,12 +299,12 @@
               transform var(--dur-fast) var(--ease-out-soft);
 }
 .btnFilledGold:hover {
-  background-color: #3bd1be; /* 10% darker teal */
+  background-color: #3bd1be; 
   box-shadow: 0 8px 24px rgba(94, 241, 223, 0.35);
   transform: translateY(-2px);
 }
 
-/* Hero elements pulsing */
+
 @keyframes singlePulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.08); }
@@ -314,7 +314,7 @@
   animation: singlePulse var(--dur-base) var(--ease-in-out);
 }
 
-/* Reduced Motion - Accessible Safeguard */
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -337,7 +337,7 @@
   }
 }
 
-/* HIGH END ADVANCED VISUAL UPGRADES */
+
 .heroBase {
   background-color: var(--psg-deep);
   position: relative;
@@ -411,7 +411,7 @@
 .mouCard {
   position: relative;
 }
-/* Top-right decorative corner bracket — architectural premium accent */
+
 .mouCard::before {
   content: '';
   position: absolute;
@@ -425,7 +425,7 @@
   pointer-events: none;
   transition: border-color 0.3s ease;
 }
-/* Inner corner bracket — offset inward for double-frame effect */
+
 .mouCard::after {
   content: '';
   position: absolute;
@@ -491,7 +491,7 @@
   margin-top: -1px;
 }
 
-/* Custom advanced layout for product card hover tilt rotate */
+
 .productCardHoverUpgraded {
   transition: transform var(--dur-base) var(--ease-out-soft),
               box-shadow var(--dur-base) var(--ease-out-soft);

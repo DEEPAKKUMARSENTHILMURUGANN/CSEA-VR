@@ -10,7 +10,7 @@ export function CTABlock() {
     <section
       id="cta-block"
       ref={ref}
-      className={`bgMaroon text-white text-center relative overflow-hidden`}
+      className={`bg-blue-600 text-white text-center relative overflow-hidden rounded-[3rem] mx-6 md:mx-12 mb-24 shadow-2xl`}
       style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
@@ -29,7 +29,7 @@ export function CTABlock() {
 
         {/* Animated Subtitle */}
         <p
-          className={`text-white/75 text-base md:text-lg max-w-2xl leading-relaxed mt-3 mb-12 transition-all duration-[1200ms] transform ${
+          className={`text-blue-100 text-base md:text-lg max-w-2xl leading-relaxed mt-3 mb-12 transition-all duration-[1200ms] transform ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
           }`}
           style={{
@@ -45,7 +45,7 @@ export function CTABlock() {
           
           {/* Button 1: Explore MOU Opportunities (Outlined White) */}
           <button
-            className={`px-6 py-3.5 rounded font-bold text-xs uppercase tracking-wider flex items-center gap-2 ${styles.btnOutlinedWhite} transition-all duration-[500ms] transform ${
+            className={`px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all duration-[500ms] transform ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[12px]'
             }`}
             style={{
@@ -59,7 +59,7 @@ export function CTABlock() {
 
           {/* Button 2: View Student Talent Pool (Filled Gold, color primary/deep #080008) */}
           <button
-            className={`px-6 py-3.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-2 bg-[var(--psg-gold)] text-[var(--psg-deep)] hover:bg-[var(--psg-gold)]/80 hover:scale-[1.02] hover:shadow-lg transition-all duration-[500ms] transform ${
+            className={`px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 bg-white text-blue-600 hover:bg-slate-50 hover:scale-[1.02] hover:shadow-lg transition-all duration-[500ms] transform ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[12px]'
             }`}
             style={{
@@ -74,7 +74,7 @@ export function CTABlock() {
           {/* Button 3: Contact the Department */}
           <a
             href="mailto:hod.cse@psgtech.ac.in"
-            className={`px-6 py-3.5 rounded border border-dashed border-white/20 text-xs font-bold uppercase tracking-wider text-white bg-white/[0.03] hover:bg-white/[0.08] hover:border-[var(--psg-gold)] transition-all duration-[500ms] transform flex items-center gap-2`}
+            className={`px-6 py-3.5 rounded-xl border border-dashed border-white/40 text-xs font-bold uppercase tracking-wider text-white bg-transparent hover:bg-white/10 hover:border-white transition-all duration-[500ms] transform flex items-center gap-2`}
             style={{
               transitionDelay: isVisible ? '300ms' : '0ms',
               opacity: isVisible ? 1 : 0,

@@ -16,7 +16,7 @@ export function useCountUp(target, duration = 1800, startOnView = true) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        // Ease-out cubic
+        
         const eased = 1 - Math.pow(1 - progress, 3);
         setCount(Math.floor(eased * target));
 
@@ -30,7 +30,7 @@ export function useCountUp(target, duration = 1800, startOnView = true) {
       requestAnimationFrame(tick);
     };
 
-    // If an element is being tracked via ref, use internal observer
+    
     if (ref.current) {
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -44,7 +44,7 @@ export function useCountUp(target, duration = 1800, startOnView = true) {
       observer.observe(ref.current);
       return () => observer.disconnect();
     } else if (startOnView) {
-      // If no ref but startOnView is true (triggered externally), start immediately
+      
       startAnimation();
     }
   }, [hasRun, target, duration, startOnView]);

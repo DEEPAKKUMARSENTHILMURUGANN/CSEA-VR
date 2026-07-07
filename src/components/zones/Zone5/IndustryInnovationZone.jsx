@@ -7,84 +7,46 @@ import { MOUTimeline } from './MOUTimeline';
 import { StartupPipeline } from './StartupPipeline';
 import { PartnerLogoWall } from './PartnerLogoWall';
 import { CTABlock } from './CTABlock';
-import OrbsBg from '../../ui/bgs/OrbsBg';
 import psgLogo from './assets/psg logo.png';
-import styles from '../../../components-css/industry.module.css';
 
 export default function IndustryInnovationZone() {
   return (
-    <div className={`min-h-screen bg-[#02050d] text-[#9ca3af] ${styles.fontSans} antialiased selection:bg-[var(--psg-maroon)] selection:text-white`} style={{ position: 'relative', isolation: 'isolate' }}>
-      <OrbsBg />
-      {/* Top Institutional Header Bar */}
-
-
-      {/* Main Zone layout blocks */}
-      <main>
-        {/* Section 1 : Hero walkthrough and headline */}
+    <div className="min-h-screen bg-slate-50/50 w-full overflow-x-hidden font-sans antialiased selection:bg-blue-200">
+      <main className="max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col gap-24">
         <HeroBanner />
-
-        {/* Section 2 : Impact count statistics */}
         <ImpactNumbers />
-
-        {/* Diagonal transition from Impact stats (black var(--psg-deep)) down to ProductCards (light) */}
-        <div className="h-[60px] bg-transparent relative overflow-hidden">
-          <div
-            className={`${styles.sectionDividerDiagonalLeft} absolute inset-x-0 top-0`}
-            style={{ backgroundColor: 'var(--psg-deep)' }}
-          />
-        </div>
-
-        {/* Section 3 : Commercialised systems product cards */}
         <ProductCards />
-
-        {/* Section 4 : Centre of excellence on assistive devices */}
         <CoESection />
-
-        {/* Section 5 : Memorandums of Understanding ledger timeline */}
         <MOUTimeline />
-
-        {/* Section 6 : Incubation flow startup pipeline */}
         <StartupPipeline />
-
-        {/* Diagonal transition from Startup dark block (var(--psg-charcoal)) down to PartnerLogoWall (light cream) */}
-        <div className="h-[60px] bg-[var(--psg-cream)] relative overflow-hidden">
-          <div
-            className={`${styles.sectionDividerDiagonalRight} absolute inset-x-0 top-0`}
-            style={{ backgroundColor: 'var(--psg-charcoal)' }}
-          />
-        </div>
-
-        {/* Section 7 : Endless marquee logo wall */}
         <PartnerLogoWall />
-
-        {/* Section 8 : CTA connective trigger pane */}
         <CTABlock />
       </main>
 
-      {/* Institutional Footer Block */}
-      <footer className={`${styles.bgCharcoal} text-white border-t-4 border-[var(--psg-maroon)] py-16`} style={{ paddingLeft: '5%', paddingRight: '5%' }}>
+      {/* Modern Light Footer */}
+      <footer className="bg-white border-t border-slate-200 py-16 px-6 md:px-12 mt-12 shadow-[0_-10px_40px_rgba(0,0,0,0.02)]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
           {/* Logo Column */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className={`w-8 h-8 rounded flex items-center justify-center bg-white overflow-hidden p-0.5`}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-slate-50 border border-slate-100 shadow-sm p-1">
                 <img src={psgLogo} alt="PSG Tech Logo" className="w-full h-full object-contain" />
               </div>
-              <span className={`${styles.fontDisplay} text-lg font-bold tracking-tight text-white`}>
+              <span className="text-xl font-black tracking-tight text-slate-800">
                 PSG TECH CSE
               </span>
             </div>
-            <p className={`${styles.fontSans} text-[rgba(255,255,255,0.45)] text-xs leading-relaxed max-w-sm`}>
+            <p className="text-slate-500 font-medium text-sm leading-relaxed max-w-sm">
               Bridging computing education and direct regional product development. Operating from Coimbatore, India since 1951.
             </p>
           </div>
 
           {/* Quick Info */}
           <div>
-            <h4 className={`${styles.fontSans} text-xs font-bold tracking-widest text-[var(--psg-gold)] uppercase mb-4`}>
+            <h4 className="text-xs font-black tracking-widest text-slate-400 uppercase mb-4 font-mono">
               Location Info
             </h4>
-            <address className={`${styles.fontSans} text-[rgba(255,255,255,0.45)] text-xs not-italic leading-relaxed`}>
+            <address className="text-slate-600 font-medium text-sm not-italic leading-relaxed">
               Zone 6 & 7 — Innovation Experience Centre (IEC)<br />
               GRD Block, First Floor<br />
               PSG College of Technology, Peelamedu<br />
@@ -94,13 +56,13 @@ export default function IndustryInnovationZone() {
 
           {/* Institutional Compliance Links */}
           <div>
-            <h4 className={`${styles.fontSans} text-xs font-bold tracking-widest text-[var(--psg-gold)] uppercase mb-4`}>
+            <h4 className="text-xs font-black tracking-widest text-slate-400 uppercase mb-4 font-mono">
               Showcase Registry
             </h4>
-            <p className={`${styles.fontSans} text-[rgba(255,255,255,0.45)] text-xs leading-relaxed mb-4`}>
+            <p className="text-slate-600 font-medium text-sm leading-relaxed mb-4">
               This registry forms Section 6 & 7 of the IEC portfolio representing joint ventures with Agna Inc, Red Hat, DST, and PSG Hospitals.
             </p>
-            <div className="text-[10px] uppercase font-bold tracking-wider text-[var(--psg-steel)]">
+            <div className="text-[10px] uppercase font-bold tracking-wider text-slate-400 font-mono">
               © 2026 PSG Tech CSE. All rights reserved.
             </div>
           </div>

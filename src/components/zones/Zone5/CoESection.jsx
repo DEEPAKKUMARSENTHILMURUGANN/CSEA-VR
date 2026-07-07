@@ -9,7 +9,7 @@ export function CoESection() {
   return (
     <section
       ref={ref}
-      className={`bg-[var(--psg-cream)]/50 overflow-hidden`}
+      className={`bg-transparent overflow-hidden`}
       style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -28,14 +28,14 @@ export function CoESection() {
           </div>
 
           <h2
-            className="text-[var(--psg-maroon)] text-3xl sm:text-4xl md:text-[40px] font-black uppercase tracking-tight mb-6 leading-none"
+            className="text-slate-900 text-3xl sm:text-4xl md:text-[40px] font-black uppercase tracking-tight mb-6 leading-none"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Assistive Technologies Lab
           </h2>
 
           <p
-            className={`${styles.fontSans} text-[var(--psg-steel)] text-base md:text-lg leading-relaxed mb-8`}
+            className={`${styles.fontSans} text-slate-600 text-base md:text-lg leading-relaxed mb-8`}
           >
             Established with sponsorship from the Department of Science & Technology and PSG Institute of Medical Research, this centre focuses entirely on product development for underserved communities — the elderly, the differently-abled, and rural healthcare recipients.
           </p>
@@ -52,12 +52,12 @@ export function CoESection() {
               }}
             >
               {/* Gold dot */}
-              <div className="w-1.5 h-1.5 rounded-full bg-[var(--psg-gold)] mt-2 flex-shrink-0"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 flex-shrink-0"></div>
               <div>
-                <h4 className={`${styles.fontSans} text-sm font-bold text-white uppercase tracking-wide`}>
+                <h4 className={`${styles.fontSans} text-sm font-bold text-slate-900 uppercase tracking-wide`}>
                   DST Research Grant Recipient
                 </h4>
-                <p className={`${styles.fontSans} text-xs text-[var(--psg-steel)] mt-1`}>
+                <p className={`${styles.fontSans} text-xs text-slate-600 mt-1`}>
                   Secured national-tier federal sponsorship for applied biomedical and cyber-physical engineering.
                 </p>
               </div>
@@ -73,12 +73,12 @@ export function CoESection() {
               }}
             >
               {/* Gold dot */}
-              <div className="w-1.5 h-1.5 rounded-full bg-[var(--psg-gold)] mt-2 flex-shrink-0"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 flex-shrink-0"></div>
               <div>
-                <h4 className={`${styles.fontSans} text-sm font-bold text-white uppercase tracking-wide`}>
+                <h4 className={`${styles.fontSans} text-sm font-bold text-slate-900 uppercase tracking-wide`}>
                   3 Products Deployed in Real Clinical Settings
                 </h4>
-                <p className={`${styles.fontSans} text-xs text-[var(--psg-steel)] mt-1`}>
+                <p className={`${styles.fontSans} text-xs text-slate-600 mt-1`}>
                   Engineered systems undergo active validation inside PSG Hospitalswards with real clinical feedback loops.
                 </p>
               </div>
@@ -96,7 +96,7 @@ export function CoESection() {
             transitionTimingFunction: 'var(--ease-out-expo)'
           }}
         >
-          <div className="bg-white/[0.02] p-4 rounded-xl border border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:shadow-xl transition-all duration-300">
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300">
             {/* 400x300 container with actual image */}
             <img
               src={centreOfExcellenceImg}
@@ -105,7 +105,7 @@ export function CoESection() {
             />
             {/* Caption in 12px steel */}
             <div className="mt-4 text-center">
-              <span className={`${styles.fontSans} text-xs text-[var(--psg-steel)]/70 font-semibold uppercase tracking-widest block`}>
+              <span className={`${styles.fontSans} text-xs text-slate-500 font-semibold uppercase tracking-widest block`}>
                 Centre of Excellence on Assistive Technologies — PSG CSE
               </span>
             </div>

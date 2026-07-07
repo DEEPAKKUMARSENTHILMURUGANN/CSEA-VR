@@ -1,46 +1,43 @@
-/* ===============================
-   RESEARCH & INNOVATION CORNER
-   Zone 4 — Full Width, No Emojis
-   =============================== */
 
-/* ── Root Variables ── */
+
+
 :root {
   --z4-bg: transparent;
   --z4-surface: transparent;
-  --z4-card-bg: rgba(12, 18, 35, 0.25);
-  --z4-border: rgba(255, 255, 255, 0.05);
-  --z4-text: #e2e8f0;
-  --z4-text-muted: #94a3b8;
-  --z4-text-dim: #64748b;
-  --z4-accent-1: #a855f7;
-  --z4-accent-2: #5ef1df;
+  --z4-card-bg: var(--surface);
+  --z4-border: var(--glass-border);
+  --z4-text: var(--text-h);
+  --z4-text-muted: var(--text);
+  --z4-text-dim: rgba(255, 255, 255, 0.4);
+  --z4-accent-1: var(--accent);
+  --z4-accent-2: var(--accent-secondary);
   --z4-accent-3: #3b82f6;
   --z4-accent-4: #f59e0b;
   --z4-radius: 16px;
   --z4-radius-sm: 10px;
 }
 
-/* ── Reset body margins for full width ── */
+
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-/* ── Main Section ── */
+
 .z4-root {
   min-height: 100vh;
-  width: 100%;
-  background: #02050d;
+  width: 100vw;
+  max-width: 100%;
+  background: var(--z4-bg);
   color: var(--z4-text);
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: var(--sans);
   position: relative;
-  z-index: 0;
-  isolation: isolate;
   overflow-x: hidden;
+  box-sizing: border-box;
 }
 
-/* Animated background grid */
+
 .z4-root::before {
   content: '';
   position: fixed;
@@ -53,7 +50,7 @@ html, body {
   z-index: 0;
 }
 
-/* ── Content Wrapper - FULL WIDTH ── */
+
 .z4-content {
   position: relative;
   z-index: 1;
@@ -64,7 +61,7 @@ html, body {
   box-sizing: border-box;
 }
 
-/* ── View transitions ── */
+
 .z4-view {
   animation: z4FadeSlideUp 0.5s ease-out forwards;
 }
@@ -74,7 +71,7 @@ html, body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── HERO / HEADER ── */
+
 .z4-hero {
   text-align: center;
   padding: 50px 0 40px;
@@ -144,14 +141,14 @@ html, body {
   font-weight: 600;
 }
 
-/* ── DIVIDER ── */
+
 .z4-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(94, 241, 223, 0.3) 30%, rgba(168, 85, 247, 0.3) 70%, transparent);
   margin: 10px 0 50px;
 }
 
-/* ── CATEGORY GRID ── */
+
 .z4-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -163,18 +160,19 @@ html, body {
   .z4-grid { grid-template-columns: 1fr; }
 }
 
-/* ── CATEGORY CARD ── */
+
 .z4-card {
   position: relative;
   background: var(--z4-card-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--z4-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--z4-border);
   border-radius: var(--z4-radius);
   padding: 32px 28px 28px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   overflow: hidden;
+  box-shadow: var(--glass-shadow);
 }
 
 .z4-card::before {
@@ -192,12 +190,13 @@ html, body {
 .z4-card:hover::before { opacity: 1; }
 
 .z4-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
   border-color: var(--z4-acc);
-  box-shadow: 0 20px 60px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 50px rgba(139, 92, 246, 0.15);
+  background: var(--surface-hover);
 }
 
-/* Card accent colors - Matched to Zone 2's category palette */
+
 .z4-card[data-accent="web"] {
   --z4-acc: #10b981;
   --z4-acc-light: rgba(16, 185, 129, 0.3);
@@ -215,7 +214,7 @@ html, body {
   --z4-acc-light: rgba(245, 158, 11, 0.3);
 }
 
-/* Card icon box */
+
 .z4-card-icon {
   width: 56px;
   height: 56px;
@@ -289,7 +288,7 @@ html, body {
   transition: transform 0.3s;
 }
 
-/* ── CATEGORY DETAIL VIEW ── */
+
 .z4-category-header {
   margin-bottom: 40px;
 }
@@ -365,7 +364,7 @@ html, body {
   color: var(--z4-text-dim);
 }
 
-/* ── PROJECT LIST ── */
+
 .z4-project-list {
   display: flex;
   flex-direction: column;
@@ -466,7 +465,7 @@ html, body {
   color: var(--z4-text-muted);
 }
 
-/* ── PROJECT DETAIL VIEW ── */
+
 .z4-project-detail {
   background: var(--z4-card-bg);
   backdrop-filter: blur(20px);
@@ -532,7 +531,7 @@ html, body {
   background: rgba(255, 255, 255, 0.03);
 }
 
-/* Project detail sections */
+
 .z4-pd-section {
   margin-bottom: 28px;
 }
@@ -613,7 +612,7 @@ html, body {
   color: var(--z4-text-dim);
 }
 
-/* Empty state */
+
 .z4-empty {
   text-align: center;
   padding: 60px 20px;
@@ -631,7 +630,7 @@ html, body {
   margin: 0;
 }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 768px) {
   .z4-content { padding: 20px 20px 60px; }
   .z4-card { padding: 24px 20px; }

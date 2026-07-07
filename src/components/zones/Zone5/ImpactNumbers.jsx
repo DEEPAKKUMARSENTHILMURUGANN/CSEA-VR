@@ -27,18 +27,18 @@ export function ImpactNumbers() {
     <section
       ref={ref}
       className="relative w-full overflow-hidden"
-      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%', backgroundColor: 'var(--psg-charcoal)' }}
+      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%', backgroundColor: 'transparent' }}
     >
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         {/* Centered Heading */}
         <div className="text-center mb-24">
           <h2
-            className="text-white text-4xl sm:text-5xl font-black uppercase tracking-tight mb-4"
+            className="text-slate-900 text-4xl sm:text-5xl font-black uppercase tracking-tight mb-4"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Our Strength
           </h2>
-          <div className="w-[48px] h-[1px] bg-[var(--psg-gold)] opacity-40 mx-auto" />
+          <div className="w-[48px] h-[1px] bg-blue-600 opacity-40 mx-auto" />
         </div>
 
         {/* 6 stats in custom responsive grid */}
@@ -59,11 +59,11 @@ export function ImpactNumbers() {
                 }}
               >
                 {/* Horizontal / Vertical mini rule above the count */}
-                <div className="w-8 h-[2px] bg-[var(--psg-gold)] opacity-35 mb-4" />
+                <div className="w-8 h-[2px] bg-blue-600 opacity-35 mb-4" />
 
                 {/* Stat Display Block */}
                 <div
-                  className="text-7xl font-black text-[var(--psg-gold)] tracking-tight leading-none"
+                  className="text-7xl font-black text-blue-600 tracking-tight leading-none drop-shadow-sm"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
                   {stat.prefix || ''}
@@ -73,7 +73,7 @@ export function ImpactNumbers() {
 
                 {/* Tracking Label */}
                 <span
-                  className="font-medium text-xs text-white/50 uppercase tracking-[0.1em] mt-3"
+                  className="font-bold text-xs text-slate-500 uppercase tracking-[0.1em] mt-3"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {stat.label}

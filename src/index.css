@@ -1,22 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;550;700&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;550;700&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --bg: #030712;
-  --bg-dots: rgba(255, 255, 255, 0.03);
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --border: rgba(31, 41, 55, 0.6);
-  --accent: #5ef1df;
-  --accent-secondary: #a855f7;
-  --accent-light: rgba(94, 241, 223, 0.08);
-  --surface: rgba(17, 24, 39, 0.6);
-  --surface-strong: rgba(31, 41, 55, 0.35);
-  --muted: #6b7280;
+  /* Core Theme Colors */
+  --bg: #ffffff; /* Crisp white background */
+  --bg-dots: rgba(0, 0, 0, 0.05);
+  --text: #475569; /* Slate 600 for secondary text */
+  --text-h: #0f172a; /* Slate 900 for headings */
+  --border: rgba(0, 0, 0, 0.08);
+  
+  /* Vibrant Accents */
+  --accent: #2563eb; /* Vibrant Blue */
+  --accent-secondary: #0ea5e9; /* Light Blue */
+  --accent-light: rgba(37, 99, 235, 0.1);
+  
+  /* Glassmorphism Surfaces */
+  --surface: rgba(255, 255, 255, 0.7); /* White semi-transparent */
+  --surface-strong: rgba(255, 255, 255, 0.95);
+  --surface-hover: rgba(248, 250, 252, 0.8); /* Slate 50 */
+  --muted: rgba(0, 0, 0, 0.4);
 
-  --sans: 'DM Sans', system-ui, sans-serif;
-  --display: 'Space Grotesk', system-ui, sans-serif;
+  /* Typography */
+  --sans: 'Inter', 'Poppins', system-ui, sans-serif;
+  --display: 'Space Grotesk', 'Poppins', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
+
+  /* Utility */
+  --glass-blur: blur(16px);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,8 +40,8 @@ body {
   margin: 0;
   background-color: var(--bg);
   background-image: 
-    radial-gradient(var(--bg-dots) 1.5px, transparent 1.5px),
-    radial-gradient(rgba(100, 116, 139, 0.12) 2px, transparent 2px);
+    radial-gradient(var(--bg-dots) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.02) 2px, transparent 2px);
   background-size: 24px 24px, 120px 120px;
   background-position: 0 0, 40px 40px;
   color: var(--text);
@@ -45,7 +57,7 @@ body {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
