@@ -211,8 +211,8 @@ const CategoryPage = ({ category, onProjectClick }) => {
   });
 
   return (
-    <div className="flex flex-col gap-10 w-full" style={{ paddingBottom: '5rem' }}>
-      <div className="p-8 md:p-12 rounded-3xl border border-white/[0.04] relative overflow-hidden bg-gradient-to-r from-[#0c0f1d]/30 to-black/10 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+    <div className="flex flex-col gap-12 w-full" style={{ paddingBottom: '5rem' }}>
+      <div className="p-10 md:p-14 rounded-3xl border border-white/[0.04] relative overflow-hidden bg-gradient-to-r from-[#0c0f1d]/30 to-black/10 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
         <div className="absolute right-0 top-0 bottom-0 w-96 h-full blur-3xl opacity-20 pointer-events-none" style={{ background: `radial-gradient(circle, ${category.accentColor} 0%, transparent 100%)` }} />
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10 w-full">
           <div className="flex items-center gap-6">
@@ -229,7 +229,7 @@ const CategoryPage = ({ category, onProjectClick }) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 p-6 rounded-3xl border border-white/[0.04] bg-[#0c1222]/15 backdrop-blur-md">
+      <div className="flex flex-col gap-6 p-7 rounded-3xl border border-white/[0.04] bg-[#0c1222]/15 backdrop-blur-md">
         <div className="flex flex-col md:flex-row gap-4 items-center w-full">
           <div className="relative flex-grow w-full">
             <Search className="absolute left-4 top-3.5 w-4 h-4 text-gray-400" />
@@ -273,11 +273,11 @@ const CategoryPage = ({ category, onProjectClick }) => {
         )}
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-5">
         <AnimatePresence mode="popLayout">
           {filteredProjects.length > 0 ? (
             filteredProjects.map((proj, i) => (
-              <div key={proj.name} onClick={() => onProjectClick(proj)} className="w-full bg-[#0a0e1c]/15 hover:bg-[#0a0e1c]/40 border border-white/[0.04] hover:border-[#5ef1df]/30 rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 text-left transition-all duration-300 group cursor-pointer relative overflow-hidden">
+              <div key={proj.name} onClick={() => onProjectClick(proj)} className="w-full bg-[#0a0e1c]/15 hover:bg-[#0a0e1c]/40 border border-white/[0.04] hover:border-[#5ef1df]/30 rounded-3xl p-7 md:p-9 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 text-left transition-all duration-300 group cursor-pointer relative overflow-hidden">
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-[#5ef1df] transition-all" />
                 <div className="flex items-center gap-6 min-w-0 flex-grow">
                   <span className="text-base font-black font-mono text-gray-700 w-6 group-hover:text-[#5ef1df] transition-colors duration-300 hidden md:inline">{String(i + 1).padStart(2, '0')}</span>

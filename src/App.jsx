@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import { Clock } from "lucide-react";
 
+import Zone1 from "./components/zones/Zone1/Zone1";
 import Zone2_StudentInnovationGallery from "./components/zones/Zone2_StudentInnovationGallery/Zone2";
 import Zone3 from "./components/zones/Zone3/Zone3";
 import TechnologyPage from "./components/zones/Zone3/Technologypage";
@@ -11,65 +12,199 @@ import Zone5 from "./components/zones/Zone5/Zone5";
 
 import "./App.css";
 
-export default function App() {
-  const [systemTime, setSystemTime] = useState("");
+const NAV_LINKS = [
+  { label: "Zone 1", to: "/zone1", match: "/zone1" },
+  { label: "Zone 2", to: "/",      match: "/" },
+  { label: "Zone 3", to: "/zone3", match: "/zone3" },
+  { label: "Zone 4", to: "/zone4", match: "/zone4" },
+  { label: "Zone 5", to: "/zone5", match: "/zone5" },
+];
+
+function NavBar() {
+  const { pathname } = useLocation();
+  const [time, setTime] = useState("");
 
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setSystemTime(
-        now.toLocaleString("en-US", {
+    const tick = () =>
+      setTime(
+        new Date().toLocaleString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
           hour12: false,
         })
       );
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
   }, []);
 
+  const isActive = (match) => {
+    if (match === "/") return pathname === "/";
+    return pathname.startsWith(match);
+  };
+
+  return (
+    <header
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 40,
+        height: "64px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 2rem",
+        borderBottom: "1px solid rgba(255,255,255,0.05)",
+        background: "rgba(3,7,18,0.85)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+      }}
+    >
+      {/* Brand */}
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div
+          style={{
+            width: "36px",
+            height: "36px",
+            borderRadius: "10px",
+            background: "linear-gradient(135deg, #5ef1df, #3b82f6, #a855f7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "10px",
+            fontWeight: 900,
+            color: "#000",
+            letterSpacing: "-0.5px",
+            flexShrink: 0,
+          }}
+        >
+          PSG
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <span
+            style={{
+              fontSize: "12px",
+              fontWeight: 800,
+              color: "#f3f4f6",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              lineHeight: 1,
+            }}
+          >
+            PSG College of Technology
+          </span>
+          <span
+            style={{
+              fontSize: "9px",
+              fontWeight: 700,
+              color: "#5ef1df",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              fontFamily: "monospace",
+              lineHeight: 1,
+            }}
+          >
+            Dept. of Computer Science &amp; Engineering
+          </span>
+        </div>
+      </div>
+
+      {/* Nav links */}
+      <nav style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+        {NAV_LINKS.map(({ label, to, match }) => {
+          const active = isActive(match);
+          return (
+            <Link
+              key={to}
+              to={to}
+              style={{
+                position: "relative",
+                padding: "6px 14px",
+                borderRadius: "8px",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.07em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                transition: "color 0.2s, background 0.2s",
+                color: active ? "#5ef1df" : "#6b7280",
+                background: active ? "rgba(94,241,223,0.08)" : "transparent",
+                border: active ? "1px solid rgba(94,241,223,0.18)" : "1px solid transparent",
+              }}
+              onMouseEnter={(e) => {
+                if (!active) {
+                  e.currentTarget.style.color = "#d1d5db";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!active) {
+                  e.currentTarget.style.color = "#6b7280";
+                  e.currentTarget.style.background = "transparent";
+                }
+              }}
+            >
+              {label}
+              {active && (
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: "-1px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "16px",
+                    height: "2px",
+                    borderRadius: "1px",
+                    background: "#5ef1df",
+                  }}
+                />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Clock */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          padding: "6px 14px",
+          borderRadius: "8px",
+          border: "1px solid rgba(255,255,255,0.06)",
+          background: "rgba(255,255,255,0.02)",
+        }}
+      >
+        <Clock size={13} style={{ color: "#5ef1df" }} />
+        <span
+          style={{
+            fontSize: "11px",
+            fontWeight: 700,
+            color: "#e5e7eb",
+            fontFamily: "monospace",
+            letterSpacing: "0.05em",
+          }}
+        >
+          {time} <span style={{ color: "#6b7280" }}>IST</span>
+        </span>
+      </div>
+    </header>
+  );
+}
+
+export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#02050d] text-[#9ca3af] relative font-sans flex flex-col antialiased">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-[#10b981]/5 to-transparent blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-[#a855f7]/5 to-transparent blur-3xl pointer-events-none" />
-
-        <header className="h-20 border-b border-white/[0.04] bg-[#02050d]/80 backdrop-blur-xl px-8 flex items-center justify-between z-40 sticky top-0 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#5ef1df] via-[#3b82f6] to-[#a855f7] flex items-center justify-center text-black font-black text-xs tracking-tighter shadow-lg">
-              PSG
-            </div>
-            <div className="flex flex-col">
-              <h1 className="text-sm font-black text-white tracking-widest leading-none uppercase">
-                PSG College of Technology
-              </h1>
-              <span className="text-[9px] font-mono tracking-widest text-[#5ef1df] uppercase mt-2 font-bold">
-                Department of Computer Science & Engineering
-              </span>
-            </div>
-          </div>
-
-          <div className="flex bg-white/[0.03] p-1 rounded-xl border border-white/5 gap-2">
-            <Link to="/" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 2</Link>
-            <Link to="/zone3" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 3</Link>
-            <Link to="/zone4" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 4</Link>
-            <Link to="/zone5" className="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5">Zone 5</Link>
-          </div>
-
-          <div className="flex items-center gap-2 text-xs font-mono text-gray-400 bg-white/[0.02] border border-white/[0.04] px-4 py-2 rounded-xl shadow-lg">
-            <Clock className="w-4 h-4 text-[#5ef1df] animate-pulse" />
-            <span className="text-white font-bold">
-              {systemTime} IST
-            </span>
-          </div>
-        </header>
-
-        <div className="flex-grow w-full">
+      <div
+        className="min-h-screen font-sans antialiased"
+        style={{ background: "#030712", color: "#9ca3af" }}
+      >
+        <NavBar />
+        <main>
           <Routes>
+            <Route path="/zone1" element={<Zone1 />} />
             <Route path="/" element={<Zone2_StudentInnovationGallery />} />
             <Route path="/zone3" element={<Zone3 />} />
             <Route path="/technology/:slug" element={<TechnologyPage />} />
@@ -77,7 +212,7 @@ export default function App() {
             <Route path="/zone4" element={<Zone4 />} />
             <Route path="/zone5" element={<Zone5 />} />
           </Routes>
-        </div>
+        </main>
       </div>
     </BrowserRouter>
   );

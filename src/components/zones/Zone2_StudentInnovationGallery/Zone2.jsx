@@ -134,7 +134,7 @@ const Zone2 = () => {
   const featuredProject = flatFeaturedList[activePromoIndex] || flatFeaturedList[0];
 
   return (
-    <div className="w-full text-gray-200" style={{ paddingTop: '2rem', paddingBottom: '5rem', paddingLeft: '5%', paddingRight: '5%' }}>
+    <div className="w-full text-gray-200" style={{ paddingTop: '3.5rem', paddingBottom: '6rem', paddingLeft: '5%', paddingRight: '5%' }}>
       <div className="max-w-7xl mx-auto w-full">
         <AnimatePresence mode="wait">
           {view !== 'home' && (
@@ -179,8 +179,8 @@ const Zone2 = () => {
 
         <AnimatePresence mode="wait">
           {view === 'home' && (
-            <motion.div key="home" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} className="flex flex-col gap-10 w-full">
-              <div className="flex flex-col items-center text-center gap-6 pb-6 border-b border-white/[0.04]">
+            <motion.div key="home" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} className="flex flex-col gap-16 w-full">
+              <div className="flex flex-col items-center text-center gap-8 pb-10 border-b border-white/[0.04]">
                 <div className="flex flex-col items-center gap-3 max-w-3xl">
                   <div className="flex items-center gap-2 justify-center">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#5ef1df] animate-pulse" />
@@ -195,7 +195,7 @@ const Zone2 = () => {
                   </p>
                 </div>
 
-                <div className="flex gap-12 font-mono justify-center mt-2">
+                <div className="flex gap-16 font-mono justify-center mt-4">
                   <div className="flex flex-col items-center">
                     <span className="text-4xl font-extrabold text-[#5ef1df]">{totalProjects}</span>
                     <span className="text-[9px] text-[#6b7280] uppercase tracking-wider font-bold mt-2">Active Exhibits</span>
@@ -222,7 +222,7 @@ const Zone2 = () => {
                   </div>
 
                   <AnimatePresence mode="wait">
-                    <motion.div key={featuredProject.name} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => handleProjectClick(featuredProject)} className="group relative rounded-3xl border border-white/[0.05] bg-[#0c1223]/25 hover:bg-[#0c1223]/40 p-8 md:p-10 flex flex-col gap-6 items-center cursor-pointer transition-all duration-500 overflow-hidden shadow-2xl text-center">
+                    <motion.div key={featuredProject.name} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => handleProjectClick(featuredProject)} className="group relative rounded-3xl border border-white/[0.05] bg-[#0c1223]/25 hover:bg-[#0c1223]/40 p-10 md:p-14 flex flex-col gap-8 items-center cursor-pointer transition-all duration-500 overflow-hidden shadow-2xl text-center">
                       <div className="flex flex-col items-center gap-3 w-full">
                         <div className="flex items-center gap-2 justify-center">
                           <span className="text-2xl bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl">{featuredProject.icon}</span>
@@ -310,14 +310,14 @@ const Zone2 = () => {
                 </AnimatePresence>
               </div>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-8">
                 <div className="flex flex-col items-center gap-2">
                   <h2 className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400 flex items-center gap-2">
                     <Zap className="w-3.5 h-3.5 text-[#5ef1df]" /> DIRECT SELECTION TRACKS
                   </h2>
                   <p className="text-[10px] text-gray-600 font-mono">Browse all 4 research segments and explore registered projects</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {CATEGORIES.map((cat) => (
                     <motion.button
                       key={cat.id}
@@ -325,13 +325,13 @@ const Zone2 = () => {
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleCategoryClick(cat)}
                       className="group relative rounded-2xl border border-white/[0.06] bg-[#090d16]/60 hover:bg-[#0c1223]/80 hover:border-white/[0.12] text-center flex flex-col cursor-pointer overflow-hidden transition-all duration-400 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
-                      style={{ minHeight: '280px' }}
+                      style={{ minHeight: '300px' }}
                     >
                       {/* Top accent bar */}
                       <div className="h-[3px] w-full" style={{ backgroundColor: cat.accentColor }} />
 
                       {/* Card body */}
-                      <div className="flex flex-col items-center flex-grow gap-4 px-5 pt-7 pb-5">
+                      <div className="flex flex-col items-center flex-grow gap-5 px-6 pt-9 pb-6">
                         {/* Icon */}
                         <div
                           className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg border border-white/[0.06]"
