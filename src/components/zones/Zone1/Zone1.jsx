@@ -1,0 +1,158 @@
+import React, { useState, useEffect } from 'react';
+import './Zone1.css';
+
+const eventDatabase = [
+    {
+        id: '001',
+        category: 'Hackathon',
+        title: 'CODE SPRINT 2026',
+        topic: 'Code Sprint',
+        description: 'Join the ultimate 24-hour hackathon hosted by the CSE department. Build innovative solutions, win exciting cash prizes, and get noticed by top tech recruiters!',
+        specifications: [
+            { label: 'Duration', value: '24 hours' },
+            { label: 'Team Size', value: '3-4' },
+            { label: 'Prize Pool', value: '₹1,00,000' }
+        ]
+    },
+    {
+        id: '002',
+        category: 'Guest Lecture',
+        title: 'AI IN CYBERSECURITY',
+        topic: 'Cyber AI',
+        description: 'An exclusive session by industry experts on how AI is revolutionizing threat detection and ethical hacking. Open to all students.',
+        specifications: [
+            { label: 'Duration', value: '2 hours' },
+            { label: 'Format', value: 'Offline' },
+            { label: 'Certificate', value: 'Yes' }
+        ]
+    },
+    {
+        id: '003',
+        category: 'Workshop',
+        title: 'WEB3 & BLOCKCHAIN',
+        topic: 'Web3',
+        description: 'A hands-on workshop covering smart contracts, Ethereum, and decentralized apps. Prerequisite: Basic JavaScript.',
+        specifications: [
+            { label: 'Duration', value: '1 Day' },
+            { label: 'Pre-req', value: 'JS Basics' },
+            { label: 'Hands-on', value: 'Yes' }
+        ]
+    },
+    {
+        id: '004',
+        category: 'Cultural',
+        title: 'CSE DEPARTMENT DAY',
+        topic: 'Dept Day',
+        description: 'Celebrate our department with music, dance, drama, and the much-awaited award ceremony honoring top academic performers.',
+        specifications: [
+            { label: 'Date', value: 'TBA' },
+            { label: 'Venue', value: 'F Block' },
+            { label: 'Dress Code', value: 'Ethnic' }
+        ]
+    },
+    {
+        id: '005',
+        category: 'Alumni Meet',
+        title: 'TECH ALUMNI CONNECT',
+        topic: 'Alumni',
+        description: 'Network with our distinguished alumni currently working at Google, Microsoft, and Amazon. Learn from their journeys and secure mentorships.',
+        specifications: [
+            { label: 'Network', value: 'Global' },
+            { label: 'Mentors', value: 'FAANG' },
+            { label: 'Registration', value: 'Free' }
+        ]
+    }
+];
+
+export default function Zone1() {
+    const [items, setItems] = useState([...eventDatabase]);
+    const [sliderClass, setSliderClass] = useState('');
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    const handleNext = () => {
+        if (isAnimating) return;
+        setIsAnimating(true);
+        setSliderClass('next');
+        setItems(prev => {
+            const newItems = [...prev];
+            const first = newItems.shift();
+            newItems.push(first);
+            return newItems;
+        });
+        setTimeout(() => {
+            setSliderClass('');
+            setIsAnimating(false);
+        }, 1200); // Wait for transition
+    };
+
+    const handlePrev = () => {
+        if (isAnimating) return;
+        setIsAnimating(true);
+        setSliderClass('prev');
+        setItems(prev => {
+            const newItems = [...prev];
+            const last = newItems.pop();
+            newItems.unshift(last);
+            return newItems;
+        });
+        setTimeout(() => {
+            setSliderClass('');
+            setIsAnimating(false);
+        }, 1200); // Wait for transition
+    };
+
+    const handleSeeMore = () => {
+        setSliderClass('showDetail');
+    };
+
+    const handleBack = () => {
+        setSliderClass('');
+    };
+
+    return (
+        <div style={{width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative', marginTop: '-70px'}}>
+            <div className={`zone1-carousel ${sliderClass}`}>
+                <div className="list">
+                    {items.map((item, index) => {
+                        // The items are mapped according to their position in the state array
+                        return (
+                            <div className="item" key={item.id}>
+                                <img src={`/img/zone1/${item.id}.png`} alt={item.title} />
+                                <div className="introduce">
+                                    <div className="title" style={{color: '#0f172a'}}>{item.category.toUpperCase()}</div>
+                                    <div className="topic" style={{color: '#2563eb'}}>{item.topic}</div>
+                                    <div className="des" style={{color: '#334155'}}>{item.description}</div>
+                                    <button className="seeMore" onClick={handleSeeMore} style={{color: '#0f172a', borderColor: '#0f172a'}}>
+                                        SEE MORE &#8599;
+                                    </button>
+                                </div>
+                                <div className="detail">
+                                    <div className="title" style={{color: '#0f172a'}}>{item.title}</div>
+                                    <div className="des" style={{color: '#334155'}}>{item.description}</div>
+                                    <div className="specifications" style={{color: '#334155', borderColor: '#cbd5e1'}}>
+                                        {item.specifications.map((spec, i) => (
+                                            <div key={i}>
+                                                <p>{spec.label}</p>
+                                                <p style={{color: '#2563eb'}}>{spec.value}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="checkout">
+                                        <button style={{color: '#0f172a', borderColor: '#94a3b8'}}>REGISTER</button>
+                                        <button style={{backgroundColor: '#2563eb', color: '#fff', border: 'none'}}>SCHEDULE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="arrows">
+                    <button id="prev" onClick={handlePrev} style={{color: '#0f172a', borderColor: '#94a3b8'}}>&lt;</button>
+                    <button id="next" onClick={handleNext} style={{color: '#0f172a', borderColor: '#94a3b8'}}>&gt;</button>
+                    <button id="back" onClick={handleBack} style={{color: '#0f172a', borderColor: '#0f172a'}}>See All Highlights &#8599;</button>
+                </div>
+            </div>
+        </div>
+    );
+}

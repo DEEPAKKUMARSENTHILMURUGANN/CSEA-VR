@@ -6,6 +6,11 @@ let indicator = carousel.querySelector('.indicators');
 let dots = indicator.querySelectorAll('.indicators ul li');
 
 let active = 0;
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('slide')) {
+    active = parseInt(urlParams.get('slide'), 10) || 0;
+}
+
 let firstPosition = 0;
 let lastPosition = items.length - 1;
 let autoPlay;

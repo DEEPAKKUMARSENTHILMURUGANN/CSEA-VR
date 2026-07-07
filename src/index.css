@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;550;700&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg: transparent;
+  --bg-dots: rgba(255, 255, 255, 0.03);
+  --text: rgba(255, 255, 255, 0.8);
+  --text-h: #ffffff;
+  --border: rgba(255, 255, 255, 0.1);
+  --accent: #3b82f6; /* Blue matching landing page */
+  --accent-secondary: #60a5fa;
+  --accent-light: rgba(59, 130, 246, 0.15);
+  --surface: rgba(2, 6, 23, 0.5); /* Glassmorphism background */
+  --surface-strong: rgba(2, 6, 23, 0.7);
+  --muted: rgba(255, 255, 255, 0.5);
+
+  --sans: 'Poppins', system-ui, sans-serif;
+  --display: 'Poppins', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(var(--bg-dots) 1.5px, transparent 1.5px),
+    radial-gradient(rgba(100, 116, 139, 0.12) 2px, transparent 2px);
+  background-size: 24px 24px, 120px 120px;
+  background-position: 0 0, 40px 40px;
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}

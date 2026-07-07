@@ -1,0 +1,560 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* PSG Tech Color Palette - Remapped to Zone 2 High-Tech Cyber Dark Theme */
+  --psg-maroon:        #3b82f6;  /* Blue */
+  --psg-deep:          transparent;  /* Global Dark Blue-Black Background */
+  --psg-gold:          #60a5fa;  /* Cyan/Teal */
+  --psg-cream:         transparent;  /* Flowing page background */
+  --psg-charcoal:      var(--surface);  /* Translucent card surface */
+  --psg-steel:         var(--text);  /* Light gray text */
+  --psg-white:         var(--surface); /* Dark high-tech card background */
+  --psg-muted:         rgba(255, 255, 255, 0.05);
+
+  /* Typography Styles - Remapped to modern display fonts */
+  --font-display:      'Poppins', 'Space Grotesk', system-ui, sans-serif;
+  --font-sans:         'Poppins', 'Inter', sans-serif;
+
+  /* Fluid typography clamp config */
+  --text-massive:      clamp(56px, 8vw, 96px);
+  --text-display:      clamp(36px, 5vw, 56px);
+  --text-title:        clamp(20px, 2.5vw, 28px);
+  --text-body:         16px;
+  --text-small:        13px;
+  --text-micro:        11px;
+
+  /* Global Timing Tokens */
+  --dur-instant:   80ms;
+  --dur-fast:      180ms;
+  --dur-base:      320ms;
+  --dur-slow:      500ms;
+  --dur-crawl:     800ms;
+  --dur-dramatic: 1200ms;
+
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-soft:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base Theme Utilities mapping to CSS properties */
+.fontDisplay {
+  font-family: var(--font-display);
+}
+
+.fontSans {
+  font-family: var(--font-sans);
+}
+
+/* Color Mappings */
+.bgMaroon { background-color: var(--psg-maroon); }
+.bgDeep { background-color: var(--psg-deep); }
+.bgGold { background-color: var(--psg-gold); }
+.bgCream { background-color: var(--psg-cream); }
+.bgCharcoal { background-color: var(--psg-charcoal); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.bgSteel { background-color: var(--psg-steel); }
+.bgWhite { background-color: var(--psg-white); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.bgMuted { background-color: var(--psg-muted); }
+
+.textMaroon { color: var(--psg-maroon); }
+.textDeep { color: var(--psg-deep); }
+.textGold { color: var(--psg-gold); }
+.textSteel { color: var(--psg-steel); }
+.textWhite { color: var(--psg-white); }
+.textCream { color: var(--psg-cream); }
+.borderMaroon { border-color: var(--psg-maroon); }
+.borderGold { border-color: var(--psg-gold); }
+.borderCream { border-color: var(--psg-cream); }
+.borderMuted { border-color: var(--psg-muted); }
+
+/* Accent rule on container */
+.borderMaroonLg { border-color: var(--psg-maroon); }
+
+/* Subtle diagonal texture overlay for deep/dark background */
+.diagonalTexture {
+  position: relative;
+}
+.diagonalTexture::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(123, 28, 46, 0.15) 0px,
+    rgba(123, 28, 46, 0.15) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity var(--dur-dramatic) var(--ease-out-soft);
+}
+.diagonalTextureLoaded::after {
+  opacity: 1;
+}
+
+/* Left-Edge Maroon Vertical Rule signature motif */
+.signatureCard {
+  position: relative;
+  overflow: hidden;
+}
+.signatureCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  height: 0%;
+  background-color: var(--psg-maroon);
+  transition: height var(--dur-crawl) var(--ease-out-expo);
+  z-index: 10;
+}
+.signatureCardActive::before {
+  height: 100%;
+}
+
+/* Hover State for local product cards */
+.hoverProductCard {
+  transition: transform var(--dur-base) var(--ease-out-soft),
+              box-shadow var(--dur-base) var(--ease-out-soft),
+              border-color var(--dur-base) var(--ease-out-soft);
+}
+.hoverProductCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(123, 28, 46, 0.12);
+  border-color: var(--psg-gold);
+}
+.hoverProductCard:hover::before {
+  background-color: var(--psg-gold);
+  transition: background-color var(--dur-fast) var(--ease-in-out);
+}
+.hoverProductCard:hover .tagPill {
+  letter-spacing: 0.12em;
+  transition: letter-spacing var(--dur-base) var(--ease-out-soft);
+}
+.hoverProductCard:hover .placeholderSlot {
+  border-color: var(--psg-gold);
+  background-color: rgba(201, 146, 42, 0.04);
+}
+.hoverProductCard:hover .placeholderIcon {
+  transform: rotate(-8deg);
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+
+/* Placeholder common styling for easy search & replace */
+.placeholderSlot {
+  border: 1.5px dashed rgba(123, 28, 46, 0.35);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: transparent;
+  transition: border-color var(--dur-base) var(--ease-out-soft),
+              background-color var(--dur-base) var(--ease-out-soft);
+}
+
+.placeholderIcon {
+  color: var(--psg-gold);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+/* Page loads & Intersection Observer Anim structures */
+.fadeInUp {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out-soft),
+              transform var(--dur-slow) var(--ease-out-soft);
+}
+
+.fadeInUpActive {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger heights or widths for specific elements */
+.timelineRail {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--psg-maroon);
+  height: 0%;
+  transition: height 1.5s var(--ease-out-expo);
+}
+@media (min-width: 768px) {
+  .timelineRail {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.timelineRailActive {
+  height: 100%;
+}
+
+/* Marquee / Infinite horizontal scroll */
+.marqueeContainer {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes scrollRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.row1 {
+  animation: scrollLeft 28s linear infinite;
+}
+.row2 {
+  animation: scrollRight 34s linear infinite;
+}
+
+.marqueeContainer:hover .row1,
+.marqueeContainer:hover .row2 {
+  animation-play-state: paused;
+}
+
+/* Marquee individual item styling */
+.marqueeItem {
+  width: 140px;
+  height: 60px;
+  background-color: var(--psg-white);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+  transition: transform var(--dur-fast) var(--ease-out-soft),
+              box-shadow var(--dur-fast) var(--ease-out-soft),
+              border-color var(--dur-fast) var(--ease-out-soft);
+}
+.marqueeItem:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: var(--psg-maroon);
+}
+
+/* Dividers stats */
+.statDivider {
+  height: 0%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: height var(--dur-slow) var(--ease-out-expo);
+}
+.statDividerActive {
+  height: 60%;
+}
+
+/* Flow Arrow Connectors Scale Anim */
+.flowArrow {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+.flowArrowActive {
+  transform: scaleX(1);
+}
+
+/* Theme Button Outlined white */
+.btnOutlinedWhite {
+  background-color: transparent;
+  border: 1px solid var(--psg-white);
+  color: var(--psg-white);
+  transition: background-color var(--dur-fast) var(--ease-in-out),
+              border-color var(--dur-fast) var(--ease-in-out),
+              color var(--dur-fast) var(--ease-in-out);
+}
+.btnOutlinedWhite:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--psg-gold);
+  color: var(--psg-gold);
+}
+
+/* Theme Button Filled Gold */
+.btnFilledGold {
+  background-color: var(--psg-gold);
+  color: var(--psg-deep);
+  font-weight: 600;
+  transition: background-color var(--dur-fast) var(--ease-out-soft),
+              box-shadow var(--dur-fast) var(--ease-out-soft),
+              transform var(--dur-fast) var(--ease-out-soft);
+}
+.btnFilledGold:hover {
+  background-color: #3bd1be; /* 10% darker teal */
+  box-shadow: 0 8px 24px rgba(94, 241, 223, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Hero elements pulsing */
+@keyframes singlePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.pulseButton {
+  animation: singlePulse var(--dur-base) var(--ease-in-out);
+}
+
+/* Reduced Motion - Accessible Safeguard */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .row1, .row2 {
+    animation: none !important;
+  }
+  .timelineRail {
+    height: 100% !important;
+  }
+  .signatureCard::before {
+    height: 100% !important;
+  }
+  .fadeInUp {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* HIGH END ADVANCED VISUAL UPGRADES */
+.heroBase {
+  background-color: var(--psg-deep);
+  position: relative;
+}
+
+.heroFilmGrain {
+  position: relative;
+}
+.heroFilmGrain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+.radialSpotlight {
+  background: radial-gradient(
+    ellipse 70% 60% at 30% 65%,
+    rgba(123, 28, 46, 0.55) 0%,
+    transparent 70%
+  );
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-micro);
+  letter-spacing: 0.25em;
+  color: var(--psg-gold);
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--psg-gold);
+}
+
+.draftPaperPattern {
+  background-color: transparent;
+  background-image: repeating-linear-gradient(90deg, rgba(94, 241, 223, 0.03) 0px, rgba(94, 241, 223, 0.03) 1px, transparent 1px, transparent 60px),
+                    repeating-linear-gradient(0deg, rgba(94, 241, 223, 0.03) 0px, rgba(94, 241, 223, 0.03) 1px, transparent 1px, transparent 60px);
+}
+
+.timelineDoubleConnector {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--psg-gold);
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.timelineDoubleConnectorInner {
+  width: 10px;
+  height: 10px;
+  background-color: var(--psg-gold);
+  border-radius: 50%;
+  transition: transform var(--dur-base) var(--ease-spring) 120ms;
+}
+
+.mouCard {
+  position: relative;
+}
+/* Top-right decorative corner bracket — architectural premium accent */
+.mouCard::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  border-top: 2px solid rgba(201, 146, 42, 0.35);
+  border-right: 2px solid rgba(201, 146, 42, 0.35);
+  border-radius: 0 4px 0 0;
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+/* Inner corner bracket — offset inward for double-frame effect */
+.mouCard::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 16px;
+  height: 16px;
+  border-top: 1.5px solid rgba(123, 28, 46, 0.25);
+  border-right: 1.5px solid rgba(123, 28, 46, 0.25);
+  border-radius: 0 2px 0 0;
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+.mouCard:hover::before {
+  border-color: rgba(201, 146, 42, 0.7);
+}
+.mouCard:hover::after {
+  border-color: rgba(201, 146, 42, 0.4);
+}
+
+.stepCard {
+  position: relative;
+  overflow: hidden;
+}
+.stepCard::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--psg-gold);
+  transition: width 0.4s var(--ease-out-expo);
+}
+.stepCard:hover::after {
+  width: 100%;
+}
+
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.logoGridItem {
+  filter: blur(4px) grayscale(100%) opacity(0.4);
+  transition: all 0.3s var(--ease-out-soft);
+}
+.logoGridItemActive {
+  filter: blur(0px) grayscale(0%) opacity(0.45);
+}
+.logoGridItem:hover {
+  filter: blur(0px) grayscale(0%) opacity(1) !important;
+  transform: scale(1.06);
+}
+
+.sectionDividerDiagonalLeft {
+  height: 80px;
+  clip-path: polygon(0 100%, 100% 0%, 100% 100%);
+  margin-top: -1px;
+}
+.sectionDividerDiagonalRight {
+  height: 80px;
+  clip-path: polygon(100% 100%, 0 0%, 0 100%);
+  margin-top: -1px;
+}
+
+/* Custom advanced layout for product card hover tilt rotate */
+.productCardHoverUpgraded {
+  transition: transform var(--dur-base) var(--ease-out-soft),
+              box-shadow var(--dur-base) var(--ease-out-soft);
+}
+.productCardHoverUpgraded:hover {
+  transform: translateY(-8px) rotate(-0.3deg);
+  box-shadow: 0 32px 80px rgba(123, 28, 46, 0.18);
+}
+
+.orbMaroon {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-10%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(123, 28, 46, 0.6)  0%,
+    rgba(80,  12, 28, 0.3) 40%,
+    transparent             70%
+  );
+  filter: blur(48px);
+  animation: orbPulseMaroon 7s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbGold {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: 60px;
+  left: 58%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 146, 42, 0.18) 0%, transparent 70%);
+  filter: blur(36px);
+  animation: orbPulseGold 11s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes orbPulseMaroon {
+  0%, 100% {
+    opacity: 0.85;
+    transform: translateX(-10%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-10%) scale(1.05);
+  }
+}
+
+@keyframes orbPulseGold {
+  0%, 100% {
+    opacity: 0.85;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-10px, 15px) scale(1.1);
+  }
+}
+
+

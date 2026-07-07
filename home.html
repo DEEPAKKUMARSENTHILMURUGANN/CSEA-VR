@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIKE — Just Do It</title>
+    <meta name="description" content="Discover the latest Nike footwear collection. Performance meets style. Shop Now.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=League+Gothic&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        :root {
+            --bg-dark: #111126;
+            --bg-card: #1a1b35;
+            --accent: #46a39c;
+            --accent2: #81baa0;
+            --gold: #ffea7c;
+            --border: #324073;
+            --text-muted: rgba(255,255,255,0.5);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ── NAVBAR ── */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            height: 72px;
+            background: rgba(17, 17, 38, 0.85);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(50, 64, 115, 0.4);
+        }
+
+        header .logo img {
+            width: 52px;
+            filter: brightness(10);
+        }
+
+        header nav ul {
+            display: flex;
+            gap: 36px;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.65);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            color: #fff;
+        }
+
+        header .nav-actions {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        header .nav-actions i {
+            color: rgba(255,255,255,0.65);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        header .nav-actions i:hover { color: #fff; }
+
+        header .nav-actions .btn-nav {
+            background: linear-gradient(to right, var(--accent2), var(--accent));
+            border: none;
+            color: #fff;
+            font-family: 'League Gothic', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            padding: 8px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.2s;
+        }
+
+        header .nav-actions .btn-nav:hover {
+            opacity: 0.85;
+            transform: scale(1.03);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 30% 50%, #1e2048 0%, #111126 70%);
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(70,163,156,0.12) 0%, transparent 70%);
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            margin: auto;
+            width: 100%;
+        }
+
+        .hero-text {
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(70,163,156,0.12);
+            border: 1px solid rgba(70,163,156,0.3);
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 24px;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .hero-badge span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        .hero-text h1 {
+            font-family: 'League Gothic', sans-serif;
+            font-size: clamp(4rem, 7vw, 8rem);
+            line-height: 0.95;
+            text-transform: uppercase;
+            animation: fadeUp 0.7s 0.15s ease both;
+        }
+
+        .hero-text h1 .accent-word {
+            background: linear-gradient(135deg, var(--accent2), var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 440px;
+            margin: 24px 0 36px;
+            animation: fadeUp 0.7s 0.3s ease both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            animation: fadeUp 0.7s 0.45s ease both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--accent2), var(--accent));
+            border: none;
+            color: #fff;
+            font-family: 'League Gothic', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 14px 36px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.25s, box-shadow 0.25s;
+            box-shadow: 0 8px 30px rgba(70,163,156,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(70,163,156,0.45);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 2px solid rgba(70,163,156,0.4);
+            color: #fff;
+            font-family: 'League Gothic', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: border-color 0.25s, background 0.25s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            background: rgba(70,163,156,0.08);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 52px;
+            animation: fadeUp 0.7s 0.6s ease both;
+        }
+
+        .hero-stat h3 {
+            font-family: 'League Gothic', sans-serif;
+            font-size: 2.4rem;
+            background: linear-gradient(to right, var(--accent2), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stat p {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        /* Hero shoe visual */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s 0.2s ease both;
+        }
+
+        .hero-shoe {
+            width: 100%;
+            max-width: 580px;
+            transform: rotate(-20deg);
+            filter: drop-shadow(0 40px 80px rgba(0,0,0,0.6));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 300px;
+            height: 60px;
+            background: rgba(70,163,156,0.25);
+            border-radius: 50%;
+            bottom: 60px;
+            filter: blur(30px);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Floating rings */
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(50,64,115,0.5);
+            pointer-events: none;
+        }
+        .ring-1 { width: 450px; height: 450px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+        .ring-2 { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.4; }
+
+        /* ── FEATURES STRIP ── */
+        .features-strip {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: rgba(26,27,53,0.7);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 40px;
+            border-right: 1px solid var(--border);
+            flex: 1;
+            max-width: 300px;
+            transition: background 0.3s;
+        }
+
+        .feature-item:last-child { border-right: none; }
+        .feature-item:hover { background: rgba(70,163,156,0.06); }
+
+        .feature-item i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            width: 42px;
+            height: 42px;
+            background: rgba(70,163,156,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-item h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .feature-item p {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        /* ── COLLECTION SECTION ── */
+        .section {
+            padding: 100px 5%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 56px;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'League Gothic', sans-serif;
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .section-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent2);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: gap 0.3s;
+        }
+
+        .section-link:hover { gap: 14px; }
+
+        /* Category Cards */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .cat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 30px 30px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .cat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(70,163,156,0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(70,163,156,0.5);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .cat-card:hover::before { opacity: 1; }
+
+        .cat-card .cat-tag {
+            display: inline-block;
+            background: rgba(70,163,156,0.12);
+            border: 1px solid rgba(70,163,156,0.25);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 16px;
+        }
+
+        .cat-card h3 {
+            font-family: 'League Gothic', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .cat-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .cat-card .cat-shoe {
+            width: 100%;
+            max-width: 220px;
+            display: block;
+            margin: 0 auto 10px;
+            transform: rotate(-15deg);
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+            transition: transform 0.4s;
+        }
+
+        .cat-card:hover .cat-shoe {
+            transform: rotate(-10deg) scale(1.05);
+        }
+
+        .cat-arrow {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 10px;
+        }
+
+        /* ── BANNER ── */
+        .banner {
+            margin: 0 5%;
+            background: linear-gradient(135deg, #1a2a4a 0%, #111126 100%);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 70px 8%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(70,163,156,0.1) 0%, transparent 60%);
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+        }
+
+        .banner-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .banner h2 {
+            font-family: 'League Gothic', sans-serif;
+            font-size: clamp(3rem, 5vw, 5.5rem);
+            text-transform: uppercase;
+            line-height: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .banner p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 32px;
+            max-width: 420px;
+        }
+
+        .banner-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .banner-visual img {
+            width: 100%;
+            max-width: 420px;
+            transform: rotate(-18deg);
+            filter: drop-shadow(0 20px 60px rgba(0,0,0,0.5));
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            margin-top: 100px;
+            background: rgba(17,17,38,0.9);
+            border-top: 1px solid var(--border);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: auto;
+            padding-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .footer-brand img {
+            width: 50px;
+            filter: brightness(10);
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 260px;
+            margin-bottom: 24px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            background: rgba(50,64,115,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            transition: background 0.3s, color 0.3s;
+            text-decoration: none;
+        }
+
+        .footer-socials a:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.83rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { color: #fff; }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(-20deg) translateY(0); }
+            50%       { transform: rotate(-20deg) translateY(-18px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.4; }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text p { max-width: 100%; }
+            .hero-cta { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { display: none; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .banner { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .features-strip { flex-direction: column; }
+            .feature-item { border-right: none; border-bottom: 1px solid var(--border); max-width: 100%; }
+            header nav { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <figure class="logo">
+            <img src="img/logo.png" alt="Nike Logo">
+        </figure>
+        <nav>
+            <ul>
+                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="index.html">Products</a></li>
+                <li><a href="#">Collections</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-solid fa-bag-shopping"></i>
+            <button class="btn-nav" onclick="window.location='index.html'">Shop Now</button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <div class="hero-badge"><span></span> New Collection 2025</div>
+                <h1>JUST<br><span class="accent-word">DO IT</span><br>BETTER.</h1>
+                <p>Engineered for champions. Built for the streets. The latest Nike sport collection pushes the boundaries of design, performance, and style.</p>
+                <div class="hero-cta">
+                    <a href="index.html" class="btn-primary" id="view-products-btn">
+                        View Products <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#collections" class="btn-ghost">
+                        <i class="fa-solid fa-play"></i> Explore
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <h3>200+</h3>
+                        <p>Products</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>50K+</h3>
+                        <p>Customers</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>4.9★</h3>
+                        <p>Rating</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <img src="img/1.png" alt="Nike Shoe" class="hero-shoe">
+                <div class="hero-glow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES STRIP -->
+    <div class="features-strip">
+        <div class="feature-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <div>
+                <h4>Free Shipping</h4>
+                <p>On all orders over ₹2000</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+                <h4>2-Year Warranty</h4>
+                <p>Full manufacturer guarantee</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-rotate-left"></i>
+            <div>
+                <h4>Easy Returns</h4>
+                <p>30-day hassle free returns</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-headset"></i>
+            <div>
+                <h4>24/7 Support</h4>
+                <p>Always here to help you</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLLECTIONS -->
+    <div id="collections" style="max-width:1300px; margin:auto; padding: 100px 5% 0;">
+        <div class="section-header reveal">
+            <div>
+                <p class="section-label">Our Range</p>
+                <h2 class="section-title">Shop by<br>Category</h2>
+            </div>
+            <a href="index.html" class="section-link">View All <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="categories-grid">
+            <a href="index.html" class="cat-card reveal" style="transition-delay: 0.1s">
+                <span class="cat-tag">Performance</span>
+                <h3>Sport Series</h3>
+                <p>Built for speed, power, and endurance on every surface.</p>
+                <img src="img/3.png" alt="Nike D.01" class="cat-shoe">
+                <div class="cat-arrow">Shop Now <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+            <a href="index.html" class="cat-card reveal" style="transition-delay: 0.2s">
+                <span class="cat-tag">Lifestyle</span>
+                <h3>Street Style</h3>
+                <p>Where the court meets the street. Bold, iconic, effortless.</p>
+                <img src="img/2.png" alt="Nike D.02" class="cat-shoe">
+                <div class="cat-arrow">Shop Now <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+            <a href="index.html" class="cat-card reveal" style="transition-delay: 0.3s">
+                <span class="cat-tag">Limited</span>
+                <h3>Elite Drop</h3>
+                <p>Exclusive drops for those who dare to be different.</p>
+                <img src="img/1.png" alt="Nike D.03" class="cat-shoe">
+                <div class="cat-arrow">Shop Now <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- BANNER -->
+    <div style="max-width:1300px; margin: 60px auto;">
+        <div class="banner reveal">
+            <div>
+                <p class="banner-label">⚡ Limited Time Offer</p>
+                <h2>NEW SEASON<br><span style="background: linear-gradient(to right, #81baa0, #ffea7c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">DROP IS<br>HERE</span></h2>
+                <p>Unleash your potential this season with our most innovative lineup yet. Designed for the relentless. Crafted for the bold.</p>
+                <a href="index.html" class="btn-primary" style="display: inline-flex; font-size: 1rem;">
+                    Explore Collection <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="banner-visual">
+                <img src="img/2.png" alt="New Drop">
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="img/logo.png" alt="Nike">
+                <p>We believe in pushing the boundaries of human potential. From the track to the streets — Nike is with you every step.</p>
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="index.html">All Shoes</a></li>
+                    <li><a href="#">Running</a></li>
+                    <li><a href="#">Basketball</a></li>
+                    <li><a href="#">Lifestyle</a></li>
+                    <li><a href="#">Training</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <ul>
+                    <li><a href="#">Order Status</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Nike</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Investors</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Nike, Inc. All rights reserved.</p>
+            <p>Privacy Policy · Terms of Use · Cookie Preferences</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12 });
+        reveals.forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                header.style.background = 'rgba(17,17,38,0.97)';
+            } else {
+                header.style.background = 'rgba(17,17,38,0.85)';
+            }
+        });
+    </script>
+</body>
+</html>
