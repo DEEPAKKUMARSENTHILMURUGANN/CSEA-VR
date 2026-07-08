@@ -239,14 +239,14 @@ const CategoryCard = ({ cat, onClick, index }) => {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -8 }}
       onClick={() => onClick(cat)}
-      className="group relative bg-white/70 backdrop-blur-2xl border border-white rounded-[2.5rem] p-8 md:p-10 cursor-pointer shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)] transition-all duration-500 flex flex-col h-full overflow-hidden"
+      className="group relative bg-white/70 backdrop-blur-2xl border border-slate-100 rounded-[2.5rem] p-8 md:p-10 pb-12 md:pb-14 cursor-pointer shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)] transition-all duration-500 flex flex-col h-full overflow-hidden shrink-0"
     >
       <div 
         className="absolute -right-20 -top-20 w-64 h-64 rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
         style={{ backgroundColor: acc }}
       />
       
-      <div className="flex justify-between items-start mb-8 relative z-10">
+      <div className="flex justify-between items-start mb-6 relative z-10">
         <div 
           className="w-16 h-16 rounded-[1.5rem] flex items-center justify-center text-2xl font-black shadow-sm group-hover:scale-110 transition-transform duration-500 bg-white border"
           style={{ color: acc, borderColor: `${acc}30` }}
@@ -262,11 +262,11 @@ const CategoryCard = ({ cat, onClick, index }) => {
         <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none mb-4 group-hover:text-blue-600 transition-colors">
           {cat.title}
         </h3>
-        <p className="text-slate-500 font-medium leading-relaxed mb-8 flex-grow">
+        <p className="text-slate-500 font-medium leading-relaxed mb-6 flex-grow">
           {cat.description}
         </p>
         
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-4 mb-6">
           <div className="flex flex-col">
             <span className="text-[10px] font-mono text-slate-400 uppercase font-bold tracking-wider">Projects</span>
             <span className="text-lg font-black text-slate-800">{cat.stats.projects}</span>
@@ -506,7 +506,7 @@ const ResearchInnovationCorner = () => {
               className="flex flex-col"
             >
               <Hero />
-              <div className="max-w-[1600px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:auto-rows-min">
+              <div className="max-w-[1600px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {CATEGORIES.map((cat, i) => (
                   <CategoryCard key={cat.id} cat={cat} index={i} onClick={handleCategoryClick} />
                 ))}
