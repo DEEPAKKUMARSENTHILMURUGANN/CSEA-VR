@@ -190,7 +190,7 @@ export const technologies = [
         title: "Generative AI",
         labsCount: 2,
         accentColor: "#4A8DFF",
-        shortDescription: "",
+        shortDescription: "Advanced generative models, large language models (LLMs), diffusion frameworks, and synthetic media creation.",
         labs: [],
     },
 
@@ -200,7 +200,7 @@ export const technologies = [
         title: "Agentic AI",
         labsCount: 2,
         accentColor: "#FFB366",
-        shortDescription: "",
+        shortDescription: "Autonomous AI agents, multi-agent orchestrations, goal-directed reasoning, and workflow automation.",
         labs: [],
     },
 
@@ -210,7 +210,7 @@ export const technologies = [
         title: "Computer Vision",
         labsCount: 2,
         accentColor: "#FF8C6B",
-        shortDescription: "",
+        shortDescription: "Image processing, spatial computing, real-time object detection, visual intelligence, and 3D vision systems.",
         labs: [],
     },
 
@@ -220,7 +220,7 @@ export const technologies = [
         title: "Natural Language Processing",
         labsCount: 2,
         accentColor: "#4AC5DB",
-        shortDescription: "",
+        shortDescription: "Language modeling, semantic analysis, speech recognition, conversational AI, and translation engines.",
         labs: [],
     },
 
@@ -230,7 +230,7 @@ export const technologies = [
         title: "Robotics",
         labsCount: 2,
         accentColor: "#FF735C",
-        shortDescription: "",
+        shortDescription: "Autonomous mobile robots, robotic arms, sensor fusion, spatial navigation, and mechatronics innovation.",
         labs: [],
     },
 
@@ -240,7 +240,7 @@ export const technologies = [
         title: "Internet of Things",
         labsCount: 1,
         accentColor: "#8A8AFF",
-        shortDescription: "",
+        shortDescription: "Smart sensor networks, embedded microcontrollers, industrial IoT platforms, and edge telematics.",
         labs: [],
     },
 
@@ -250,7 +250,7 @@ export const technologies = [
         title: "Edge AI",
         labsCount: 1,
         accentColor: "#8A8AFF",
-        shortDescription: "",
+        shortDescription: "On-device machine learning, micro-inferencing, energy-efficient AI hardware accelerators, and embedded vision.",
         labs: [],
     },
 
@@ -260,7 +260,7 @@ export const technologies = [
         title: "Digital Twins",
         labsCount: 1,
         accentColor: "#FF7A6B",
-        shortDescription: "",
+        shortDescription: "Virtual asset replicas, real-time physical simulation, industrial IoT modeling, and predictive maintenance.",
         labs: [],
     },
 
@@ -270,7 +270,7 @@ export const technologies = [
         title: "Blockchain",
         labsCount: 1,
         accentColor: "#29D698",
-        shortDescription: "",
+        shortDescription: "Decentralized ledgers, smart contracts, Web3 protocols, consensus algorithms, and cryptographic security.",
         labs: [],
     },
 ];

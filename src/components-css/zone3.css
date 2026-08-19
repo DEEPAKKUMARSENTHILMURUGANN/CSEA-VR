@@ -40,12 +40,11 @@
 }
 
 /* ── Hero section ─────────────────────────────────────────────── */
-.hero {
-    max-width: 950px;
-    margin: 0 auto 90px;
+.zone3 .hero {
+    margin: 0 auto 60px;
     text-align: center;
 }
-.hero-tag {
+.zone3 .hero-tag {
     color: var(--muted);
     letter-spacing: 4px;
     font-size: 0.8rem;
@@ -53,7 +52,7 @@
     text-transform: uppercase;
     margin-bottom: 18px;
 }
-.hero h1 {
+.zone3 .hero h1 {
     font-size: clamp(2.4rem, 6vw, 4.5rem);
     line-height: 1.05;
     font-weight: 800;
@@ -61,7 +60,7 @@
     letter-spacing: -0.04em;
     margin-bottom: 28px;
 }
-.hero-desc {
+.zone3 .hero-desc {
     max-width: 820px;
     margin: 0 auto;
     color: var(--muted);
@@ -70,13 +69,13 @@
 }
 
 /* ── Technology card grid ─────────────────────────────────────── */
-.technology-grid {
+.zone3 .technology-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     gap: 28px;
 }
 
-.technology-card {
+.zone3 .technology-card {
     position: relative;
     background: #fff;
     border-radius: 24px;
