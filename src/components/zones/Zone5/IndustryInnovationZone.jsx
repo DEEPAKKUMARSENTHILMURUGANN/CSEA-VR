@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeroBanner } from './HeroBanner';
 import { ImpactNumbers } from './ImpactNumbers';
-import { ProductCards } from './ProductCards';
+import { LabEventsArchive } from './labEvents';
 import { CoESection } from './CoESection';
 import { MOUTimeline } from './MOUTimeline';
 import { StartupPipeline } from './StartupPipeline';
@@ -15,10 +15,9 @@ export default function IndustryInnovationZone() {
       <main className="max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col gap-24">
         <HeroBanner />
         <ImpactNumbers />
-        <ProductCards />
+        <LabEventsArchive/>
         <CoESection />
         <MOUTimeline />
-        <StartupPipeline />
         <PartnerLogoWall />
         <CTABlock />
       </main>
