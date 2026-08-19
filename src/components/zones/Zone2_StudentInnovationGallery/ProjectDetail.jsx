@@ -1,29 +1,57 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import '../../../components-css/Zone2Detail.css';
 
-const sanitizeIcon = (icon) => {
-  if (!icon) return '';
-  return icon.replace(/[^\u0000-\uFFFF]/g, '') || '';
-};
+// Same backend base as Zone2.jsx / CategoryPage.jsx.
+const API_BASE = import.meta.env.VITE_ZONE2_API_BASE || 'https://vr-backend-gwr1.onrender.com/api/projects';
+
+/* ============================================================
+   DATA HOOK
+   ============================================================ */
+function useEntryDetail(categoryId, slug) {
+  const [item, setItem] = useState(null);
+  const [status, setStatus] = useState('loading'); // 'loading' | 'error' | 'ready'
+  const [error, setError] = useState(null);
+
+  const fetchDetail = useCallback(async () => {
+    if (!categoryId || !slug) return;
+    setStatus('loading');
+    setError(null);
+    try {
+      const res = await fetch(`${API_BASE}/${categoryId}/${slug}`);
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      const data = await res.json();
+      setItem(data);
+      setStatus('ready');
+    } catch (err) {
+      setError(err.message || 'Failed to load this entry');
+      setStatus('error');
+    }
+  }, [categoryId, slug]);
+
+  useEffect(() => {
+    fetchDetail();
+  }, [fetchDetail]);
+
+  return { item, status, error, refetch: fetchDetail };
+}
 
 /* ── Problem Card ─────────────────────────────── */
 const ProblemCard = ({ text, accentColor, accentLight, year }) => {
-  const firstSentence = text.split(/(?<=[.?!])\s/)[0];
+  const firstSentence = (text || '').split(/(?<=[.?!])\s/)[0];
   return (
     <div className="z2-problem-issue">
       <div className="z2-problem-header" style={{ background: accentLight }}>
         <span className="z2-problem-filed" style={{ color: accentColor }}>
-          Issue Filed — {year}
+          Issue Filed{year ? ` — ${year}` : ''}
         </span>
         <span className="z2-problem-meta">Engineering Research · CSE Dept</span>
       </div>
       <div className="z2-problem-body">
-        <blockquote
-          className="z2-problem-lede"
-          style={{ borderLeftColor: accentColor }}
-        >
-          {firstSentence}
-        </blockquote>
+        {firstSentence && (
+          <blockquote className="z2-problem-lede" style={{ borderLeftColor: accentColor }}>
+            {firstSentence}
+          </blockquote>
+        )}
         <p className="z2-problem-full">{text}</p>
       </div>
     </div>
@@ -33,11 +61,7 @@ const ProblemCard = ({ text, accentColor, accentLight, year }) => {
 /* ── Solution Card ────────────────────────────── */
 const SolutionCard = ({ text, accentColor, accentLight }) => (
   <div className="z2-solution-card">
-    <span
-      className="z2-solution-quote-mark"
-      aria-hidden="true"
-      style={{ color: accentLight }}
-    >
+    <span className="z2-solution-quote-mark" aria-hidden="true" style={{ color: accentLight }}>
       "
     </span>
     <p className="z2-solution-text">{text}</p>
@@ -48,276 +72,135 @@ const SolutionCard = ({ text, accentColor, accentLight }) => (
   </div>
 );
 
-/* ── Tech Chips ───────────────────────────────── */
-const ROTATIONS = [-3, 1.5, -1, 2.5, -2, 1, -2.5, 3, -1.5, 2, 0, -3, 1];
-const TechChips = ({ stack, accentColor, accentLight }) => (
-  <div className="z2-tech-scatter">
-    {stack.map((tech, i) => (
-      <span
-        key={i}
-        className="z2-tech-chip"
+/* ============================================================
+   LOADING / ERROR SHELL — shared by every branch below
+   ============================================================ */
+const DetailShell = ({ accentColor, accentLight, children }) => (
+  <div className="z2-detail slide-up" style={{ '--accent': accentColor, '--accent-light': accentLight }}>
+    <div className="z2-detail-scroll">{children}</div>
+  </div>
+);
+
+const DetailLoading = ({ accentColor, accentLight }) => (
+  <DetailShell accentColor={accentColor} accentLight={accentLight}>
+    <p style={{ padding: '4rem 1rem', textAlign: 'center', color: accentColor, fontWeight: 700 }}>
+      Loading…
+    </p>
+  </DetailShell>
+);
+
+const DetailError = ({ accentColor, accentLight, error, onRetry }) => (
+  <DetailShell accentColor={accentColor} accentLight={accentLight}>
+    <div style={{ padding: '4rem 1rem', textAlign: 'center' }}>
+      <p style={{ marginBottom: '1.25rem', color: 'var(--text-h, #1f2937)' }}>
+        {error || 'This entry could not be found.'}
+      </p>
+      <button
+        onClick={onRetry}
         style={{
-          '--chip-rotation': `${ROTATIONS[i % ROTATIONS.length]}deg`,
-          '--chip-delay': `${i * 0.05}s`,
-          background: accentLight,
-          borderColor: accentColor,
+          padding: '0.65rem 1.5rem',
+          borderRadius: '999px',
+          border: 'none',
+          background: accentColor,
+          color: '#fff',
+          fontWeight: 700,
+          cursor: 'pointer',
         }}
       >
-        <span className="z2-tech-num" style={{ color: accentColor }}>
-          {String(i + 1).padStart(2, '0')}
-        </span>
-        {tech}
+        Try Again
+      </button>
+    </div>
+  </DetailShell>
+);
+
+/* ============================================================
+   SECRETARY DETAIL — secretarySchema: name, club, class, position, year
+   ============================================================ */
+const SecretaryDetail = ({ secretary, accentColor, accentLight }) => (
+  <DetailShell accentColor={accentColor} accentLight={accentLight}>
+    <div className="z2-detail-hero">
+      <div className="z2-detail-hero-stripe" style={{ background: accentColor }} />
+      <span className="z2-detail-hero-icon" style={{ background: accentLight }}>
+        {secretary.name?.[0]?.toUpperCase() || '?'}
       </span>
-    ))}
-  </div>
-);
-
-/* ── Team Orbit ───────────────────────────────── */
-const TeamOrbit = ({ members, accentColor, accentLight }) => {
-  const [isPaused, setIsPaused] = useState(false);
-  const [hoveredIdx, setHoveredIdx] = useState(null);
-
-  const radius = members.length <= 2 ? 90 : members.length <= 3 ? 110 : 130;
-  const duration = 8 + members.length * 2;
-  const stageSize = (radius + 45) * 2;
-
-  return (
-    <div
-      className={`z2-team-orbit-wrapper ${isPaused ? 'paused' : ''}`}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => { setIsPaused(false); setHoveredIdx(null); }}
-    >
-      {/* Upper Orbit Stage */}
-      <div className="z2-orbit-stage" style={{ width: stageSize, height: stageSize }}>
-        <div
-          className="z2-orbit-track"
-          style={{ width: radius * 2, height: radius * 2, borderColor: accentColor + '30' }}
-        />
-
-        <div
-          className="z2-orbit-center"
-          style={{ borderColor: accentColor, background: accentLight }}
-        >
-          <span className="z2-orbit-center-label" style={{ color: accentColor }}>Team</span>
+      <div className="z2-detail-hero-text">
+        <div className="z2-detail-tags">
+          {secretary.position && (
+            <span
+              className="z2-detail-tag"
+              style={{ color: accentColor, borderColor: accentColor + '50', background: accentLight }}
+            >
+              {secretary.position}
+            </span>
+          )}
+          {secretary.club && (
+            <span
+              className="z2-detail-tag"
+              style={{ color: accentColor, borderColor: accentColor + '50', background: accentLight }}
+            >
+              {secretary.club}
+            </span>
+          )}
         </div>
-
-        <div
-          className="z2-orbit-ring"
-          style={{
-            '--orbit-radius': `${radius}px`,
-            '--orbit-duration': `${duration}s`,
-          }}
-        >
-          {members.map((member, i) => {
-            const angle = (360 / members.length) * i;
-            return (
-              <div
-                key={i}
-                className="z2-orbit-member"
-                style={{
-                  '--member-angle': `${angle}deg`,
-                  '--orbit-radius': `${radius}px`,
-                  '--orbit-duration': `${duration}s`,
-                }}
-                onMouseEnter={() => setHoveredIdx(i)}
-                onMouseLeave={() => setHoveredIdx(null)}
-              >
-                <div
-                  className="z2-member-avatar"
-                  style={{ background: member.color, borderColor: accentLight }}
-                >
-                  {member.initials}
-                </div>
-
-                {hoveredIdx === i && (
-                  <div className="z2-member-tooltip">
-                    <span className="z2-tooltip-name">{member.name}</span>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Member Names Row Below */}
-      <div className="z2-team-chips-row">
-        {members.map((m, i) => (
-          <div key={i} className="z2-team-chip" style={{ borderColor: m.color + '50' }}>
-            <span className="z2-chip-dot" style={{ background: m.color }} />
-            <span className="z2-chip-name">{m.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-/* ── Demo Launch ──────────────────────────────── */
-const DemoLaunch = ({ demoLink, accentColor, accentLight }) => (
-  <div className="z2-demo-wrapper">
-    <div className="z2-demo-card">
-      <div className="z2-demo-qr-box">
-        <div className="z2-qr-corners">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div className="z2-qr-inner" style={{ background: accentColor, color: accentLight }}>
-          <span className="z2-qr-icon">📱</span>
-          <span className="z2-qr-label">QR Code</span>
-        </div>
-      </div>
-
-      <div className="z2-demo-info">
-        <h3 className="z2-demo-title">Scan to Experience</h3>
-        <p className="z2-demo-desc">
-          Point your camera at the QR code to launch the live demo, or click the button below.
+        <h1 className="z2-detail-title">{secretary.name}</h1>
+        <p className="z2-detail-subtitle">
+          {[secretary.class, secretary.year].filter(Boolean).join(' · ')}
         </p>
-        <a
-          href={demoLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="z2-demo-btn"
-          style={{ background: accentColor }}
-        >
-          Open Live Demo
-        </a>
       </div>
     </div>
-  </div>
+  </DetailShell>
 );
 
-/* ── Media Lightbox ───────────────────────────── */
-const Lightbox = ({ item, onClose }) => {
-  useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [onClose]);
-
-  return (
-    <div className="z2-lightbox-overlay" onClick={onClose}>
-      <div className="z2-lightbox-inner" onClick={(e) => e.stopPropagation()}>
-        <button className="z2-lightbox-close" onClick={onClose} aria-label="Close">✕</button>
-        {item.type === 'image' ? (
-          <img src={item.src} alt={item.caption || 'Project media'} className="z2-lightbox-img" />
-        ) : (
-          <video
-            src={item.src}
-            poster={item.poster}
-            controls
-            autoPlay
-            className="z2-lightbox-video"
-          />
-        )}
-        {item.caption && <p className="z2-lightbox-caption">{item.caption}</p>}
+/* ============================================================
+   ACHIEVEMENT DETAIL — achievementSchema: title, description, name, rollNo, class
+   ============================================================ */
+const AchievementDetail = ({ achievement, accentColor, accentLight }) => (
+  <DetailShell accentColor={accentColor} accentLight={accentLight}>
+    <div className="z2-detail-hero">
+      <div className="z2-detail-hero-stripe" style={{ background: accentColor }} />
+      <span className="z2-detail-hero-icon" style={{ background: accentLight }}>🏆</span>
+      <div className="z2-detail-hero-text">
+        <div className="z2-detail-tags">
+          {achievement.class && (
+            <span
+              className="z2-detail-tag"
+              style={{ color: accentColor, borderColor: accentColor + '50', background: accentLight }}
+            >
+              {achievement.class}
+            </span>
+          )}
+        </div>
+        <h1 className="z2-detail-title">{achievement.title}</h1>
+        <p className="z2-detail-subtitle">
+          {[achievement.name, achievement.rollNo].filter(Boolean).join(' · ')}
+        </p>
       </div>
     </div>
-  );
-};
 
-/* ── Media Gallery ────────────────────────────── */
-const MediaGallery = ({ media, accentColor, accentLight }) => {
-  const [lightboxItem, setLightboxItem] = useState(null);
-  const videoRefs = useRef([]);
+    <section className="z2-section">
+      <p className="z2-section-label" style={{ color: accentColor }}>Details</p>
+      <p className="z2-problem-full">{achievement.description}</p>
+    </section>
+  </DetailShell>
+);
 
-  // Pause videos when not visible
-  useEffect(() => {
-    const observers = videoRefs.current.map((el, i) => {
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (!entry.isIntersecting) el.pause?.(); },
-        { threshold: 0.2 }
-      );
-      obs.observe(el);
-      return obs;
-    });
-    return () => observers.forEach((obs) => obs?.disconnect());
-  }, [media]);
-
-  if (!media || media.length === 0) {
-    return (
-      <div className="z2-media-empty">
-        <span className="z2-media-empty-icon">🎬</span>
-        <p className="z2-media-empty-text">No media added yet. Add images or videos to this project in <code>ProjectsData.js</code>.</p>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <div className="z2-media-gallery">
-        {media.map((item, i) => (
-          <div
-            key={i}
-            className="z2-media-item"
-            style={{ '--delay': `${i * 0.08}s`, '--accent': accentColor }}
-          >
-            {item.type === 'image' ? (
-              <button
-                className="z2-media-img-btn"
-                onClick={() => setLightboxItem(item)}
-                aria-label={`View ${item.caption || 'image'}`}
-              >
-                <img
-                  src={item.src}
-                  alt={item.caption || `Project image ${i + 1}`}
-                  className="z2-media-thumb"
-                  loading="lazy"
-                />
-                <div className="z2-media-overlay">
-                  <span className="z2-media-zoom">⤢ View</span>
-                </div>
-                <span className="z2-media-type-badge" style={{ background: accentLight, color: accentColor }}>IMG</span>
-              </button>
-            ) : (
-              <div className="z2-media-video-wrap">
-                <video
-                  ref={(el) => (videoRefs.current[i] = el)}
-                  src={item.src}
-                  poster={item.poster}
-                  controls
-                  preload="metadata"
-                  className="z2-media-video"
-                  onClick={() => setLightboxItem(item)}
-                />
-                <span className="z2-media-type-badge" style={{ background: accentLight, color: accentColor }}>VIDEO</span>
-              </div>
-            )}
-            {item.caption && (
-              <p className="z2-media-caption">{item.caption}</p>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {lightboxItem && (
-        <Lightbox item={lightboxItem} onClose={() => setLightboxItem(null)} />
-      )}
-    </>
-  );
-};
-
-/* ── Section nav config ───────────────────────── */
-const buildSections = (hasMedia) => [
-  { id: 'problem',  label: 'Problem',    icon: '' },
-  { id: 'solution', label: 'Solution',   icon: '' },
-  { id: 'tech',     label: 'Tech Stack', icon: '' },
-  { id: 'team',     label: 'Team',       icon: '' },
-  ...(hasMedia ? [{ id: 'media', label: 'Media', icon: '' }] : []),
-  { id: 'demo',     label: 'Demo',       icon: '' },
+/* ============================================================
+   REGULAR PROJECT DETAIL — projectSchema: name, year, programme, title,
+   description, problemStatement, solutionOverview, class, githubLink.
+   No icon/tags/techStack/teamMembers/media/demoLink fields exist in the
+   DB, so those sections from the old mock-data version are dropped;
+   "Links" (githubLink) replaces the old QR/demo section.
+   ============================================================ */
+const buildSections = (hasGithub) => [
+  { id: 'problem', label: 'Problem' },
+  { id: 'solution', label: 'Solution' },
+  ...(hasGithub ? [{ id: 'links', label: 'Links' }] : []),
 ];
 
-/* ── Project Detail ───────────────────────────── */
-const ProjectDetail = ({ project, category }) => {
-  const accentColor = category?.accentColor || 'var(--accent)';
-  const accentLight = category?.lightColor  || 'var(--accent-bg)';
-  const hasMedia = Array.isArray(project.media) && project.media.length > 0;
-
-  const SECTIONS = buildSections(hasMedia);
-  const sectionRefs    = useRef({});
+const ProjectDetailBody = ({ project, accentColor, accentLight }) => {
+  const hasGithub = Boolean(project.githubLink);
+  const SECTIONS = buildSections(hasGithub);
+  const sectionRefs = useRef({});
   const [activeSection, setActiveSection] = useState('problem');
 
   const scrollTo = (id) => {
@@ -336,11 +219,12 @@ const ProjectDetail = ({ project, category }) => {
     );
     Object.values(sectionRefs.current).forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [hasGithub]);
+
+  const tags = [project.programme, project.class].filter(Boolean);
 
   return (
     <div className="z2-detail slide-up" style={{ '--accent': accentColor, '--accent-light': accentLight }}>
-
       <nav className="z2-section-nav">
         {SECTIONS.map((s) => (
           <button
@@ -349,48 +233,36 @@ const ProjectDetail = ({ project, category }) => {
             style={{ '--accent': accentColor }}
             onClick={() => scrollTo(s.id)}
           >
-            <span className="z2-sec-btn-icon"></span>
             <span className="z2-sec-btn-label">{s.label}</span>
           </button>
         ))}
       </nav>
 
       <div className="z2-detail-scroll">
-
-        {/* Hero Banner */}
         <div className="z2-detail-hero">
           <div className="z2-detail-hero-stripe" style={{ background: accentColor }} />
-          <span
-            className="z2-detail-hero-icon"
-            style={{ background: accentLight }}
-          >
-            {sanitizeIcon(project.icon)}
+          <span className="z2-detail-hero-icon" style={{ background: accentLight }}>
+            {(project.name || project.title || '•')[0]?.toUpperCase()}
           </span>
           <div className="z2-detail-hero-text">
-            <div className="z2-detail-tags">
-              {project.tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="z2-detail-tag"
-                  style={{ color: accentColor, borderColor: accentColor + '50', background: accentLight }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <h1 className="z2-detail-title">{project.name}</h1>
-            <p className="z2-detail-subtitle">{project.shortDesc}</p>
+            {tags.length > 0 && (
+              <div className="z2-detail-tags">
+                {tags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="z2-detail-tag"
+                    style={{ color: accentColor, borderColor: accentColor + '50', background: accentLight }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            <h1 className="z2-detail-title">{project.title || project.name}</h1>
+            <p className="z2-detail-subtitle">{project.description}</p>
           </div>
-          {/* Media count pill in hero */}
-          {hasMedia && (
-            <div className="z2-detail-media-pill" style={{ background: accentLight, color: accentColor }}>
-              <span>📷</span>
-              <span>{project.media.length} media file{project.media.length > 1 ? 's' : ''}</span>
-            </div>
-          )}
         </div>
 
-        {/* Problem */}
         <section
           className="z2-section"
           data-section="problem"
@@ -405,7 +277,6 @@ const ProjectDetail = ({ project, category }) => {
           />
         </section>
 
-        {/* Solution */}
         <section
           className="z2-section"
           data-section="solution"
@@ -419,70 +290,62 @@ const ProjectDetail = ({ project, category }) => {
           />
         </section>
 
-        {/* Tech Stack */}
-        <section
-          className="z2-section"
-          data-section="tech"
-          ref={(el) => (sectionRefs.current['tech'] = el)}
-        >
-          <p className="z2-section-label" style={{ color: accentColor }}>Tech Stack</p>
-          <p className="z2-section-hint">Hover to straighten each chip</p>
-          <TechChips
-            stack={project.techStack}
-            accentColor={accentColor}
-            accentLight={accentLight}
-          />
-        </section>
-
-        {/* Team */}
-        <section
-          className="z2-section"
-          data-section="team"
-          ref={(el) => (sectionRefs.current['team'] = el)}
-        >
-          <p className="z2-section-label" style={{ color: accentColor }}>Team Members</p>
-          <p className="z2-section-hint">Hover anywhere to pause the orbit · hover a member for their name</p>
-          <TeamOrbit
-            members={project.teamMembers}
-            accentColor={accentColor}
-            accentLight={accentLight}
-          />
-        </section>
-
-        {/* Media — only rendered when project has media */}
-        {hasMedia && (
+        {hasGithub && (
           <section
             className="z2-section"
-            data-section="media"
-            ref={(el) => (sectionRefs.current['media'] = el)}
+            data-section="links"
+            ref={(el) => (sectionRefs.current['links'] = el)}
           >
-            <p className="z2-section-label" style={{ color: accentColor }}>Project Media</p>
-            <p className="z2-section-hint">Click an image to expand · Video plays inline</p>
-            <MediaGallery
-              media={project.media}
-              accentColor={accentColor}
-              accentLight={accentLight}
-            />
+            <p className="z2-section-label" style={{ color: accentColor }}>Links</p>
+            <a
+              href={project.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="z2-demo-btn"
+              style={{ background: accentColor, display: 'inline-block' }}
+            >
+              View on GitHub
+            </a>
           </section>
         )}
-
-        {/* Demo */}
-        <section
-          className="z2-section"
-          data-section="demo"
-          ref={(el) => (sectionRefs.current['demo'] = el)}
-        >
-          <p className="z2-section-label" style={{ color: accentColor }}>Demo</p>
-          <DemoLaunch
-            demoLink={project.demoLink}
-            accentColor={accentColor}
-            accentLight={accentLight}
-          />
-        </section>
-
       </div>
     </div>
   );
+};
+
+/* ============================================================
+   ENTRY POINT — fetches by category.id + project.slug, then
+   branches on which of the 3 backend shapes came back.
+   ============================================================ */
+const ProjectDetail = ({ project, category }) => {
+  const categoryId = category?.id;
+  const slug = project?.slug;
+  const accentColor = category?.accentColor || 'var(--accent)';
+  const accentLight = category?.lightColor || 'var(--accent-bg)';
+
+  const { item, status, error, refetch } = useEntryDetail(categoryId, slug);
+
+  if (status === 'loading') {
+    return <DetailLoading accentColor={accentColor} accentLight={accentLight} />;
+  }
+  if (status === 'error' || !item) {
+    return (
+      <DetailError
+        accentColor={accentColor}
+        accentLight={accentLight}
+        error={error}
+        onRetry={refetch}
+      />
+    );
+  }
+
+  if (categoryId === 'secretaries') {
+    return <SecretaryDetail secretary={item} accentColor={accentColor} accentLight={accentLight} />;
+  }
+  if (categoryId === 'achievements') {
+    return <AchievementDetail achievement={item} accentColor={accentColor} accentLight={accentLight} />;
+  }
+  return <ProjectDetailBody project={item} accentColor={accentColor} accentLight={accentLight} />;
 };
 
 export default ProjectDetail;

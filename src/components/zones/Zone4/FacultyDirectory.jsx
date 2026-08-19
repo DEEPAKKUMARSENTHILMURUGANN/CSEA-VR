@@ -7,9 +7,10 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Award, FolderKanban, FileText, Use
    ============================================================ */
 // Read from the Vite env file (.env) at build time. Falls back to the
 // deployed Render URL so the component still works if the var is missing.
+// Mounted in server.js via app.use('/api/faculty', zone4Routes).
 // Add / edit this in .env at the project root:
-//   VITE_API_BASE=https://vr-backend-gwr1.onrender.com/api/zone4
-const API_BASE = import.meta.env.VITE_API_BASE || 'https://vr-backend-gwr1.onrender.com/api/zone4';
+//   VITE_API_BASE=https://vr-backend-gwr1.onrender.com/api/faculty
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://vr-backend-gwr1.onrender.com/api/faculty';
 
 // Rotating accent palette (same hues used across Zone4) — applied per-card
 // since the backend doesn't return a color. Swap for a real field if you add one.

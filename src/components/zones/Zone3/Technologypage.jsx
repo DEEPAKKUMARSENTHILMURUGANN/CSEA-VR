@@ -5,6 +5,10 @@ import { technologyIcons } from "./icons";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 
+// Lab thumbnails mix real photos with Cloudinary lab footage (.mp4). An
+// <img> tag can't render video, so detect the extension and switch elements.
+const isVideoUrl = (url = "") => /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(url);
+
 function TechnologyPage() {
     const { slug } = useParams();
     const navigate = useNavigate();
@@ -80,13 +84,24 @@ function TechnologyPage() {
                                 onClick={() => navigate(`/technology/${technology.slug}/lab/${lab.id}`)}
                                 className="group relative bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-slate-200 cursor-pointer shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2 flex flex-col"
                             >
-                                {/* Lab Image */}
+                                {/* Lab Image / Video thumbnail */}
                                 <div className="relative h-64 overflow-hidden w-full">
-                                    <img 
-                                        src={lab.images[0]} 
-                                        alt={lab.name}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
+                                    {isVideoUrl(lab.images[0]) ? (
+                                        <video
+                                            src={lab.images[0]}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                        />
+                                    ) : (
+                                        <img 
+                                            src={lab.images[0]} 
+                                            alt={lab.name}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                    )}
                                     {/* Subtle gradient overlay to ensure badge visibility */}
                                     <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/10"></div>
                                     
