@@ -160,7 +160,17 @@ export default function Zone1() {
     }
 
     return (
-        <div style={{width: '100%', height: 'calc(100vh - 64px)', overflow: 'hidden', position: 'relative', background: 'var(--bg)'}}>
+            
+        <div style={{width: '100%', minHeight: 'calc(100vh - 64px)', maxHeight: 'calc(100vh - 64px)', overflowY: 'auto', overflowX: 'hidden', position: 'relative', background: 'var(--bg)'}}>
+            <div className="zone1-label-wrap">
+                <span className="zone1-label">Zone 1</span>
+                <span className="zone1-subtext">Department of CSE</span>
+            </div>
+
+            <div className="zone1-heading-wrap">
+                <h2 className="zone1-heading">Department Highlights</h2>
+            </div>
+
             <div className="zone1-club-filters" style={{ display: 'flex', gap: '10px', justifyContent: 'center', padding: '16px 0 0', position: 'relative', zIndex: 100, flexWrap: 'wrap' }}>
                 {['All', ...CLUBS].map(club => {
                     const label = club === 'All' ? 'All' : club.label;

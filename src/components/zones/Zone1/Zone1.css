@@ -1,3 +1,74 @@
+.zone1-label-wrap {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px 5% 0;
+}
+
+.zone1-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-h, #1f2937);
+    background: #fff;
+    border: 1px solid rgba(124,58,237,0.18);
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.zone1-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(70deg, #3b82f6, #7c3aed);
+    display: inline-block;
+}
+
+.zone1-label-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    padding: 20px 5% 0;
+}
+
+.zone1-subtext {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted, #6b7280);
+    letter-spacing: 0.02em;
+}
+
+.zone1-heading {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #000;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.zone1-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 3px;
+    border-radius: 999px;
+    background: #000;
+}
+
 :root{
     --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
     --item1-filter: blur(30px);
@@ -29,10 +100,11 @@
 
 .zone1-carousel{
     position: relative;
-    min-height: 100%;
+    min-height: 640px;
     overflow-x: hidden;
     overflow-y: visible;
     margin-top: 0;
+    padding-bottom: 60px;
 }
 .zone1-carousel .list{
     position: absolute;

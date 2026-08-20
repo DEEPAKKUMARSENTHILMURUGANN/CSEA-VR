@@ -38,8 +38,8 @@ export function HeroBanner() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-transparent text-slate-900 min-h-[85vh] flex flex-col justify-center w-full"
-      style={{ paddingTop: '7rem', paddingBottom: '5rem', paddingLeft: '5%', paddingRight: '5%' }}
+      className="relative overflow-hidden bg-transparent text-slate-900 min-h-[70vh] flex flex-col justify-center w-full"
+      style={{ paddingTop: '4rem', paddingBottom: '3rem', paddingLeft: '5%', paddingRight: '5%' }}
     >
       {/* Light Glassmorphism Base */}
       <div className="absolute inset-0 bg-white/40 backdrop-blur-3xl z-[-1]" />
@@ -52,26 +52,33 @@ export function HeroBanner() {
         className={`absolute bottom-0 left-0 w-[600px] h-[600px] bg-violet-100/40 rounded-full blur-[100px] transition-opacity duration-1000 z-[-1] ${stage >= 1 ? 'opacity-100' : 'opacity-0'}`}
       />
 
-      <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center z-10 my-auto">
+      <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center z-10 my-auto">
         {/* Left Column — Content */}
         <div className="lg:col-span-7 text-left">
+          {/* Combined Zone 5 + Industry & Innovation badge */}
           <div
-            className={`transition-all duration-[400ms] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-6 ${stage >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-[10px]'}`}
+            className={`transition-all duration-[400ms] inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-3 ${stage >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-[10px]'}`}
           >
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            <span className="text-xs font-bold tracking-widest uppercase text-slate-500 font-mono">INDUSTRY & INNOVATION</span>
+            <span className="text-xs font-bold tracking-widest uppercase text-slate-500 font-mono">
+              ZONE 5
+            </span>
+            <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+            <span className="text-xs font-bold tracking-widest uppercase text-slate-500 font-mono">
+              INDUSTRY & INNOVATION
+            </span>
           </div>
 
-          <h1 className="mt-2 mb-4 select-text">
+          <h1 className="mt-0 mb-2 select-text">
             <span
               className={`block text-slate-900 font-black uppercase tracking-tight transition-all duration-[600ms] transform leading-none ${stage >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[28px]'}`}
-              style={{ fontSize: 'clamp(3rem, 6vw, 5rem)' }}
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)' }}
             >
               Where Classrooms
             </span>
             <span
               className={`block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 font-black tracking-tight transition-all duration-[600ms] transform leading-none ${stage >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[28px]'}`}
-              style={{ fontSize: 'clamp(3rem, 6vw, 5rem)' }}
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)' }}
             >
               Meet Boardrooms.
             </span>
@@ -82,21 +89,21 @@ export function HeroBanner() {
             style={{
               height: '3px',
               width: stage >= 6 ? '64px' : '0px',
-              margin: '32px 0',
+              margin: '14px 0',
               borderRadius: '4px'
             }}
           />
 
           {/* Body */}
           <p
-            className={`text-slate-600 font-medium text-base md:text-xl leading-[1.8] max-w-[600px] transition-opacity duration-[350ms] ${stage >= 7 ? 'opacity-100' : 'opacity-0'}`}
+            className={`text-slate-600 font-medium text-base md:text-lg leading-[1.5] max-w-[600px] transition-opacity duration-[350ms] ${stage >= 7 ? 'opacity-100' : 'opacity-0'}`}
           >
             120+ industry partnerships. 12 commercialised products. One department building what Tamil Nadu's industries actually need.
           </p>
 
           {/* Buttons */}
           <div
-            className={`flex flex-wrap items-center gap-4 mt-10 transition-all duration-[500ms] ${stage >= 8 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[10px]'}`}
+            className={`flex flex-wrap items-center gap-3 mt-6 transition-all duration-[500ms] ${stage >= 8 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[10px]'}`}
           >
             <button
               onClick={() => {
@@ -135,24 +142,10 @@ export function HeroBanner() {
             {/* Gradient overlap inside */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent pointer-events-none z-10"></div>
 
-            {/* Play trigger indicator */}
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
-              <div className="w-[64px] h-[64px] rounded-full flex items-center justify-center bg-white/90 backdrop-blur-md text-blue-600 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:scale-110 shadow-xl cursor-pointer">
-                <Play className="w-6 h-6 fill-current translate-x-0.5" />
-              </div>
-              <div
-                className="mt-6 px-4 py-2 border border-slate-200/50 rounded-lg bg-black/30 backdrop-blur-md text-xs text-white font-mono tracking-wider font-bold shadow-sm"
-              >
-                [IEC Walkthrough Video]
-              </div>
-            </div>
+            
 
             {/* Bottom-left label caption */}
-            <div className="absolute bottom-6 left-6 text-left z-20 pointer-events-none">
-              <span className="text-xs text-white/90 uppercase tracking-widest font-bold block drop-shadow-md">
-                Virtual Tour
-              </span>
-            </div>
+            
           </div>
         </div>
       </div>

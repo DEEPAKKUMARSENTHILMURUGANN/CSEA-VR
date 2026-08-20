@@ -10,9 +10,42 @@
     max-width: 100%;
     background: transparent;
     color: var(--text);
-    padding: 80px 7%;
+    padding: 56px 7%;
     overflow-x: hidden;
     box-sizing: border-box;
+}
+
+/* ── Zone label badge ─────────────────────────────────────────── */
+.zone3-label-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.zone3-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-h, #1f2937);
+    background: linear-gradient(70deg, rgba(59,130,246,0.1), rgba(124,58,237,0.1));
+    border: 1px solid rgba(124,58,237,0.18);
+    border-radius: 999px;
+    width: fit-content;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.zone3-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(70deg, #3b82f6, #7c3aed);
+    display: inline-block;
 }
 
 /* ── Back / navigation buttons ────────────────────────────────── */
@@ -23,7 +56,7 @@
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 600;
-    margin-bottom: 50px;
+    margin-bottom: 28px;
     padding: 8px 20px;
     border-radius: 50px;
     display: inline-flex;
