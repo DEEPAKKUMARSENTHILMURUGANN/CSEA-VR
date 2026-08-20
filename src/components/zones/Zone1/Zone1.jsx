@@ -1,76 +1,82 @@
 import React, { useState, useEffect } from 'react';
 import './Zone1.css';
 
-const eventDatabase = [
-    {
-        id: '001',
-        category: 'Hackathon',
-        title: 'CODE SPRINT 2026',
-        topic: 'Code Sprint',
-        description: 'Join the ultimate 24-hour hackathon hosted by the CSE department. Build innovative solutions, win exciting cash prizes, and get noticed by top tech recruiters!',
-        specifications: [
-            { label: 'Duration', value: '24 hours' },
-            { label: 'Team Size', value: '3-4' },
-            { label: 'Prize Pool', value: '₹1,00,000' }
-        ]
-    },
-    {
-        id: '002',
-        category: 'Guest Lecture',
-        title: 'AI IN CYBERSECURITY',
-        topic: 'Cyber AI',
-        description: 'An exclusive session by industry experts on how AI is revolutionizing threat detection and ethical hacking. Open to all students.',
-        specifications: [
-            { label: 'Duration', value: '2 hours' },
-            { label: 'Format', value: 'Offline' },
-            { label: 'Certificate', value: 'Yes' }
-        ]
-    },
-    {
-        id: '003',
-        category: 'Workshop',
-        title: 'WEB3 & BLOCKCHAIN',
-        topic: 'Web3',
-        description: 'A hands-on workshop covering smart contracts, Ethereum, and decentralized apps. Prerequisite: Basic JavaScript.',
-        specifications: [
-            { label: 'Duration', value: '1 Day' },
-            { label: 'Pre-req', value: 'JS Basics' },
-            { label: 'Hands-on', value: 'Yes' }
-        ]
-    },
-    {
-        id: '004',
-        category: 'Cultural',
-        title: 'CSE DEPARTMENT DAY',
-        topic: 'Dept Day',
-        description: 'Celebrate our department with music, dance, drama, and the much-awaited award ceremony honoring top academic performers.',
-        specifications: [
-            { label: 'Date', value: 'TBA' },
-            { label: 'Venue', value: 'F Block' },
-            { label: 'Dress Code', value: 'Ethnic' }
-        ]
-    },
-    {
-        id: '005',
-        category: 'Alumni Meet',
-        title: 'TECH ALUMNI CONNECT',
-        topic: 'Alumni',
-        description: 'Network with our distinguished alumni currently working at Google, Microsoft, and Amazon. Learn from their journeys and secure mentorships.',
-        specifications: [
-            { label: 'Network', value: 'Global' },
-            { label: 'Mentors', value: 'FAANG' },
-            { label: 'Registration', value: 'Free' }
-        ]
-    }
+// Zone1 events API base URL, set in .env (mounted in server.js via
+// app.use('/api/zone1', zone1Routes)).
+const EVENTS_ENDPOINT = import.meta.env.VITE_ZONE1_API_BASE;
+
+// Clubs that can host a Zone1 event. `match` is compared against each
+// event's `clubName` field (case-insensitively); `label` is the short text
+// shown on the filter tab.
+const CLUBS = [
+    { label: 'CSEA', match: 'Computer Science and Engineering Association (CSEA)' },
+    { label: 'GitHub Campus Club', match: 'GitHub Campus Club' },
+    { label: 'The Eye', match: 'The Eye' },
 ];
 
 export default function Zone1() {
-    const [items, setItems] = useState([...eventDatabase]);
+    const [allItems, setAllItems] = useState([]);
+    const [items, setItems] = useState([]);
+    const [activeClub, setActiveClub] = useState('All');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [sliderClass, setSliderClass] = useState('');
     const [isAnimating, setIsAnimating] = useState(false);
 
+    useEffect(() => {
+        let cancelled = false;
+
+        async function fetchEvents() {
+            setLoading(true);
+            setError(null);
+            try {
+                const res = await fetch(EVENTS_ENDPOINT);
+                if (!res.ok) {
+                    throw new Error(`Request failed with status ${res.status}`);
+                }
+                const data = await res.json();
+
+                // Normalize backend documents to the shape the carousel expects.
+                // Backend schema (models/zone1.js) uses `eventName` / `photo`,
+                // while the carousel UI historically expected `topic` / an
+                // /img/zone1/{id}.png asset. Map with sensible fallbacks so the
+                // component keeps working regardless of which fields are set.
+                const normalized = (Array.isArray(data) ? data : []).map(ev => ({
+                    id: ev.id,
+                    category: ev.category,
+                    title: ev.title,
+                    topic: ev.eventName || ev.title,
+                    description: ev.description,
+                    image: ev.photo || `/img/zone1/${ev.id}.png`,
+                    clubName: ev.clubName,
+                    websiteLink: ev.websiteLink,
+                    date: ev.date,
+                    video: ev.video,
+                    specifications: Array.isArray(ev.specifications) ? ev.specifications : [],
+                }));
+
+                if (!cancelled) {
+                    setAllItems(normalized);
+                    setItems(normalized);
+                }
+            } catch (err) {
+                console.error('Failed to fetch Zone1 events:', err);
+                if (!cancelled) {
+                    setError('Could not load events. Please try again later.');
+                }
+            } finally {
+                if (!cancelled) {
+                    setLoading(false);
+                }
+            }
+        }
+
+        fetchEvents();
+        return () => { cancelled = true; };
+    }, []);
+
     const handleNext = () => {
-        if (isAnimating) return;
+        if (isAnimating || items.length === 0) return;
         setIsAnimating(true);
         setSliderClass('next');
         setItems(prev => {
@@ -86,7 +92,7 @@ export default function Zone1() {
     };
 
     const handlePrev = () => {
-        if (isAnimating) return;
+        if (isAnimating || items.length === 0) return;
         setIsAnimating(true);
         setSliderClass('prev');
         setItems(prev => {
@@ -109,15 +115,82 @@ export default function Zone1() {
         setSliderClass('');
     };
 
+    const handleFilterClub = (club) => {
+        if (isAnimating) return;
+        setActiveClub(club);
+        setSliderClass('');
+        if (club === 'All') {
+            setItems(allItems);
+        } else {
+            setItems(allItems.filter(
+                item => (item.clubName || '').toLowerCase() === club.match.toLowerCase()
+            ));
+        }
+    };
+
+    if (loading) {
+        return (
+            <div style={{ width: '100%', height: 'calc(100vh - 70px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
+                Loading events…
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div style={{ width: '100%', height: 'calc(100vh - 70px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
+                {error}
+            </div>
+        );
+    }
+
+    if (allItems.length === 0) {
+        return (
+            <div style={{ width: '100%', height: 'calc(100vh - 70px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
+                No events found.
+            </div>
+        );
+    }
+
     return (
         <div style={{width: '100%', height: 'calc(100vh - 70px)', overflow: 'hidden', position: 'relative', background: 'var(--bg)'}}>
+            <div className="zone1-club-filters" style={{ display: 'flex', gap: '10px', justifyContent: 'center', padding: '16px 0 0', position: 'relative', zIndex: 100, flexWrap: 'wrap' }}>
+                {['All', ...CLUBS].map(club => {
+                    const label = club === 'All' ? 'All' : club.label;
+                    const isActive = activeClub === 'All' ? club === 'All' : (club !== 'All' && activeClub.label === club.label);
+                    return (
+                        <button
+                            key={label}
+                            onClick={() => handleFilterClub(club)}
+                            style={{
+                                padding: '8px 16px',
+                                borderRadius: '999px',
+                                border: `1px solid ${isActive ? 'var(--accent)' : 'var(--border)'}`,
+                                background: isActive ? 'var(--accent)' : 'transparent',
+                                color: isActive ? '#fff' : 'var(--text)',
+                                fontWeight: 700,
+                                fontSize: '0.8rem',
+                                letterSpacing: '0.05em',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                            }}
+                        >
+                            {label}
+                        </button>
+                    );
+                })}
+            </div>
+            {items.length === 0 ? (
+                <div style={{ width: '100%', height: 'calc(100% - 60px)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>
+                    No events found for {activeClub === 'All' ? 'All' : activeClub.label}.
+                </div>
+            ) : (
             <div className={`zone1-carousel ${sliderClass}`}>
                 <div className="list">
-                    {items.map((item, index) => {
-                        // The items are mapped according to their position in the state array
+                    {items.map((item) => {
                         return (
                             <div className="item" key={item.id}>
-                                <img src={`/img/zone1/${item.id}.png`} alt={item.title} />
+                                <img src={item.image} alt={item.title} />
                                 <div className="introduce">
                                     <div className="title" style={{color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase'}}>{item.category}</div>
                                     <div className="topic" style={{color: 'var(--text-h)'}}>{item.topic}</div>
@@ -153,6 +226,7 @@ export default function Zone1() {
                     <button id="back" onClick={handleBack} style={{color: 'var(--accent)', borderColor: 'var(--accent)'}}>See All Highlights &#8599;</button>
                 </div>
             </div>
+            )}
         </div>
     );
 }
