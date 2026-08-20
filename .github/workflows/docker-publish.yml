@@ -15,7 +15,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: cse-frontend
+  IMAGE_NAME: cpushalman/cse-frontend
 
 jobs:
   build-and-push:
