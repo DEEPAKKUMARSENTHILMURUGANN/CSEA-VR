@@ -16,40 +16,32 @@ import VirtualTour from "./components/virtual-tour/VirtualTour";
 import "./App.css";
 
 function AppContent() {
-  const location = useLocation();
-  const hideDefaultHeader =
-    location.pathname === "/" ||
-    location.pathname === "/showcase" ||
-    location.pathname.startsWith("/events");
-
   return (
     <div className="min-h-screen text-slate-800 relative font-sans flex flex-col antialiased">
-      {!hideDefaultHeader && (
-        <header style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 40,
-          height: '70px',
-          background: 'rgba(255, 255, 255, 0.7)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          borderBottom: '1px solid rgba(0,0,0,0.05)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 30px',
-          boxShadow: '0 4px 30px rgba(0,0,0,0.03)',
-        }}>
+      <header style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 40,
+        height: '70px',
+        background: 'rgba(255, 255, 255, 0.7)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        borderBottom: '1px solid rgba(0,0,0,0.05)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 30px',
+        boxShadow: '0 4px 30px rgba(0,0,0,0.03)',
+      }}>
 
-          <a href="#/" style={{display:'flex', alignItems:'center', gap:'10px', textDecoration:'none'}}>
-            <img src="/img/psg_logo.png" alt="PSG Logo" style={{height:'45px', width:'auto'}} />
-            <div style={{display:'flex', flexDirection:'column', justifyContent:'center', fontFamily: "'Poppins', sans-serif"}}>
-              <span style={{color:'#0f172a', fontWeight:800, fontSize:'1.1rem', lineHeight:1.1, letterSpacing:'0.5px'}}>PSG</span>
-              <span style={{color:'#64748b', fontWeight:600, fontSize:'0.75rem', lineHeight:1.1}}>College of Technology</span>
-            </div>
-          </a>
-        </header>
-      )}
+        <a href="#/" style={{display:'flex', alignItems:'center', gap:'10px', textDecoration:'none'}}>
+          <img src="/img/psg_logo.png" alt="PSG Logo" style={{height:'45px', width:'auto'}} />
+          <div style={{display:'flex', flexDirection:'column', justifyContent:'center', fontFamily: "'Poppins', sans-serif"}}>
+            <span style={{color:'#0f172a', fontWeight:800, fontSize:'1.1rem', lineHeight:1.1, letterSpacing:'0.5px'}}>PSG</span>
+            <span style={{color:'#64748b', fontWeight:600, fontSize:'0.75rem', lineHeight:1.1}}>College of Technology</span>
+          </div>
+        </a>
+      </header>
 
       <div className="flex-grow w-full">
         <Routes>

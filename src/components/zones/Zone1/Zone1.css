@@ -1,5 +1,3 @@
-/* Zone1.css — Events Carousel, inherits fonts from global index.css (Inter) */
-
 :root{
     --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
     --item1-filter: blur(30px);
@@ -31,8 +29,9 @@
 
 .zone1-carousel{
     position: relative;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: visible;
     margin-top: 0;
 }
 .zone1-carousel .list{
@@ -59,17 +58,24 @@
     z-index: 10;
     transform: translateX(0);
 }
-.zone1-carousel .list .item img{
-    width: 45%;
-    max-height: 70vh;
+.zone1-carousel .list .item img,
+.zone1-carousel .list .item video{
+    width: clamp(240px, 45%, 480px);
+    max-height: 78vh;
+    min-height: 320px;
     object-fit: contain;
     position: absolute;
     right: 2%;
     top: 53%;
     transform: translateY(-50%);
-    transition: right 1.5s;
+    transition: right 1.5s, opacity 0.6s ease;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    background: #000;
+}
+.zone1-carousel .list .item video{
+    opacity: 0;
+    pointer-events: none;
 }
 
 .zone1-carousel .list .item .introduce{
@@ -247,21 +253,36 @@
     opacity: 0;
     pointer-events: none;
 }
-.zone1-carousel.showDetail .list .item:nth-child(2) img{
+.zone1-carousel.showDetail .list .item:nth-child(2) img,
+.zone1-carousel.showDetail .list .item:nth-child(2) video{
     right: 50%;
+}
+.zone1-carousel.showDetail .list .item:nth-child(2) img{
+    opacity: 0;
+    pointer-events: none;
+}
+.zone1-carousel.showDetail .list .item:nth-child(2) video{
+    opacity: 1;
+    pointer-events: auto;
 }
 .zone1-carousel.showDetail .list .item:nth-child(2) .detail{
     opacity: 1;
     width: 50%;
     position: absolute;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 8%;
+    bottom: 100px;
+    max-height: none;
+    overflow-y: auto;
     text-align: right;
     pointer-events: auto;
 }
 .zone1-carousel.showDetail .list .item:nth-child(2) .detail .title{
     font-size: 4em;
+}
+.zone1-carousel.showDetail .list .item:nth-child(2) .detail .des{
+    text-align: left;
+    line-height: 1.6;
 }
 .zone1-carousel.showDetail .list .item:nth-child(2) .detail .specifications{
     display: flex;
@@ -426,8 +447,10 @@
         width: 50%;
     }
     
-    .zone1-carousel .list .item img{
-        width: 40%;
+    .zone1-carousel .list .item img,
+    .zone1-carousel .list .item video{
+        width: clamp(160px, 65%, 320px);
+        min-height: 220px;
     }
     .zone1-carousel.showDetail .list .item:nth-child(2) .detail{
         backdrop-filter: blur(10px);
