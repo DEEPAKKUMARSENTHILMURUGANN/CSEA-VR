@@ -268,8 +268,9 @@ export default function LandingPage() {
       <header className="navbar">
         <Link to="/" className="brand" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
           <img src="https://res.cloudinary.com/frqyykmt/image/upload/v1787208722/psg_logo.png" alt="PSG Logo" className="brand-icon" style={{ height: "50px", width: "auto", background: "transparent", padding: 0 }} />
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", fontFamily: "'Poppins', sans-serif" }}>
-            <span style={{ color: "#2b55a1", fontWeight: 800, fontSize: "1.2 rem", lineHeight: 1.1, letterSpacing: "0.5px" }}></span>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", fontFamily: "'Poppins', sans-serif", lineHeight: 1.2 }}>
+            <span style={{ color: "#64748b", fontWeight: 500, fontSize: "0.58rem", letterSpacing: "0.4px" }}>PSG College of</span>
+            <span style={{ color: "#2b55a1", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.3px" }}>Technology</span>
           </div>
         </Link>
         <nav ref={navRef}>
@@ -327,12 +328,20 @@ export default function LandingPage() {
 
         <div className="hero-content">
           <div className="hero-center">
-            {/* Years of Excellence logo – pinned top-right of hero */}
+            {/* Years of Excellence logos – pinned top-right of hero */}
             <a href="https://platinum.psgtech.ac.in/" target="_blank" rel="noreferrer" className="top-right-logo" style={{ textDecoration: "none", color: "inherit", position: "absolute", top: "80px", right: "32px", zIndex: 3 }}>
               <div className="years-logo-glow white-glow">
-                <img id="dynamic-logo-img" src={logoSrc} alt="Years of Excellence" />
+                <img src="https://res.cloudinary.com/drxmhgudx/image/upload/v1787206417/psg_75_logo_pm4frc.png" alt="PSG 75 Years of Excellence" />
+              </div>
+              <div className="years-logo-glow white-glow">
+                <img src="https://res.cloudinary.com/drxmhgudx/image/upload/v1787206373/100yearsLogo_PsgSonsCharities_nv5bs7.png" alt="PSG Sons Charities 100 Years" />
               </div>
             </a>
+
+            <h3 className="hero-dept-title">
+              <span className="dept-line-top">Department of</span>
+              <span className="dept-line-main">Computer Science and Engineering</span>
+            </h3>
 
             <div className="building-wrap" style={{ position: "relative", zIndex: 2 }}>
               <img src="images/building_3d.png" alt="PSG College of Technology 3D Model" ref={buildingImgRef} />
