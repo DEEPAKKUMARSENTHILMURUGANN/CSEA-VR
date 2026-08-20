@@ -1,15 +1,16 @@
 import React from 'react';
 import ResearchInnovationCorner from './ResearchInnovationCorner';
+import FacultyDirectory from './FacultyDirectory';
 
 /**
  * Zone 4 Wrapper Component.
- * This component now serves as the front end for the Research & Innovation Corner.
+ * Renders the Research & Innovation Corner, followed by the Faculty Directory
+ * (fetched live from GET /api/zone4).
  */
 const Zone4 = () => {
   return (
-    <div className="zone-wrapper zone4">
-      {/* The ResearchInnovationCorner now dictates the entire content of Zone 4 */}
-      <ResearchInnovationCorner />
+    <div className="zone-wrapper zone4 bg-slate-50/50">
+      <FacultyDirectory/>
     </div>
   );
 };

@@ -13,6 +13,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../../../components-css/zone3.css"; // Keep for swiper overrides if any, but relying on tailwind for main layout
 
+// The gallery mixes real photos with Cloudinary lab footage (.mp4). An <img>
+// tag can't render video, so detect the extension and switch elements.
+const isVideoUrl = (url = "") => /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(url);
+
 function LabPage() {
     const { slug, labId } = useParams();
     const navigate = useNavigate();
@@ -94,11 +98,23 @@ function LabPage() {
                     >
                         {lab.images.map((image, index) => (
                             <SwiperSlide key={index}>
-                                <img
-                                    src={image}
-                                    alt={lab.name}
-                                    className="w-full h-full object-cover"
-                                />
+                                {isVideoUrl(image) ? (
+                                    <video
+                                        src={image}
+                                        className="w-full h-full object-cover"
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        controls
+                                    />
+                                ) : (
+                                    <img
+                                        src={image}
+                                        alt={lab.name}
+                                        className="w-full h-full object-cover"
+                                    />
+                                )}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
                             </SwiperSlide>
                         ))}

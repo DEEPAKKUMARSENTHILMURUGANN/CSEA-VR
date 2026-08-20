@@ -1,101 +1,193 @@
 import React from 'react';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver';
+import { Calendar, MapPin, User } from 'lucide-react';
 import styles from '../../../components-css/industry.module.css';
 
-import gopikaImg from './assets/gopikarani.png';
-import sathyapriyaImg from './assets/sathyapriya.png';
-import sudhaImg from './assets/sudha sadasivam.png';
-import jayasreeImg from './assets/jayasree.png';
-import karpagamImg from './assets/karpagam.png';
-
-const getFacultyImage = (name) => {
-  if (name.includes('Gopika')) return gopikaImg;
-  if (name.includes('Sathiya Priya')) return sathyapriyaImg;
-  if (name.includes('Sudha')) return sudhaImg;
-  if (name.includes('Jayashree')) return jayasreeImg;
-  if (name.includes('Karpagam')) return karpagamImg;
-  return null;
-};
-
-const mouData = [
-  {
-    year: '2018',
-    partner: 'Red Hat Academy (Plexus Networks)',
-    details: 'Open Source & Red Hat Technologies',
-    faculty: 'Dr. N. Gopika Rani'
-  },
-  {
-    year: '2019',
-    partner: 'EMURGO Learning Solutions, Bengaluru',
-    details: 'Blockchain Education Programme',
-    faculty: 'Dr. K. Sathiya Priya'
-  },
-  {
-    year: '2019',
-    partner: 'Cloudera, Bengaluru',
-    details: 'Federated Cloud Environment',
-    faculty: 'Dr. G. Sudha Sadasivam'
-  },
-  {
-    year: '2020',
-    partner: 'Agna Inc.',
-    details: 'GaitWatch Technology Transfer (5 Years)',
-    faculty: 'Dr. L.S. Jayashree'
-  },
-  {
-    year: '2021',
-    partner: 'Verticurl, Coimbatore',
-    details: 'Innovation Practices & Value Added Courses',
-    faculty: 'Dr. K. Sathiya Priya'
-  },
-  {
-    year: '2022',
-    partner: 'Ugam Solutions SEZ Pvt Ltd, Coimbatore',
-    details: 'Innovation Project Statements',
-    faculty: 'Dr. N. Gopika Rani'
-  },
-  {
-    year: '2023',
-    partner: 'HPE, Bangalore',
-    details: 'PSG-HPE Centre for Security & Infrastructure (5 Years)',
-    faculty: 'Dr. G.R. Karpagam'
-  }
-];
-
 export function MOUTimeline() {
-  const [railRef, isRailVisible] = useIntersectionObserver({ threshold: 0.05, triggerOnce: true });
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+
+  // Chronological by MOU signing date. Update `year` to a Date-parseable string if you
+  // later want to sort programmatically instead of by array order.
+  const milestones = [
+    {
+      year: '2007',
+      date: 'August 8, 2007',
+      partner: 'Cordys',
+      title: 'Service Oriented Architecture (SOA) Laboratory',
+      desc: 'MOU to set up an SOA laboratory at PSG, followed by its inauguration on Aug 18, 2007.',
+      location: 'E Block, 1st Floor',
+      faculty: 'Dr. G.R. Karpagam',
+      tagBg: 'var(--psg-maroon)'
+    },
+    {
+      year: '2008',
+      date: 'Mar 2008 / Dec 2008 / Sep 2009',
+      partner: 'Yahoo',
+      title: 'PSG–Yahoo Laboratory',
+      desc: 'Laboratory partnership spanning several signing dates, established Nov 2008 and extended Apr 2010.',
+      location: 'E Block, 4th Floor',
+      faculty: 'Dr. G. Sudhasadasivam',
+      tagBg: 'var(--psg-maroon)'
+    },
+    {
+      year: '2009',
+      date: 'July 23, 2009',
+      partner: 'Cordys',
+      title: 'Cloud Computing Laboratory',
+      desc: 'MOU to set up a Cloud Computing laboratory at PSG, inaugurated Feb 17, 2010.',
+      location: 'E Block, 1st Floor',
+      faculty: 'Dr. G.R. Karpagam',
+      tagBg: 'var(--psg-maroon)'
+    },
+    {
+      year: '2012',
+      date: 'June 29, 2012',
+      partner: 'Nokia',
+      title: 'PSG–Nokia Big Data Analytics Laboratory',
+      desc: 'MOU signing and inauguration of the Big Data Analytics Lab, documented alongside the Yahoo laboratory.',
+      location: 'E Block, 4th Floor',
+      faculty: 'Dr. G. Sudhasadasivam',
+      tagBg: 'var(--psg-gold)'
+    },
+    {
+      year: '2014',
+      date: 'June 1, 2014',
+      partner: 'Cognizant',
+      title: 'Open Source Software Laboratory',
+      desc: 'MOU for the inauguration of the Open Source Software Laboratory, established Dec 22, 2006.',
+      location: 'E Block, 1st Floor',
+      faculty: 'Dr. G.R. Karpagam',
+      tagBg: 'var(--psg-gold)'
+    },
+    {
+      year: '2017',
+      date: 'August 24, 2017',
+      partner: 'Advantech Data Link Solutions',
+      title: 'PSG AIR Lab',
+      desc: 'MOU signing for the PSG AIR Lab, photographed alongside the Giles Brooker Group signing.',
+      location: 'F Block, 4th Floor · 3-year term',
+      faculty: 'Dr. N. Arulanand & Dr. S. Lovelyn Rose',
+      tagBg: 'var(--psg-maroon)'
+    },
+    {
+      year: '2018',
+      date: 'April 28, 2018',
+      partner: 'Impiger Technologies',
+      title: 'Center for Artificial Intelligence Research (AIR)',
+      desc: 'MOU for a Center for AI Research, with Impiger providing Azure credits, internships, and an NVIDIA Tesla V100 server.',
+      location: 'PSG College of Technology',
+      faculty: 'Dr. G.R. Karpagam & Dr. B. Vinoth Kumar',
+      tagBg: 'var(--psg-maroon)'
+    },
+    {
+      year: '2018',
+      date: 'August 21, 2018',
+      partner: 'Giles Brooker Group',
+      title: 'Data Analytics Specialization Curriculum',
+      desc: 'MOU to design a Data Analytics Specialization curriculum, delivered at IDS College, Jakarta.',
+      location: 'F Block · 3-year term',
+      faculty: 'Dr. G.R. Karpagam',
+      tagBg: 'var(--psg-maroon)'
+    },
+    {
+      year: '2018',
+      date: 'August 21, 2018',
+      partner: 'Red Hat Academy (Plexus Networks)',
+      title: 'PSG–Red Hat Academy powered by Plexus Networks',
+      desc: 'MOU for Red Hat Academy classes on open-source technology, delivered by Plexus Networks.',
+      location: 'PSG College of Technology · 3-year term',
+      faculty: 'Dr. N. Gopika Rani',
+      tagBg: 'var(--psg-maroon)'
+    },
+    {
+      year: '2019',
+      date: 'March 29, 2019',
+      partner: 'Hewlett Packard Enterprise (HPE)',
+      title: 'Center for Teaching and Experiencing Security and Infrastructure',
+      desc: 'MOU to set up a center for teaching and experiencing security and infrastructure.',
+      location: 'PSG College of Technology · 2-year term',
+      faculty: 'Dr. N. Gopika Rani',
+      tagBg: 'var(--psg-maroon)'
+    }
+  ];
 
   return (
-    <section className="bg-transparent" style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}>
-      <div className="max-w-5xl mx-auto">
-        {/* Header Block with Line Eyebrow Decoration */}
-        <div className="text-center mb-24">
+    <section
+      ref={ref}
+      className="bg-transparent"
+      style={{ paddingTop: '8rem', paddingBottom: '8rem', paddingLeft: '5%', paddingRight: '5%' }}
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Header Block */}
+        <div className="mb-20 text-center">
           <div className="mb-4">
             <span className={`${styles.eyebrow}`}>
-              <span>7 PARTNERSHIPS · 2018–2023</span>
+              <span>A DECADE OF PARTNERSHIPS · 2007–2019</span>
             </span>
           </div>
           <h2
-            className="text-4xl sm:text-5xl font-black uppercase text-slate-900 tracking-tight leading-none mb-4"
+            className="text-3xl sm:text-4xl md:text-[44px] font-black uppercase text-slate-900 leading-tight tracking-tight select-text"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Partnerships That Built Things.
+            Every MOU. <br />
+            <span className="text-blue-600 italic font-bold">A Step Forward.</span>
           </h2>
-          <p className={`${styles.fontSans} text-slate-600 text-base max-w-xl mx-auto leading-relaxed mt-4`}>
-            Our Memorandum of Understanding (MOU) ecosystem bridges academic scholarship with directly commercialised industrial products.
-          </p>
         </div>
 
-        {/* Timeline wrapper */}
-        <div ref={railRef} className="relative min-h-[500px]">
-          {/* Vertical Rail Line drawing top to bottom */}
-          <div className={`${styles.timelineRail} ${isRailVisible ? styles.timelineRailActive : ''}`} />
+        {/* Timeline */}
+        <div className="relative">
+          {/* Center rail — desktop only */}
+          <div
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200"
+            style={{ transform: 'translateX(-50%)' }}
+          />
+          {/* Left rail — mobile */}
+          <div className="md:hidden absolute left-[15px] top-0 bottom-0 w-px bg-slate-200" />
 
-          {/* Timeline entries with stagger spacer */}
-          <div className="space-y-16">
-            {mouData.map((item, idx) => (
-              <TimelineCard key={String(idx)} item={item} index={idx} />
-            ))}
+          <div className="flex flex-col gap-12 md:gap-4">
+            {milestones.map((m, idx) => {
+              const isLeft = idx % 2 === 0;
+              const staggerDelay = idx * 100;
+
+              return (
+                <div
+                  key={idx}
+                  className="relative flex flex-col md:flex-row items-start md:items-center"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? 'translateY(0)' : 'translateY(24px)',
+                    transitionProperty: 'opacity, transform',
+                    transitionDuration: '600ms',
+                    transitionDelay: `${staggerDelay}ms`,
+                    transitionTimingFunction: 'var(--ease-out-expo)'
+                  }}
+                >
+                  {/* Mobile marker */}
+                  <div className="md:hidden absolute left-[15px] top-1.5 -translate-x-1/2 z-20">
+                    <div className="w-3 h-3 rounded-full bg-blue-600 border-2 border-white shadow" />
+                  </div>
+
+                  {/* Left slot */}
+                  <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isLeft ? 'md:pr-12 md:text-right' : 'md:pr-12 md:opacity-0 md:pointer-events-none'}`}>
+                    {isLeft && (
+                      <MilestoneCard m={m} align="right" />
+                    )}
+                  </div>
+
+                  {/* Center marker — desktop */}
+                  <div className="hidden md:flex flex-col items-center absolute left-1/2 -translate-x-1/2 z-20">
+                    <div className="w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow group-hover:bg-blue-400 transition-colors duration-300" />
+                  </div>
+
+                  {/* Right slot */}
+                  <div className={`w-full md:w-1/2 pl-10 md:pl-12 ${!isLeft ? '' : 'md:opacity-0 md:pointer-events-none'}`}>
+                    {!isLeft && (
+                      <MilestoneCard m={m} align="left" />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -103,84 +195,62 @@ export function MOUTimeline() {
   );
 }
 
-function TimelineCard({ item, index }) {
-  // Card enters on scroll reach
-  const [cardRef, isCardVisible] = useIntersectionObserver({ threshold: 0.2, triggerOnce: true });
-
-  // Alternate left/right side columns on desktop sizes
-  const isLeft = index % 2 === 0;
+function MilestoneCard({ m, align }) {
+  const isRight = align === 'right';
 
   return (
     <div
-      ref={cardRef}
-      className="relative grid grid-cols-1 md:grid-cols-2 items-center w-full min-h-[160px]"
+      className="group relative inline-block w-full max-w-md bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden transition-all duration-500 transform hover:scale-[1.02] hover:border-blue-300 hover:shadow-xl"
+      style={{ transitionTimingFunction: 'var(--ease-out-soft)' }}
     >
-      {/* Connector dot: double-ring outer 20px, inner 10px */}
-      <div
-        className="absolute left-4 md:left-1/2 -translate-x-1/2 top-5 md:top-1/2 -translate-y-1/2 z-20 pointer-events-none"
-      >
-        <div
-          className={`${styles.timelineDoubleConnector}`}
-          style={{
-            transform: isCardVisible ? 'scale(1)' : 'scale(0)'
-          }}
-        >
-          <div
-            className={`${styles.timelineDoubleConnectorInner}`}
-            style={{
-              transform: isCardVisible ? 'scale(1)' : 'scale(0)'
-            }}
-          />
+      <div className="p-5" style={{ textAlign: isRight ? 'right' : 'left' }}>
+        {/* Year + tag row */}
+        <div className={`flex items-center gap-2 mb-2 ${isRight ? 'justify-end' : 'justify-start'}`}>
+          <span
+            className="text-blue-600 font-mono text-xs font-bold tracking-widest uppercase"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            {m.year}
+          </span>
+          <span
+            className="inline-block px-2 py-0.5 rounded text-[9px] font-black tracking-widest uppercase"
+            style={{ backgroundColor: m.tagBg, color: m.tagBg === 'var(--psg-gold)' ? 'var(--psg-charcoal)' : '#FFFFFF' }}
+          >
+            {m.partner}
+          </span>
         </div>
-      </div>
 
-      {/* Styled Card block */}
-      <div
-        data-year={item.year}
-        className={`w-full md:w-[90%] bg-white border border-slate-200 rounded-lg transition-all duration-800 shadow-sm hover:shadow-xl transform group overflow-hidden ${styles.mouCard} ${
-          isLeft ? 'md:col-start-1 md:justify-self-start text-left md:mr-10 ml-10 md:ml-0' : 'md:col-start-2 md:justify-self-end text-left md:ml-10'
-        } ${
-          isCardVisible ? 'opacity-100 translate-x-0' : isLeft ? 'opacity-0 md:-translate-x-12 translate-x-12' : 'opacity-0 translate-x-12'
-        }`}
-        style={{
-          borderLeft: '3px solid #2563eb',
-          transitionTimingFunction: 'var(--ease-out-expo)',
-          padding: '2rem',
-          paddingLeft: '2.5rem'
-        }}
-      >
-        {/* Hover-triggered signature gold border overlay change */}
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-blue-600 group-hover:bg-blue-400 transition-all duration-300" />
-
-        {/* Year Label */}
-        <div
-          className="text-blue-600 font-black text-3xl tracking-tight leading-none mb-3"
+        {/* Title */}
+        <h3
+          className="text-slate-900 font-bold tracking-tight text-lg leading-snug mb-2 group-hover:text-blue-600 transition-colors duration-300"
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          {item.year}
-        </div>
+          {m.title}
+        </h3>
 
-        {/* Partner Name */}
-        <h4 className={`${styles.fontSans} text-slate-900 text-lg font-bold leading-tight`}>
-          {item.partner}
-        </h4>
-
-        {/* Outcome / Area of agreement */}
-        <p className={`${styles.fontSans} text-slate-600 text-sm mt-2 font-medium leading-relaxed`}>
-          {item.details}
+        {/* Description */}
+        <p className={`${styles.fontSans} text-slate-600 text-[13px] leading-relaxed mb-4`}>
+          {m.desc}
         </p>
 
-        {/* Department Faculty Lead coordinator */}
-        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            {(() => { const img = getFacultyImage(item.faculty); return img ? <img src={img} alt={item.faculty} className="w-6 h-6 rounded-full object-cover border border-[var(--psg-maroon)]/20 shadow-sm" /> : null; })()}
-            <span className={`${styles.fontSans} text-[10px] text-slate-500 font-semibold uppercase tracking-widest`}>
-              Faculty Lead: {item.faculty}
-            </span>
+        {/* Meta rows */}
+        <div className={`flex flex-col gap-2 pt-3 border-t border-slate-100 ${isRight ? 'items-end' : 'items-start'}`}>
+          <div className={`flex items-center gap-2 text-[11px] text-slate-500 font-medium ${isRight ? 'flex-row-reverse' : ''}`}>
+            <Calendar className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+            <span>{m.date}</span>
+          </div>
+          <div className={`flex items-center gap-2 text-[11px] text-slate-500 font-medium ${isRight ? 'flex-row-reverse' : ''}`}>
+            <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+            <span>{m.location}</span>
+          </div>
+          <div className={`flex items-center gap-2 text-[11px] text-slate-500 font-medium ${isRight ? 'flex-row-reverse' : ''}`}>
+            <User className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+            <span>{m.faculty}</span>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 export default MOUTimeline;

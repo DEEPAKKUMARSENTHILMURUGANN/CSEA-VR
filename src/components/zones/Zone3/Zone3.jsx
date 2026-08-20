@@ -8,11 +8,11 @@ import "../../../components-css/zone3.css";
 function Zone3() {
     const navigate = useNavigate();
 
-    // Balanced Bento grid span logic for 10 cards in a 3-column layout
+    // Balanced Bento grid span logic for 12 cards in a 3-column layout
     const getGridSpan = (index) => {
         if (index === 0) return "lg:col-span-2 lg:row-span-2"; // 2x2 Feature Card
-        if (index === 4) return "lg:col-span-2";               // 2x1 Wide Card
-        if (index === 9) return "lg:col-span-2";               // 2x1 Wide Card (balances bottom row)
+        if (index === 5) return "lg:col-span-2";               // 2x1 Wide Card
+        if (index === 11) return "lg:col-span-2";              // 2x1 Wide Card (balances bottom row)
         return "lg:col-span-1";
     };
 
