@@ -76,8 +76,8 @@ export default function LandingPage() {
       const swapLogo = () => {
         setLogoSrc((prev) =>
           prev.includes("psg_75_logo")
-            ? "images/100yearsLogo_PsgSonsCharities.png"
-            : "images/psg_75_logo.png"
+            ? "https://res.cloudinary.com/drxmhgudx/image/upload/v1787206373/100yearsLogo_PsgSonsCharities_nv5bs7.png"
+            : "https://res.cloudinary.com/drxmhgudx/image/upload/v1787206417/psg_75_logo_pm4frc.png"
         );
       };
       swapLogo();
@@ -267,10 +267,9 @@ export default function LandingPage() {
       {/* Top Navbar */}
       <header className="navbar">
         <Link to="/" className="brand" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
-          <img src="img/psg_logo.png" alt="PSG Logo" className="brand-icon" style={{ height: "50px", width: "auto", background: "transparent", padding: 0 }} />
+          <img src="https://res.cloudinary.com/frqyykmt/image/upload/v1787208722/psg_logo.png" alt="PSG Logo" className="brand-icon" style={{ height: "50px", width: "auto", background: "transparent", padding: 0 }} />
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", fontFamily: "'Poppins', sans-serif" }}>
-            <span style={{ color: "#2b55a1", fontWeight: 800, fontSize: "1.2rem", lineHeight: 1.1, letterSpacing: "0.5px" }}>PSG</span>
-            <span style={{ color: "#2b55a1", fontWeight: 800, fontSize: "1rem", lineHeight: 1.1 }}>College of Technology</span>
+            <span style={{ color: "#2b55a1", fontWeight: 800, fontSize: "1.2 rem", lineHeight: 1.1, letterSpacing: "0.5px" }}></span>
           </div>
         </Link>
         <nav ref={navRef}>

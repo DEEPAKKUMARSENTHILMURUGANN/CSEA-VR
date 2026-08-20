@@ -2,18 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Award, FolderKanban, FileText, User, Loader2, AlertCircle } from 'lucide-react';
 
-/* ============================================================
-   CONFIG
-   ============================================================ */
-// Read from the Vite env file (.env) at build time. Falls back to the
-// deployed Render URL so the component still works if the var is missing.
-// Mounted in server.js via app.use('/api/faculty', zone4Routes).
-// Add / edit this in .env at the project root:
-//   VITE_API_BASE=https://vr-backend-gwr1.onrender.com/api/faculty
-const API_BASE = import.meta.env.VITE_API_BASE || 'https://vr-backend-gwr1.onrender.com/api/faculty';
 
-// Rotating accent palette (same hues used across Zone4) — applied per-card
-// since the backend doesn't return a color. Swap for a real field if you add one.
+const API_BASE = `${import.meta.env.VITE_API_BASE || 'https://vr-backend-gwr1.onrender.com/'}api/faculty`;
+
+
 const ACCENTS = ['#10b981', '#3b82f6', '#a855f7', '#f59e0b', '#ef4444', '#06b6d4'];
 const accentFor = (id) => {
   const str = String(id || '');
@@ -182,7 +174,7 @@ const FacultyCard = ({ person, index, onClick }) => {
   const achievements = Array.isArray(achievementsRaw) ? achievementsRaw : [];
   const projectsCount = Array.isArray(projectsRaw) ? projectsRaw.length : 0;
   const papersCount = Array.isArray(papersRaw) ? papersRaw.length : 0;
-  const staggerDelay = index * 0.12;
+  const staggerDelay = Math.min(index * 0.05, 0.25);
 
   const showAwardsStat = isPresent(achievementsRaw);
   const showProjectsStat = isPresent(projectsRaw);
@@ -195,20 +187,20 @@ const FacultyCard = ({ person, index, onClick }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: staggerDelay, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: '0px 0px -150px 0px' }}
+      transition={{ duration: 0.25, delay: staggerDelay, ease: 'easeOut' }}
       onClick={() => onClick(person)}
-      className="relative group flex flex-col bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm transition-all duration-[600ms] transform hover:-translate-y-2 hover:shadow-xl cursor-pointer"
+      className="relative group flex flex-col bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl cursor-pointer"
       style={{ minHeight: '480px' }}
     >
       {/* Left accent bar, grows in on scroll like the ProductCards signature rule */}
       <motion.div
         initial={{ height: '0%' }}
         whileInView={{ height: '100%' }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: staggerDelay + 0.2 }}
+        viewport={{ once: true, margin: '0px 0px -150px 0px' }}
+        transition={{ duration: 0.25, delay: staggerDelay + 0.1 }}
         className="absolute left-0 top-0 w-[4px] z-30 transition-colors duration-500"
         style={{ backgroundColor: acc }}
       />
@@ -222,7 +214,7 @@ const FacultyCard = ({ person, index, onClick }) => {
           <img
             src={person.photo || person.photoUrl || person.image}
             alt={person.name}
-            className="absolute z-0 object-cover w-full h-full"
+            className="absolute z-0 object-cover w-full h-full top-3 left-0 right-0"
           />
         ) : (
           <div
@@ -244,18 +236,6 @@ const FacultyCard = ({ person, index, onClick }) => {
               style={{ backgroundColor: acc }}
             >
               HOD
-            </span>
-          </div>
-        )}
-
-        {/* Tag pill — designation */}
-        {isPresent(person.designation) && (
-          <div className="absolute top-6 right-6 z-20">
-            <span
-              className="inline-block px-2.5 py-0.5 rounded text-[10px] font-black tracking-widest uppercase text-white"
-              style={{ backgroundColor: acc }}
-            >
-              {person.designation}
             </span>
           </div>
         )}
@@ -307,6 +287,18 @@ const FacultyCard = ({ person, index, onClick }) => {
           </div>
         )}
       </div>
+
+      {/* Designation strip — sits directly above the View Profile footer bar */}
+      {isPresent(person.designation) && (
+        <div className="px-6 pt-3 z-10">
+          <span
+            className="text-[10px] font-black uppercase tracking-widest"
+            style={{ color: acc }}
+          >
+            {person.designation}
+          </span>
+        </div>
+      )}
 
       {/* Zone C — impact strip */}
       <div

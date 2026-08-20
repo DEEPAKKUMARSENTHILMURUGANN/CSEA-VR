@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Zone1.css';
 
-// Zone1 events API base URL, set in .env (mounted in server.js via
-// app.use('/api/zone1', zone1Routes)).
-const EVENTS_ENDPOINT = import.meta.env.VITE_ZONE1_API_BASE;
 
-// Clubs that can host a Zone1 event. `match` is compared against each
-// event's `clubName` field (case-insensitively); `label` is the short text
-// shown on the filter tab.
+const EVENTS_ENDPOINT = `${import.meta.env.VITE_API_BASE || 'https://vr-backend-gwr1.onrender.com/'}api/zone1`;
+
+
 const CLUBS = [
     { label: 'CSEA', match: 'Computer Science and Engineering Association (CSEA)' },
     { label: 'GitHub Campus Club', match: 'GitHub Campus Club' },
@@ -22,6 +19,7 @@ export default function Zone1() {
     const [error, setError] = useState(null);
     const [sliderClass, setSliderClass] = useState('');
     const [isAnimating, setIsAnimating] = useState(false);
+    const videoRefs = useRef({});
 
     useEffect(() => {
         let cancelled = false;
@@ -36,11 +34,7 @@ export default function Zone1() {
                 }
                 const data = await res.json();
 
-                // Normalize backend documents to the shape the carousel expects.
-                // Backend schema (models/zone1.js) uses `eventName` / `photo`,
-                // while the carousel UI historically expected `topic` / an
-                // /img/zone1/{id}.png asset. Map with sensible fallbacks so the
-                // component keeps working regardless of which fields are set.
+                
                 const normalized = (Array.isArray(data) ? data : []).map(ev => ({
                     id: ev.id,
                     category: ev.category,
@@ -79,6 +73,7 @@ export default function Zone1() {
         if (isAnimating || items.length === 0) return;
         setIsAnimating(true);
         setSliderClass('next');
+        Object.values(videoRefs.current).forEach(vid => { if (vid) vid.pause(); });
         setItems(prev => {
             const newItems = [...prev];
             const first = newItems.shift();
@@ -95,6 +90,7 @@ export default function Zone1() {
         if (isAnimating || items.length === 0) return;
         setIsAnimating(true);
         setSliderClass('prev');
+        Object.values(videoRefs.current).forEach(vid => { if (vid) vid.pause(); });
         setItems(prev => {
             const newItems = [...prev];
             const last = newItems.pop();
@@ -107,12 +103,23 @@ export default function Zone1() {
         }, 1200); // Wait for transition
     };
 
-    const handleSeeMore = () => {
+    const handleSeeMore = (itemId) => {
         setSliderClass('showDetail');
+        const vid = videoRefs.current[itemId];
+        if (vid) {
+            vid.currentTime = 0;
+            vid.play().catch(() => {}); // ignore autoplay-block errors
+        }
     };
 
     const handleBack = () => {
         setSliderClass('');
+        Object.values(videoRefs.current).forEach(vid => {
+            if (vid) {
+                vid.pause();
+                vid.currentTime = 0;
+            }
+        });
     };
 
     const handleFilterClub = (club) => {
@@ -130,7 +137,7 @@ export default function Zone1() {
 
     if (loading) {
         return (
-            <div style={{ width: '100%', height: 'calc(100vh - 70px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
+            <div style={{ width: '100%', height: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
                 Loading events…
             </div>
         );
@@ -138,7 +145,7 @@ export default function Zone1() {
 
     if (error) {
         return (
-            <div style={{ width: '100%', height: 'calc(100vh - 70px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
+            <div style={{ width: '100%', height: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
                 {error}
             </div>
         );
@@ -146,14 +153,14 @@ export default function Zone1() {
 
     if (allItems.length === 0) {
         return (
-            <div style={{ width: '100%', height: 'calc(100vh - 70px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
+            <div style={{ width: '100%', height: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--text)' }}>
                 No events found.
             </div>
         );
     }
 
     return (
-        <div style={{width: '100%', height: 'calc(100vh - 70px)', overflow: 'hidden', position: 'relative', background: 'var(--bg)'}}>
+        <div style={{width: '100%', height: 'calc(100vh - 64px)', overflow: 'hidden', position: 'relative', background: 'var(--bg)'}}>
             <div className="zone1-club-filters" style={{ display: 'flex', gap: '10px', justifyContent: 'center', padding: '16px 0 0', position: 'relative', zIndex: 100, flexWrap: 'wrap' }}>
                 {['All', ...CLUBS].map(club => {
                     const label = club === 'All' ? 'All' : club.label;
@@ -191,11 +198,20 @@ export default function Zone1() {
                         return (
                             <div className="item" key={item.id}>
                                 <img src={item.image} alt={item.title} />
+                                {item.video && (
+                                    <video
+                                        ref={el => { videoRefs.current[item.id] = el; }}
+                                        src={item.video}
+                                        controls
+                                        playsInline
+                                        preload="metadata"
+                                    />
+                                )}
                                 <div className="introduce">
                                     <div className="title" style={{color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase'}}>{item.category}</div>
                                     <div className="topic" style={{color: 'var(--text-h)'}}>{item.topic}</div>
                                     <div className="des" style={{color: 'var(--text)'}}>{item.description}</div>
-                                    <button className="seeMore" onClick={handleSeeMore} style={{color: 'var(--accent)', borderColor: 'var(--accent)'}}>
+                                    <button className="seeMore" onClick={() => handleSeeMore(item.id)} style={{color: 'var(--accent)', borderColor: 'var(--accent)'}}>
                                         SEE MORE &#8599;
                                     </button>
                                 </div>
@@ -209,10 +225,6 @@ export default function Zone1() {
                                                 <p style={{color: 'var(--text-h)', fontWeight: 800}}>{spec.value}</p>
                                             </div>
                                         ))}
-                                    </div>
-                                    <div className="checkout">
-                                        <button style={{color: 'var(--text-h)', borderColor: 'var(--border)', background: '#fff', fontWeight: 700}}>REGISTER</button>
-                                        <button style={{backgroundColor: 'var(--accent)', color: '#fff', border: 'none', fontWeight: 700, boxShadow: '0 4px 14px rgba(37,99,235,0.3)'}}>SCHEDULE</button>
                                     </div>
                                 </div>
                             </div>

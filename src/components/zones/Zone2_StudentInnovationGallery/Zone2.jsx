@@ -3,20 +3,10 @@ import '../../../components-css/Zone2.css';
 import CategoryPage from './CategoryPage';
 import ProjectDetail from './ProjectDetail';
 
-/* ============================================================
-   CONFIG
-   ============================================================ */
-// Points at the zone2 routes on the deployed backend — mounted in server.js
-// via app.use('/api/projects', zone2Routes), giving GET /api/projects/categories,
-// GET /api/projects/:categoryId, GET /api/projects/:categoryId/:projectSlug.
-// Add / edit this in .env at the project root:
-//   VITE_ZONE2_API_BASE=https://vr-backend-gwr1.onrender.com/api/projects
-const API_BASE = import.meta.env.VITE_ZONE2_API_BASE || 'https://vr-backend-gwr1.onrender.com/api/projects';
 
-// The Mongo schema only stores id/number/name/tagline/description/count/icon —
-// no color fields. Accent colors are a presentation detail, so they're kept
-// here and merged onto each fetched category by id. Add an entry whenever a
-// new category id is introduced in the DB; unknown ids fall back to DEFAULT_ACCENT.
+const API_BASE = `${import.meta.env.VITE_API_BASE || 'https://vr-backend-gwr1.onrender.com/'}api/projects`;
+
+
 const ACCENTS_BY_ID = {
   'first-year': { accentColor: '#6B9B6D', lightColor: '#EBF3EB' },
   mini: { accentColor: '#6289A8', lightColor: '#E4EEF5' },
