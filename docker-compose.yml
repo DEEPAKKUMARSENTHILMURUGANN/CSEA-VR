@@ -3,5 +3,5 @@ services:
     container_name: cse-frontend
     build: .
     ports:
-      - "3000:80"
+      - "6505:80"
     restart: unless-stopped
