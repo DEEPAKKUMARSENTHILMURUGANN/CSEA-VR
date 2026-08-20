@@ -76,7 +76,7 @@ function AppContent() {
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/cse">
       <AppContent />
     </Router>
   );
