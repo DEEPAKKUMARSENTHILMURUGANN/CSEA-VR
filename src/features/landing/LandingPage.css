@@ -69,10 +69,33 @@ html {
     transform: translateY(-50%);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
     color: var(--text);
     z-index: 2;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Poppins', 'Inter', sans-serif;
+}
+
+.brand-title {
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 0.92rem;
+    line-height: 1.15;
+    letter-spacing: -0.2px;
+}
+
+.brand-sub {
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    letter-spacing: 0.2px;
 }
 
 /* Nav sits in absolute center of the fixed bar */
@@ -325,15 +348,14 @@ html {
 
 .building-wrap {
     position: relative;
-    width: min(90vw, 650px);
-    max-width: 650px;
-    margin: 30px auto 0;
+    width: min(90vw, 560px);
+    max-width: 560px;
+    margin: 10px auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateY(65px);
+    transform: translateY(15px);
 }
-
 
 .building-wrap img {
     width: 100%;
@@ -343,7 +365,63 @@ html {
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
 }
 
+/* Hero Department Container & Title Styling */
+.hero-dept-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+    pointer-events: auto;
+    z-index: 10;
+    margin-top: 20px;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+.hero-dept-title {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    font-size: clamp(1.5rem, 3.2vw, 2.7rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 850px;
+}
+
+.hero-dept-gradient-text {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    filter: drop-shadow(0 2px 8px rgba(37, 99, 235, 0.12));
+}
+
+.hero-dept-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.75rem, 0.9vw, 0.86rem);
+    font-weight: 600;
+    color: #64748b;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.dept-tagline-badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.08);
+    border: 1.5px solid rgba(37, 99, 235, 0.2);
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #1e40af;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
 
 /* Reduced CTA Button font sizes and crisp single-line layout */
 .hero-cta-bar {
@@ -351,8 +429,8 @@ html {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin-top: 45px;
-    transform: translateY(35px);
+    margin-top: 20px;
+    transform: translateY(15px);
     white-space: nowrap;
 }
 
@@ -634,7 +712,8 @@ html {
 .hero-right,
 .hero-bg-text,
 .hero-tagline,
-.hero-cta-bar {
+.hero-cta-bar,
+.hero-dept-header {
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
@@ -652,7 +731,8 @@ html {
 
 .landing-body.about-mode .hero-bg-text,
 .landing-body.about-mode .hero-tagline,
-.landing-body.about-mode .hero-cta-bar {
+.landing-body.about-mode .hero-cta-bar,
+.landing-body.about-mode .hero-dept-header {
     opacity: 0;
     pointer-events: none;
 }

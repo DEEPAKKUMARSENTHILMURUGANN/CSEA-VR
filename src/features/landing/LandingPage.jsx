@@ -263,13 +263,13 @@ export default function LandingPage() {
           <span>360° VR Tour</span>
         </Link>
       </nav>
-
-      {/* Top Navbar */}
+      {/* Top Navbar */}
       <header className="navbar">
-        <Link to="/" className="brand" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
-          <img src="https://res.cloudinary.com/frqyykmt/image/upload/v1787208722/psg_logo.png" alt="PSG Logo" className="brand-icon" style={{ height: "50px", width: "auto", background: "transparent", padding: 0 }} />
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", fontFamily: "'Poppins', sans-serif" }}>
-            <span style={{ color: "#2b55a1", fontWeight: 800, fontSize: "1.2 rem", lineHeight: 1.1, letterSpacing: "0.5px" }}></span>
+        <Link to="/" className="brand">
+          <img src="https://res.cloudinary.com/frqyykmt/image/upload/v1787208722/psg_logo.png" alt="PSG Logo" className="brand-icon" style={{ height: "44px", width: "auto", background: "transparent", padding: 0 }} />
+          <div className="brand-text">
+            <span className="brand-title">PSG College of Technology</span>
+            <span className="brand-sub">Department of Computer Science &amp; Engineering</span>
           </div>
         </Link>
         <nav ref={navRef}>
@@ -334,6 +334,16 @@ export default function LandingPage() {
               </div>
             </a>
 
+            {/* Hero Main Department Title Banner */}
+            <div className="hero-dept-header">
+              <h1 className="hero-dept-title">
+                Department of <span className="hero-dept-gradient-text">Computer Science &amp; Engineering</span>
+              </h1>
+              <p className="hero-dept-subtitle">
+                PSG College of Technology • Est. 1951
+              </p>
+            </div>
+
             <div className="building-wrap" style={{ position: "relative", zIndex: 2 }}>
               <img src="images/building_3d.png" alt="PSG College of Technology 3D Model" ref={buildingImgRef} />
             </div>
@@ -356,7 +366,7 @@ export default function LandingPage() {
             </div>
             <div className="about-section">
               <div className="about-section-label">Department</div>
-              <h3>Computer Science &amp; Engineering</h3>
+              <h3>Department of Computer Science &amp; Engineering</h3>
               <div className="typed-text" id="typed-cse">{typedCseText}</div>
             </div>
           </div>
@@ -367,7 +377,7 @@ export default function LandingPage() {
       {/* Section 2: Quote / Tagline Section */}
       <section className="tagline-section">
         <div className="hero-tagline">
-          <h2>Excellence in Education</h2>
+          <h2>Excellence in Computing &amp; Innovation</h2>
         </div>
       </section>
 
