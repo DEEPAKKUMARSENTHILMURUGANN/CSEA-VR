@@ -30,16 +30,20 @@ function Zone3() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="hero max-w-[950px] mx-auto text-center mb-16 flex flex-col items-center"
+                className="hero max-w-[950px] mx-auto text-center mb-10 flex flex-col items-center"
             >
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-6">
+                <div className="zone3-label-wrap">
+                    <span className="zone3-label">Zone 3</span>
+                </div>
+
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-4">
                     <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
                     <span className="text-xs font-bold tracking-widest uppercase text-slate-500 font-mono">
                         PSG College of Technology • Dept of CSE
                     </span>
                 </div>
 
-                <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-6">
+                <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-4">
                     AI & Emerging <br className="hidden md:block" />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">Technologies Pavilion</span>
                 </h1>

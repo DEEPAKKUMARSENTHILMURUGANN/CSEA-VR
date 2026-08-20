@@ -121,6 +121,12 @@ const SectionHeader = () => (
     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut' }}
     className="flex flex-col items-center text-center max-w-4xl mx-auto mb-16"
   >
+    <div className="zone4-label-wrap">
+      <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-6">ZONE 4</h2>
+
+      <span className="zone4-subtext">Dept of CSE</span>
+    </div>
+
     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-8">
       <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
       <span className="text-xs font-bold tracking-widest uppercase text-slate-500 font-mono">
@@ -128,7 +134,7 @@ const SectionHeader = () => (
       </span>
     </div>
     <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-6">
-      Faculty <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600">Directory</span>
+      FACULTY DIRECTORY <span text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-6>ZONE</span>
     </h2>
     <p className="text-lg text-slate-500 leading-relaxed max-w-2xl font-medium">
       The mentors and principal investigators driving research across every lab.

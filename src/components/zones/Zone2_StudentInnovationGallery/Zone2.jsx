@@ -153,6 +153,7 @@ const Zone2 = () => {
       {view === 'home' && (
         <div className="z2-home slide-up">
           <div className="z2-hero">
+            <h2 className="z2-zone-label">Zone 2</h2>
             <span className="z2-eyebrow">PSG College of Technology · Department of CSE</span>
             <h1 className="z2-hero-title">
               Student<br />
